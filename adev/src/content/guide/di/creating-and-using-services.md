@@ -18,18 +18,18 @@ Here is an example of a service that allows users to add and request data:
 
 ```ts
 // 📄 src/app/basic-data-store.ts
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 
-@Injectable({ providedIn: 'root' })
+@Injectable({providedIn: 'root'})
 export class BasicDataStore {
-  private data: string[] = []
+  private data: string[] = [];
 
   addData(item: string): void {
-   this.data.push(item)
+    this.data.push(item);
   }
 
   getData(): string[] {
-    return [...this.data]
+    return [...this.data];
   }
 }
 ```
@@ -51,21 +51,19 @@ Once you've created a service with `providedIn: 'root'`, you can inject it anywh
 ### Injecting into a component
 
 ```angular-ts
-import { Component, inject } from '@angular/core';
-import { BasicDataStore } from './basic-data-store';
+import {Component, inject} from '@angular/core';
+import {BasicDataStore} from './basic-data-store';
 
 @Component({
   selector: 'app-example',
   template: `
     <div>
       <p>{{ dataStore.getData() }}</p>
-      <button (click)="dataStore.addData('More data')">
-        Add more data
-      </button>
+      <button (click)="dataStore.addData('More data')">Add more data</button>
     </div>
-  `
+  `,
 })
-export class ExampleComponent {
+export class Example {
   dataStore = inject(BasicDataStore);
 }
 ```
@@ -73,8 +71,8 @@ export class ExampleComponent {
 ### Injecting into another service
 
 ```ts
-import { inject, Injectable } from '@angular/core';
-import { AdvancedDataStore } from './advanced-data-store';
+import {inject, Injectable} from '@angular/core';
+import {AdvancedDataStore} from './advanced-data-store';
 
 @Injectable({
   providedIn: 'root',

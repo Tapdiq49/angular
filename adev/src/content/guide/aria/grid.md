@@ -10,10 +10,10 @@
 
 A grid enables users to navigate two-dimensional data or interactive elements using directional arrow keys, Home, End, and Page Up/Down. Grids work for data tables, calendars, spreadsheets, and layout patterns that group related interactive elements.
 
-<docs-code-multifile preview hideCode path="adev/src/content/examples/aria/grid/src/table/basic/app/app.ts">
-  <docs-code header="TS" path="adev/src/content/examples/aria/grid/src/table/basic/app/app.ts"/>
-  <docs-code header="HTML" path="adev/src/content/examples/aria/grid/src/table/basic/app/app.html"/>
-  <docs-code header="CSS" path="adev/src/content/examples/aria/grid/src/table/basic/app/app.css"/>
+<docs-code-multifile preview hideCode path="adev/src/content/examples/aria/grid/src/overview/basic/app/app.ts">
+  <docs-code header="TS" path="adev/src/content/examples/aria/grid/src/overview/basic/app/app.ts"/>
+  <docs-code header="HTML" path="adev/src/content/examples/aria/grid/src/overview/basic/app/app.html"/>
+  <docs-code header="CSS" path="adev/src/content/examples/aria/grid/src/overview/basic/app/app.css"/>
 </docs-code-multifile>
 
 ## Usage
@@ -135,11 +135,13 @@ Instead of tabbing through each button, users navigate with arrow keys and only 
 Enable selection with `[enableSelection]="true"` and configure how focus and selection interact.
 
 ```angular-html
-<table ngGrid
-       [enableSelection]="true"
-       [selectionMode]="'explicit'"
-       [multi]="true"
-       [focusMode]="'roving'">
+<table
+  ngGrid
+  [enableSelection]="true"
+  [selectionMode]="'explicit'"
+  [multi]="true"
+  [focusMode]="'roving'"
+>
   <tr ngGridRow>
     <td ngGridCell>Cell 1</td>
     <td ngGridCell>Cell 2</td>

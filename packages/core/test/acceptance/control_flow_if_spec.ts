@@ -72,14 +72,14 @@ describe('control flow - if', () => {
   it('should not expose the aliased expression to `if` and `else if` blocks', () => {
     @Component({
       template: `
-          @if (value === 1; as alias) {
-            If: {{value}} as {{alias || 'unavailable'}}
-          } @else if (value === 2) {
-            ElseIf: {{value}} as {{alias || 'unavailable'}}
-          } @else {
-            Else: {{value}} as {{alias || 'unavailable'}}
-          }
-        `,
+        @if (value === 1; as alias) {
+          If: {{ value }} as {{ alias || 'unavailable' }}
+        } @else if (value === 2) {
+          ElseIf: {{ value }} as {{ alias || 'unavailable' }}
+        } @else {
+          Else: {{ value }} as {{ alias || 'unavailable' }}
+        }
+      `,
     })
     class TestComponent {
       value = 1;
@@ -102,18 +102,18 @@ describe('control flow - if', () => {
     @Component({
       imports: [MultiplyPipe],
       template: `
-          @if (value | multiply:2; as root) {
-            Root: {{value}}/{{root}}
+        @if (value | multiply: 2; as root) {
+          Root: {{ value }}/{{ root }}
 
-            @if (value | multiply:3; as inner) {
-              Inner: {{value}}/{{root}}/{{inner}}
+          @if (value | multiply: 3; as inner) {
+            Inner: {{ value }}/{{ root }}/{{ inner }}
 
-              @if (value | multiply:4; as innermost) {
-                Innermost: {{value}}/{{root}}/{{inner}}/{{innermost}}
-              }
+            @if (value | multiply: 4; as innermost) {
+              Innermost: {{ value }}/{{ root }}/{{ inner }}/{{ innermost }}
             }
           }
-        `,
+        }
+      `,
     })
     class TestComponent {
       value = 1;
@@ -140,18 +140,18 @@ describe('control flow - if', () => {
     @Component({
       imports: [MultiplyPipe],
       template: `
-          @if (value | multiply:2; as root) {
-            <button (click)="log(['Root', value, root])"></button>
+        @if (value | multiply: 2; as root) {
+          <button (click)="log(['Root', value, root])"></button>
 
-            @if (value | multiply:3; as inner) {
-              <button (click)="log(['Inner', value, root, inner])"></button>
+          @if (value | multiply: 3; as inner) {
+            <button (click)="log(['Inner', value, root, inner])"></button>
 
-              @if (value | multiply:4; as innermost) {
-                <button (click)="log(['Innermost', value, root, inner, innermost])"></button>
-              }
+            @if (value | multiply: 4; as innermost) {
+              <button (click)="log(['Innermost', value, root, inner, innermost])"></button>
             }
           }
-        `,
+        }
+      `,
     })
     class TestComponent {
       value = 1;
@@ -225,14 +225,14 @@ describe('control flow - if', () => {
     @Component({
       imports: [MultiplyPipe],
       template: `
-          @if ((value | multiply:2) === 2) {
-            one
-          } @else if ((value | multiply:2) === 4) {
-            two
-          } @else {
-            nothing
-          }
-        `,
+        @if ((value | multiply: 2) === 2) {
+          one
+        } @else if ((value | multiply: 2) === 4) {
+          two
+        } @else {
+          nothing
+        }
+      `,
     })
     class TestComponent {
       value = 0;
@@ -278,12 +278,12 @@ describe('control flow - if', () => {
   it('should support a condition with the a typeof expression', () => {
     @Component({
       template: `
-          @if (typeof value === 'string') {
-            {{value.length}}
-          } @else {
-            {{value}}
-          }
-        `,
+        @if (typeof value === 'string') {
+          {{ value.length }}
+        } @else {
+          {{ value }}
+        }
+      `,
     })
     class TestComponent {
       value: string | number = 'string';
@@ -302,9 +302,9 @@ describe('control flow - if', () => {
     @Component({
       template: `
         @if (key in {foo: 'bar'}) {
-          has {{key}}
+          has {{ key }}
         } @else {
-          no {{key}}
+          no {{ key }}
         }
       `,
     })
@@ -321,13 +321,39 @@ describe('control flow - if', () => {
     expect(fixture.nativeElement.textContent.trim()).toBe('no 42');
   });
 
+  it('should support a condition with the instanceof keyword', () => {
+    class Foo {}
+
+    // prettier-ignore
+    @Component({
+      template: `
+        @if (value instanceof Foo) {
+          is Foo
+        } @else {
+          is not Foo
+        }
+      `,
+    })
+    class TestComponent {
+      Foo = Foo;
+      value: string | Foo = new Foo();
+    }
+
+    const fixture = TestBed.createComponent(TestComponent);
+    fixture.detectChanges();
+    expect(fixture.nativeElement.textContent.trim()).toBe('is Foo');
+    fixture.componentInstance.value = 'not a Foo';
+    fixture.detectChanges();
+    expect(fixture.nativeElement.textContent.trim()).toBe('is not Foo');
+  });
+
   it('should expose expression value through alias on @else if', () => {
     @Component({
       template: `
         @if (value === 0; as alias) {
-          Zero evaluates to {{alias}}
+          Zero evaluates to {{ alias }}
         } @else if (value | multiply: 2; as alias) {
-          {{value}} aliased to {{alias}}
+          {{ value }} aliased to {{ alias }}
         }
       `,
       imports: [MultiplyPipe],
@@ -356,10 +382,14 @@ describe('control flow - if', () => {
       @Component({
         imports: [TestComponent],
         template: `
-        <test>Before @if (true) {
-          <span foo>foo</span>
-        } After</test>
-      `,
+          <test
+            >Before
+            @if (true) {
+              <span foo>foo</span>
+            }
+            After</test
+          >
+        `,
       })
       class App {}
 
@@ -390,10 +420,14 @@ describe('control flow - if', () => {
       @Component({
         imports: [TestComponent, Foo],
         template: `
-        <test>Before @if (true) {
-          <span [foo]="value">foo</span>
-        } After</test>
-      `,
+          <test
+            >Before
+            @if (true) {
+              <span [foo]="value">foo</span>
+            }
+            After</test
+          >
+        `,
       })
       class App {
         value = 1;
@@ -416,11 +450,15 @@ describe('control flow - if', () => {
       @Component({
         imports: [TestComponent],
         template: `
-        <test>Before @if (true) {
-          <span foo>one</span>
-          <div foo>two</div>
-        } After</test>
-      `,
+          <test
+            >Before
+            @if (true) {
+              <span foo>one</span>
+              <div foo>two</div>
+            }
+            After</test
+          >
+        `,
       })
       class App {}
 
@@ -440,13 +478,17 @@ describe('control flow - if', () => {
       @Component({
         imports: [TestComponent],
         template: `
-        <test>Before @if (true) {
-          <ng-container foo>
-            <span>foo</span>
-            <span>bar</span>
-          </ng-container>
-        } After</test>
-      `,
+          <test
+            >Before
+            @if (true) {
+              <ng-container foo>
+                <span>foo</span>
+                <span>bar</span>
+              </ng-container>
+            }
+            After</test
+          >
+        `,
       })
       class App {}
 
@@ -468,12 +510,16 @@ describe('control flow - if', () => {
       @Component({
         imports: [TestComponent],
         template: `
-        <test>Before @if (true) {
-          <!-- before -->
-          <span foo>foo</span>
-          <!-- after -->
-        } After</test>
-      `,
+          <test
+            >Before
+            @if (true) {
+              <!-- before -->
+              <span foo>foo</span>
+              <!-- after -->
+            }
+            After</test
+          >
+        `,
       })
       class App {}
 
@@ -494,14 +540,14 @@ describe('control flow - if', () => {
       @Component({
         imports: [TestComponent],
         template: `
-        <test>
-          @if (value) {
-            <span if_case>if content</span>
-          } @else {
-            <span else_case>else content</span>
-          }
-        </test>
-      `,
+          <test>
+            @if (value) {
+              <span if_case>if content</span>
+            } @else {
+              <span else_case>else content</span>
+            }
+          </test>
+        `,
       })
       class App {
         value = true;
@@ -530,14 +576,14 @@ describe('control flow - if', () => {
       @Component({
         imports: [TestComponent],
         template: `
-              <test>
-                @if (value) {
-                  <span>if content</span>
-                } @else {
-                  <span else_case>else content</span>
-                }
-              </test>
-            `,
+          <test>
+            @if (value) {
+              <span>if content</span>
+            } @else {
+              <span else_case>else content</span>
+            }
+          </test>
+        `,
       })
       class App {
         value = true;
@@ -566,14 +612,14 @@ describe('control flow - if', () => {
       @Component({
         imports: [TestComponent],
         template: `
-        <test>
-          @if (value) {
-            <span if_case>if content</span>
-          } @else {
-            <span>else content</span>
-          }
-        </test>
-      `,
+          <test>
+            @if (value) {
+              <span if_case>if content</span>
+            } @else {
+              <span>else content</span>
+            }
+          </test>
+        `,
       })
       class App {
         value = true;
@@ -623,10 +669,14 @@ describe('control flow - if', () => {
         preserveWhitespaces: true,
         // Note the whitespace due to the indentation inside @if.
         template: `
-            <test>Before @if (true) {
+          <test
+            >Before
+            @if (true) {
               <span foo>one</span>
-            } After</test>
-          `,
+            }
+            After</test
+          >
+        `,
       })
       class App {}
 
@@ -645,12 +695,16 @@ describe('control flow - if', () => {
       @Component({
         imports: [TestComponent],
         template: `
-        <test>Before @if (true) {
-          @if (true) {
-            <span foo>one</span>
-          }
-        } After</test>
-      `,
+          <test
+            >Before
+            @if (true) {
+              @if (true) {
+                <span foo>one</span>
+              }
+            }
+            After</test
+          >
+        `,
       })
       class App {}
 
@@ -668,9 +722,13 @@ describe('control flow - if', () => {
 
       @Component({
         imports: [TestComponent, NgFor],
-        template: `<test>Before @if (true) {
-        <span *ngFor="let item of items" foo>{{item}}</span>
-      } After</test>`,
+        template: `<test
+          >Before
+          @if (true) {
+            <span *ngFor="let item of items" foo>{{ item }}</span>
+          }
+          After</test
+        >`,
       })
       class App {
         items = [1, 2];
@@ -705,10 +763,13 @@ describe('control flow - if', () => {
 
       @Component({
         imports: [TestComponent, FooDirective],
-        template: `<test>Before @if (true) {
-        <span foo>foo</span>
-      } After</test>
-      `,
+        template: `<test
+          >Before
+          @if (true) {
+            <span foo>foo</span>
+          }
+          After</test
+        > `,
       })
       class App {}
 
@@ -747,10 +808,13 @@ describe('control flow - if', () => {
 
       @Component({
         imports: [TestComponent, TemplateDirective],
-        template: `<test>Before @if (true) {
-        <span *templateDir foo>foo</span>
-      } After</test>
-      `,
+        template: `<test
+          >Before
+          @if (true) {
+            <span *templateDir foo>foo</span>
+          }
+          After</test
+        > `,
       })
       class App {}
 
@@ -789,10 +853,13 @@ describe('control flow - if', () => {
 
       @Component({
         imports: [TestComponent, TemplateDirective],
-        template: `<test>Before @if (true) {
-          <ng-template templateDir foo>foo</ng-template>
-      } After</test>
-      `,
+        template: `<test
+          >Before
+          @if (true) {
+            <ng-template templateDir foo>foo</ng-template>
+          }
+          After</test
+        > `,
       })
       class App {}
 
@@ -823,10 +890,13 @@ describe('control flow - if', () => {
 
       @Component({
         imports: [TestComponent, TemplateDirective],
-        template: `<test>Before @if (condition) {
-          <div class="foo">foo</div>
-      } After</test>
-      `,
+        template: `<test
+          >Before
+          @if (condition) {
+            <div class="foo">foo</div>
+          }
+          After</test
+        > `,
       })
       class App {
         condition = false;
@@ -856,7 +926,9 @@ describe('control flow - if', () => {
         imports: [TestComponent],
         template: `
           <test>
-            @if (true) {Hello <span foo>world</span>}
+            @if (true) {
+              Hello <span foo>world</span>
+            }
           </test>
         `,
       })
@@ -864,7 +936,7 @@ describe('control flow - if', () => {
 
       const fixture = TestBed.createComponent(App);
       fixture.detectChanges();
-      expect(fixture.nativeElement.textContent).toBe('Main: Hello world Slot: ');
+      expect(fixture.nativeElement.textContent).toBe('Main:  Hello world Slot: ');
     });
 
     it('should project an @if with a single root node and @let declarations into the root node slot', () => {
@@ -877,12 +949,16 @@ describe('control flow - if', () => {
       @Component({
         imports: [TestComponent],
         template: `
-        <test>Before @if (true) {
-          @let a = 1;
-          @let b = a + 1;
-          <span foo>{{b}}</span>
-        } After</test>
-      `,
+          <test
+            >Before
+            @if (true) {
+              @let a = 1;
+              @let b = a + 1;
+              <span foo>{{ b }}</span>
+            }
+            After</test
+          >
+        `,
       })
       class App {}
 

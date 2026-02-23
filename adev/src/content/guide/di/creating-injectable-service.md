@@ -21,37 +21,42 @@ Angular helps you follow these principles by making it easy to factor your appli
 
 Here's an example of a service class that logs to the browser console:
 
-<docs-code header="logger.service.ts (class)" language="typescript">
+```ts {header: "logger.service.ts (class)"}
 export class Logger {
-  log(msg: unknown) { console.log(msg); }
-  error(msg: unknown) { console.error(msg); }
-  warn(msg: unknown) { console.warn(msg); }
+  log(msg: unknown) {
+    console.log(msg);
+  }
+  error(msg: unknown) {
+    console.error(msg);
+  }
+  warn(msg: unknown) {
+    console.warn(msg);
+  }
 }
-</docs-code>
+```
 
 Services can depend on other services.
 For example, here's a `HeroService` that depends on the `Logger` service, and also uses `BackendService` to get heroes.
 That service in turn might depend on the `HttpClient` service to fetch heroes asynchronously from a server:
 
-<docs-code header="hero.service.ts" language="typescript"
-           highlight="[7,8,12,13]">
-import { inject } from "@angular/core";
+```ts {header: "hero.service.ts", highlight="[7,8,12,13]"}
+import {inject} from '@angular/core';
 
 export class HeroService {
-private heroes: Hero[] = [];
+  private heroes: Hero[] = [];
 
-private backend = inject(BackendService);
-private logger = inject(Logger);
+  private backend = inject(BackendService);
+  private logger = inject(Logger);
 
-async getHeroes() {
-// Fetch
-this.heroes = await this.backend.getAll(Hero);
-// Log
-this.logger.log(`Fetched ${this.heroes.length} heroes.`);
-return this.heroes;
+  async getHeroes() {
+    // Fetch
+    this.heroes = await this.backend.getAll(Hero);
+    // Log
+    this.logger.log(`Fetched ${this.heroes.length} heroes.`);
+    return this.heroes;
+  }
 }
-}
-</docs-code>
+```
 
 ## Creating an injectable service with the CLI
 
@@ -61,9 +66,9 @@ To generate a new `HeroService` class in the `src/app/heroes` folder, follow the
 
 1. Run this [Angular CLI](/tools/cli) command:
 
-<docs-code language="sh">
+```sh
 ng generate service heroes/hero
-</docs-code>
+```
 
 This command creates the following default `HeroService`:
 
@@ -101,26 +106,26 @@ For clarity and maintainability, it is recommended that you define components an
 
 ## Injecting services
 
-To inject a service as a dependency into a component, you can declare a class field representing the dependency and use Angular's `inject` function to initialize it.
+To inject a service as a dependency into a component, you can declare a class field representing the dependency and use Angular's [`inject`](/api/core/inject) function to initialize it.
 
-The following example specifies the `HeroService` in the `HeroListComponent`.
+The following example specifies the `HeroService` in the `HeroList`.
 The type of `heroService` is `HeroService`.
 
 ```ts
 import {inject} from '@angular/core';
 
-export class HeroListComponent {
+export class HeroList {
   private heroService = inject(HeroService);
 }
 ```
 
 It is also possible to inject a service into a component using the component's constructor:
 
-```ts {header: 'hero-list.component.ts (constructor signature)'}
+```ts {header: 'hero-list.ts (constructor signature)'}
   constructor(private heroService: HeroService)
 ```
 
-The `inject` method can be used in both classes and functions, while the constructor method can naturally only be used in a class constructor. However, in either case a dependency may only be injected in a valid [injection context](guide/di/dependency-injection-context), usually in the construction or initialization of a component.
+The [`inject`](/api/core/inject) method can be used in both classes and functions, while the constructor method can naturally only be used in a class constructor. However, in either case a dependency may only be injected in a valid [injection context](guide/di/dependency-injection-context), usually in the construction or initialization of a component.
 
 ## Injecting services in other services
 
@@ -150,6 +155,6 @@ In this example, the `getHeroes()` method uses the `Logger` service by logging a
 ## What's next
 
 <docs-pill-row>
-  <docs-pill href="/guide/di/dependency-injection-providers" title="Configuring dependency providers"/>
-  <docs-pill href="/guide/di/dependency-injection-providers#using-an-injectiontoken-object" title="`InjectionTokens`"/>
+  <docs-pill href="guide/di/defining-dependency-providers" title="Configuring dependency providers"/>
+  <docs-pill href="guide/di/defining-dependency-providers#automatic-provision-for-non-class-dependencies" title="`InjectionTokens`"/>
 </docs-pill-row>

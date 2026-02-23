@@ -29,9 +29,10 @@ const linenumsRule = /linenums/;
 const highlightRule = /highlight="([^"]*)"/;
 const languageRule = /language="([^"]*)"/;
 const visibleLinesRule = /visibleLines="([^"]*)"/;
-const visibleRegionRule = /visibleRegion="([^"]*)"/;
+const regionRule = /region="([^"]*)"/;
 const previewRule = /preview/;
 const hideCodeRule = /hideCode/;
+const preferRule = /\b(prefer|avoid)\b/;
 
 export const docsCodeExtension = {
   name: 'docs-code',
@@ -50,10 +51,11 @@ export const docsCodeExtension = {
       const highlight = highlightRule.exec(attr);
       const language = languageRule.exec(attr);
       const visibleLines = visibleLinesRule.exec(attr);
-      const visibleRegion = visibleRegionRule.exec(attr);
+      const region = regionRule.exec(attr);
       const preview = previewRule.exec(attr) ? true : false;
       const hideCode = hideCodeRule.exec(attr) ? true : false;
       const classes = classRule.exec(attr);
+      const style = preferRule.exec(attr);
 
       let code = match[2]?.trim() ?? '';
       if (path && path[1]) {
@@ -73,9 +75,10 @@ export const docsCodeExtension = {
         highlight: highlight?.[1],
         language: language?.[1],
         visibleLines: visibleLines?.[1],
-        visibleRegion: visibleRegion?.[1],
+        region: region?.[1],
         preview: preview,
         hideCode,
+        style: style?.[1] as 'prefer' | 'avoid' | undefined,
         classes: classes?.[1]?.split(' '),
       };
       return token;

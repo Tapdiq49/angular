@@ -19,8 +19,7 @@ Signal Forms address these challenges by:
 
 Signal Forms work best in new applications built with signals. If you're working with an existing application that uses reactive forms, or if you need production stability guarantees, reactive forms remain a solid choice.
 
-<!-- TODO: UNCOMMENT SECTION BELOW WHEN AVAILABLE -->
-<!-- NOTE: If you're coming from template or reactive forms, you may be interested in our [comparison guide](guide/forms/signals/comparison). -->
+NOTE: If you're coming from template or reactive forms, you may be interested in the [comparison guide](guide/forms/signals/comparison).
 
 ## Prerequisites
 
@@ -33,27 +32,28 @@ Signal Forms require:
 Signal Forms are already included in the `@angular/forms` package. Import the necessary functions and directives from `@angular/forms/signals`:
 
 ```ts
-import { form, Field, required, email } from '@angular/forms/signals'
+import {form, FormField, required, email} from '@angular/forms/signals';
 ```
 
-The `Field` directive must be imported into any component that binds form fields to HTML inputs:
+The `FormField` directive must be imported into any component that binds form fields to HTML inputs:
 
 ```ts
 @Component({
   // ...
-  imports: [Field],
+  imports: [FormField],
 })
 ```
 
-<!-- TODO: UNCOMMENT SECTION BELOW WHEN AVAILABLE -->
-<!-- ## Next steps
+## Next steps
 
 To learn more about how Signal Forms work, check out the following guides:
 
 <docs-pill-row>
   <docs-pill href="essentials/signal-forms" title="Signal forms essentials" />
   <docs-pill href="guide/forms/signals/models" title="Form models" />
+  <docs-pill href="guide/forms/signals/model-design" title="Designing your form model" />
   <docs-pill href="guide/forms/signals/field-state-management" title="Field state management" />
   <docs-pill href="guide/forms/signals/validation" title="Validation" />
   <docs-pill href="guide/forms/signals/custom-controls" title="Custom controls" />
-</docs-pill-row> -->
+  <docs-pill href="guide/forms/signals/comparison" title="Comparison with other form systems" />
+</docs-pill-row>

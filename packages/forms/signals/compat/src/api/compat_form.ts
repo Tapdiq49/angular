@@ -18,7 +18,7 @@ import {CompatFieldAdapter} from '../compat_field_adapter';
  * @category interop
  * @experimental 21.0.0
  */
-export type CompatFormOptions = Omit<FormOptions, 'adapter'>;
+export type CompatFormOptions<TModel> = Omit<FormOptions<TModel>, 'adapter'>;
 
 /**
  * Creates a compatibility form wrapped around the given model data.
@@ -27,7 +27,7 @@ export type CompatFormOptions = Omit<FormOptions, 'adapter'>;
  * compatibility with Reactive forms by accepting Reactive controls as a part of the data.
  *
  * @example
- * ```
+ * ```ts
  * const lastName = new FormControl('lastName');
  *
  * const nameModel = signal({
@@ -40,7 +40,8 @@ export type CompatFormOptions = Omit<FormOptions, 'adapter'>;
  * });
  *
  * nameForm.last().value(); // lastName, not FormControl
- *
+ * ```
+ * 
  * @param model A writable signal that contains the model data for the form. The resulting field
  * structure will match the shape of the model and any changes to the form data will be written to
  * the model.
@@ -57,7 +58,7 @@ export function compatForm<TModel>(model: WritableSignal<TModel>): FieldTree<TMo
  * compatibility with Reactive forms by accepting Reactive controls as a part of the data.
  *
  * @example
- * ```
+ * ```ts
  * const lastName = new FormControl('lastName');
  *
  * const nameModel = signal({
@@ -84,7 +85,7 @@ export function compatForm<TModel>(model: WritableSignal<TModel>): FieldTree<TMo
  */
 export function compatForm<TModel>(
   model: WritableSignal<TModel>,
-  schemaOrOptions: SchemaOrSchemaFn<TModel> | CompatFormOptions,
+  schemaOrOptions: SchemaOrSchemaFn<TModel> | CompatFormOptions<TModel>,
 ): FieldTree<TModel>;
 
 /**
@@ -94,7 +95,7 @@ export function compatForm<TModel>(
  * compatibility with Reactive forms by accepting Reactive controls as a part of the data.
  *
  * @example
- * ```
+ * ```ts
  * const lastName = new FormControl('lastName');
  *
  * const nameModel = signal({
@@ -121,7 +122,7 @@ export function compatForm<TModel>(
 export function compatForm<TModel>(
   model: WritableSignal<TModel>,
   schema: SchemaOrSchemaFn<TModel>,
-  options: CompatFormOptions,
+  options: CompatFormOptions<TModel>,
 ): FieldTree<TModel>;
 
 export function compatForm<TModel>(...args: any[]): FieldTree<TModel> {

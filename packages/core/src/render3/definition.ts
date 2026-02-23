@@ -625,6 +625,7 @@ function getNgDirectiveDef<T>(directiveDefinition: DirectiveDefinition<T>): Dire
   return {
     type: directiveDefinition.type,
     providersResolver: null,
+    viewProvidersResolver: null,
     factory: null,
     hostBindings: directiveDefinition.hostBindings || null,
     hostVars: directiveDefinition.hostVars || 0,
@@ -641,6 +642,7 @@ function getNgDirectiveDef<T>(directiveDefinition: DirectiveDefinition<T>): Dire
     setInput: null,
     resolveHostDirectives: null,
     hostDirectives: null,
+    controlDef: null,
     inputs: parseAndConvertInputsForDefinition(directiveDefinition.inputs, declaredInputs),
     outputs: parseAndConvertOutputsForDefinition(directiveDefinition.outputs),
     debugInfo: null,

@@ -37,11 +37,11 @@ You can use Angular's built-in `NgComponentOutlet` directive to dynamically rend
   template: `
     <h2>Your profile</h2>
     <ng-container [ngComponentOutlet]="profileComponent()" />
-  `
+  `,
 })
 export class UserProfile {
   isAdmin = input(false);
-  profileComponent = computed(() => this.isAdmin() ? AdminProfile : BasicUserProfile);
+  profileComponent = computed(() => (this.isAdmin() ? AdminProfile : BasicUserProfile));
 }
 ```
 
@@ -59,13 +59,13 @@ You can use Angular's built-in `NgTemplateOutlet` directive to dynamically rende
 
     <ng-template #admin>This is the admin profile</ng-template>
     <ng-template #basic>This is the basic profile</ng-template>
-  `
+  `,
 })
 export class UserProfile {
   isAdmin = input(false);
   adminTemplate = viewChild('admin', {read: TemplateRef});
   basicTemplate = viewChild('basic', {read: TemplateRef});
-  profileTemplate = computed(() => this.isAdmin() ? this.adminTemplate() : this.basicTemplate());
+  profileTemplate = computed(() => (this.isAdmin() ? this.adminTemplate() : this.basicTemplate()));
 }
 ```
 
@@ -80,7 +80,7 @@ You can also apply structural directives to `<ng-container>` elements. Common ex
 ```angular-html
 <ng-container *ngIf="permissions == 'admin'">
   <h1>Admin Dashboard</h1>
-  <admin-infographic></admin-infographic>
+  <admin-infographic />
 </ng-container>
 
 <ng-container *ngFor="let item of items; index as i; trackBy: trackByFn">

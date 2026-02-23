@@ -13,8 +13,8 @@ import {SubscriptionLike} from 'rxjs';
 import {
   BeforeActivateRoutes,
   Event,
+  isRedirectingEvent,
   NavigationCancel,
-  NavigationCancellationCode,
   NavigationEnd,
   NavigationError,
   NavigationSkipped,
@@ -23,7 +23,7 @@ import {
   PrivateRouterEvents,
   RoutesRecognized,
 } from '../events';
-import {Navigation, RestoredState} from '../navigation_transition';
+import {Navigation, NavigationExtras, RestoredState} from '../navigation_transition';
 import {ROUTER_CONFIGURATION} from '../router_config';
 import {createEmptyState, RouterState} from '../router_state';
 import {UrlHandlingStrategy} from '../url_handling_strategy';
@@ -143,6 +143,7 @@ export abstract class StateManager {
       url: string,
       state: RestoredState | null | undefined,
       trigger: NavigationTrigger,
+      extras: NavigationExtras,
     ) => void,
   ): SubscriptionLike;
 
@@ -183,6 +184,7 @@ export class HistoryStateManager extends StateManager {
       url: string,
       state: RestoredState | null | undefined,
       trigger: NavigationTrigger,
+      extras: NavigationExtras,
     ) => void,
   ): SubscriptionLike {
     return this.location.subscribe((event) => {
@@ -190,7 +192,9 @@ export class HistoryStateManager extends StateManager {
         // The `setTimeout` was added in #12160 and is likely to support Angular/AngularJS
         // hybrid apps.
         setTimeout(() => {
-          listener(event['url']!, event.state as RestoredState | null | undefined, 'popstate');
+          listener(event['url']!, event.state as RestoredState | null | undefined, 'popstate', {
+            replaceUrl: true,
+          });
         });
       }
     });
@@ -212,11 +216,7 @@ export class HistoryStateManager extends StateManager {
       if (this.urlUpdateStrategy === 'deferred' && !currentTransition.extras.skipLocationChange) {
         this.setBrowserUrl(this.createBrowserPath(currentTransition), currentTransition);
       }
-    } else if (
-      e instanceof NavigationCancel &&
-      e.code !== NavigationCancellationCode.SupersededByNewNavigation &&
-      e.code !== NavigationCancellationCode.Redirect
-    ) {
+    } else if (e instanceof NavigationCancel && !isRedirectingEvent(e)) {
       this.restoreHistory(currentTransition);
     } else if (e instanceof NavigationError) {
       this.restoreHistory(currentTransition, true);

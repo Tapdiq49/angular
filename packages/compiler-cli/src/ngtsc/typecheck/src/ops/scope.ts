@@ -40,7 +40,7 @@ import {Context} from './context';
 import {TcbTemplateBodyOp, TcbTemplateContextOp} from './template';
 import {TcbElementOp} from './element';
 import {addParseSpanInfo} from '../diagnostics';
-import {tcbExpression, TcbExpressionOp} from './expression';
+import {tcbExpression, TcbConditionOp, TcbExpressionOp} from './expression';
 import {TcbBlockImplicitVariableOp, TcbBlockVariableOp, TcbTemplateVariableOp} from './variables';
 import {TcbComponentContextCompletionOp} from './completions';
 import {LocalSymbol, TcbInvalidReferenceOp, TcbReferenceOp} from './references';
@@ -52,11 +52,12 @@ import {TcbDirectiveInputsOp, TcbUnclaimedInputsOp} from './inputs';
 import {TcbDomSchemaCheckerOp} from './schema';
 import {TcbDirectiveOutputsOp, TcbUnclaimedOutputsOp} from './events';
 import {
-  CustomFieldType,
+  CustomFormControlType,
   getCustomFieldDirectiveType,
-  isFieldDirective,
+  isFormControl,
   isNativeField,
-  TcbNativeFieldDirectiveTypeOp,
+  TcbNativeFieldOp,
+  TcbNativeRadioButtonFieldOp,
 } from './signal_forms';
 import {Reference} from '../../../imports';
 import {ClassDeclaration} from '../../../reflection';
@@ -765,25 +766,34 @@ export class Scope {
     dirMap: Map<TypeCheckableDirectiveMeta, number>,
     allDirectiveMatches: TypeCheckableDirectiveMeta[],
   ): void {
-    const customFieldType = allDirectiveMatches.some(isFieldDirective)
-      ? getCustomFieldDirectiveType(dir)
-      : null;
+    const nodeIsFormControl = isFormControl(allDirectiveMatches);
+    const customFormControlType = nodeIsFormControl ? getCustomFieldDirectiveType(dir) : null;
 
-    const directiveOp = this.getDirectiveOp(dir, node, customFieldType);
+    const directiveOp = this.getDirectiveOp(dir, node, customFormControlType);
     const dirIndex = this.opQueue.push(directiveOp) - 1;
     dirMap.set(dir, dirIndex);
 
     if (isNativeField(dir, node, allDirectiveMatches)) {
-      this.opQueue.push(new TcbNativeFieldDirectiveTypeOp(this.tcb, this, node as TmplAstElement));
+      const inputType =
+        (node.name === 'input' && node.attributes.find((attr) => attr.name === 'type')?.value) ||
+        null;
+
+      this.opQueue.push(
+        inputType === 'radio'
+          ? new TcbNativeRadioButtonFieldOp(this.tcb, this, node)
+          : new TcbNativeFieldOp(this.tcb, this, node, inputType),
+      );
     }
 
-    this.opQueue.push(new TcbDirectiveInputsOp(this.tcb, this, node, dir, customFieldType));
+    this.opQueue.push(
+      new TcbDirectiveInputsOp(this.tcb, this, node, dir, nodeIsFormControl, customFormControlType),
+    );
   }
 
   private getDirectiveOp(
     dir: TypeCheckableDirectiveMeta,
     node: DirectiveOwner,
-    customFieldType: CustomFieldType | null,
+    customFieldType: CustomFormControlType | null,
   ): TcbOp {
     const dirRef = dir.ref as Reference<ClassDeclaration<ts.ClassDeclaration>>;
 
@@ -935,7 +945,7 @@ export class Scope {
 
     // Only the `when` hydration trigger needs to be checked.
     if (block.hydrateTriggers.when) {
-      this.opQueue.push(new TcbExpressionOp(this.tcb, this, block.hydrateTriggers.when.value));
+      this.opQueue.push(new TcbConditionOp(this.tcb, this, block.hydrateTriggers.when.value));
     }
 
     this.appendChildren(block);
@@ -958,7 +968,7 @@ export class Scope {
     triggers: TmplAstDeferredBlockTriggers,
   ): void {
     if (triggers.when !== undefined) {
-      this.opQueue.push(new TcbExpressionOp(this.tcb, this, triggers.when.value));
+      this.opQueue.push(new TcbConditionOp(this.tcb, this, triggers.when.value));
     }
 
     if (triggers.viewport !== undefined && triggers.viewport.options !== null) {

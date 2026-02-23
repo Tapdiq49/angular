@@ -29,6 +29,8 @@ export enum ViewEncapsulation {
 export enum ChangeDetectionStrategy {
   OnPush = 0,
   Default = 1,
+  // tslint:disable-next-line:no-duplicate-enum-values
+  Eager = 1,
 }
 
 export interface Input {
@@ -84,6 +86,7 @@ export enum SecurityContext {
   SCRIPT = 3,
   URL = 4,
   RESOURCE_URL = 5,
+  ATTRIBUTE_NO_BINDING = 6,
 }
 
 /**

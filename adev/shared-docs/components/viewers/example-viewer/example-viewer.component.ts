@@ -9,7 +9,6 @@
 import {
   afterNextRender,
   ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Component,
   computed,
   ElementRef,
@@ -20,13 +19,13 @@ import {
   Type,
 } from '@angular/core';
 import {DOCUMENT, NgComponentOutlet, NgTemplateOutlet} from '@angular/common';
-import {MatTabsModule} from '@angular/material/tabs';
+import {MatTab, MatTabGroup} from '@angular/material/tabs';
 import {Clipboard} from '@angular/cdk/clipboard';
 import {CopySourceCodeButton} from '../../copy-source-code-button/copy-source-code-button.component';
 import {IconComponent} from '../../icon/icon.component';
 import {ExampleMetadata, Snippet} from '../../../interfaces/index';
 import {EXAMPLE_VIEWER_CONTENT_LOADER} from '../../../providers/index';
-import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatTooltip} from '@angular/material/tooltip';
 
 export const CODE_LINE_NUMBER_CLASS_NAME = 'shiki-ln-number';
 export const CODE_LINE_CLASS_NAME = 'line';
@@ -37,8 +36,9 @@ export const HIDDEN_CLASS_NAME = 'hidden';
   selector: 'docs-example-viewer',
   imports: [
     CopySourceCodeButton,
-    MatTabsModule,
-    MatTooltipModule,
+    MatTabGroup,
+    MatTab,
+    MatTooltip,
     IconComponent,
     NgTemplateOutlet,
     NgComponentOutlet,
@@ -188,7 +188,7 @@ export class ExampleViewer {
     const appendGapBefore = [];
 
     for (const [index, line] of lines.entries()) {
-      if (!linesToDisplay.includes(index)) {
+      if (!linesToDisplay.includes(index + 1)) {
         line.classList.add(HIDDEN_CLASS_NAME);
       } else if (!linesToDisplay.includes(index - 1)) {
         appendGapBefore.push(line);

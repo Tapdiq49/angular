@@ -10,7 +10,7 @@ import {Component, inject, Injectable, InjectionToken, NgModule} from '@angular/
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {By} from '@angular/platform-browser';
 import {provideRoutes, Router, RouterModule, ROUTES} from '../index';
-import {timeout} from './helpers';
+import {timeout} from '@angular/private/testing';
 
 @Component({template: '<div>simple standalone</div>'})
 export class SimpleStandaloneComponent {}
@@ -113,7 +113,7 @@ describe('standalone in Router API', () => {
       }
 
       @Component({
-        template: `{{service.value}}`,
+        template: `{{ service.value }}`,
         standalone: false,
       })
       class MyComponent {
@@ -145,7 +145,7 @@ describe('standalone in Router API', () => {
       class LazyModule {}
 
       @Component({
-        template: `{{service.value}}`,
+        template: `{{ service.value }}`,
         standalone: false,
       })
       class MyComponent {
@@ -174,7 +174,7 @@ describe('standalone in Router API', () => {
       }
 
       @Component({
-        template: `{{service.value}}`,
+        template: `{{ service.value }}`,
         standalone: false,
       })
       class MyComponent {

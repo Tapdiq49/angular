@@ -33,10 +33,45 @@ or use the `.update()` operation to compute a new value from the previous one:
 
 ```ts
 // Increment the count by 1.
-count.update(value => value + 1);
+count.update((value) => value + 1);
 ```
 
 Writable signals have the type `WritableSignal`.
+
+#### Converting writable signals to readonly
+
+`WritableSignal` provide a `asReadonly()` method that returns a readonly version of the signal. This is useful when you want to expose a signal's value to consumers without allowing them to modify it directly:
+
+```ts
+@Injectable({providedIn: 'root'})
+export class CounterState {
+  // Private writable state
+  private readonly _count = signal(0);
+
+  readonly count = this._count.asReadonly(); // public readonly
+
+  increment() {
+    this._count.update((v) => v + 1);
+  }
+}
+
+@Component({
+  /* ... */
+})
+export class AwesomeCounter {
+  state = inject(CounterState);
+
+  count = this.state.count; // can read but not modify
+
+  increment() {
+    this.state.increment();
+  }
+}
+```
+
+The readonly signal reflects any changes made to the original writable signal, but cannot be modified using `set()` or `update()` methods.
+
+IMPORTANT: The readonly signals do **not** have any built-in mechanism that would prevent deep-mutation of their value.
 
 ### Computed signals
 
@@ -89,90 +124,111 @@ If you set `showCount` to `true` and then read `conditionalCount` again, the der
 
 Note that dependencies can be removed during a derivation as well as added. If you later set `showCount` back to `false`, then `count` will no longer be considered a dependency of `conditionalCount`.
 
-## Reading signals in `OnPush` components
+## Reactive contexts
 
-When you read a signal within an `OnPush` component's template, Angular tracks the signal as a dependency of that component. When the value of that signal changes, Angular automatically [marks](api/core/ChangeDetectorRef#markforcheck) the component to ensure it gets updated the next time change detection runs. Refer to the [Skipping component subtrees](best-practices/skipping-subtrees) guide for more information about `OnPush` components.
+A **reactive context** is a runtime state where Angular monitors signal reads to establish a dependency. The code reading the signal is the _consumer_, and the signal being read is the _producer_.
 
-## Effects
+Angular automatically enters a reactive context when:
 
-Signals are useful because they notify interested consumers when they change. An **effect** is an operation that runs whenever one or more signal values change. You can create an effect with the `effect` function:
+- Executing an `effect`, `afterRenderEffect` callback.
+- Evaluating a `computed` signal.
+- Evaluating a `linkedSignal`.
+- Evaluating a `resource`'s params or loader function.
+- Rendering a component template (including bindings in the [host property](guide/components/host-elements#binding-to-the-host-element)).
+
+During these operations, Angular creates a _live_ connection. If a tracked signal changes, Angular will _eventually_ re-run the consumer.
+
+### Asserts the reactive context
+
+Angular provides the `assertNotInReactiveContext` helper function to assert that code is not executing within a reactive context. Pass a reference to the calling function so the error message points to the correct API entry point if the assertion fails. This produces a clearer, more actionable error message than a generic reactive context error.
+
+```ts
+import {assertNotInReactiveContext} from '@angular/core';
+
+function subscribeToEvents() {
+  assertNotInReactiveContext(subscribeToEvents);
+  // Safe to proceed - subscription logic here
+}
+```
+
+### Reading without tracking dependencies
+
+Rarely, you may want to execute code which may read signals within a reactive function such as `computed` or `effect` _without_ creating a dependency.
+
+For example, suppose that when `currentUser` changes, the value of a `counter` should be logged. You could create an `effect` which reads both signals:
 
 ```ts
 effect(() => {
-  console.log(`The current count is: ${count()}`);
+  console.log(`User set to ${currentUser()} and the counter is ${counter()}`);
 });
 ```
 
-Effects always run **at least once.** When an effect runs, it tracks any signal value reads. Whenever any of these signal values change, the effect runs again. Similar to computed signals, effects keep track of their dependencies dynamically, and only track signals which were read in the most recent execution.
+This example will log a message when _either_ `currentUser` or `counter` changes. However, if the effect should only run when `currentUser` changes, then the read of `counter` is only incidental and changes to `counter` shouldn't log a new message.
 
-Effects always execute **asynchronously**, during the change detection process.
-
-### Use cases for effects
-
-Effects are rarely needed in most application code, but may be useful in specific circumstances. Here are some examples of situations where an `effect` might be a good solution:
-
-- Logging data being displayed and when it changes, either for analytics or as a debugging tool.
-- Keeping data in sync with `window.localStorage`.
-- Adding custom DOM behavior that can't be expressed with template syntax.
-- Performing custom rendering to a `<canvas>`, charting library, or other third party UI library.
-
-<docs-callout critical title="When not to use effects">
-Avoid using effects for propagation of state changes. This can result in `ExpressionChangedAfterItHasBeenChecked` errors, infinite circular updates, or unnecessary change detection cycles.
-
-Instead, use `computed` signals to model state that depends on other state.
-</docs-callout>
-
-### Injection context
-
-By default, you can only create an `effect()` within an [injection context](guide/di/dependency-injection-context) (where you have access to the `inject` function). The easiest way to satisfy this requirement is to call `effect` within a component, directive, or service `constructor`:
+You can prevent a signal read from being tracked by calling its getter with `untracked`:
 
 ```ts
-@Component({...})
-export class EffectiveCounterComponent {
-  readonly count = signal(0);
-  constructor() {
-    // Register a new effect.
-    effect(() => {
-      console.log(`The count is: ${this.count()}`);
-    });
-  }
-}
+effect(() => {
+  console.log(`User set to ${currentUser()} and the counter is ${untracked(counter)}`);
+});
 ```
 
-Alternatively, you can assign the effect to a field (which also gives it a descriptive name).
+`untracked` is also useful when an effect needs to invoke some external code which shouldn't be treated as a dependency:
 
 ```ts
-@Component({...})
-export class EffectiveCounterComponent {
-  readonly count = signal(0);
-
-  private loggingEffect = effect(() => {
-    console.log(`The count is: ${this.count()}`);
+effect(() => {
+  const user = currentUser();
+  untracked(() => {
+    // If the `loggingService` reads signals, they won't be counted as
+    // dependencies of this effect.
+    this.loggingService.log(`User set to ${user}`);
   });
-}
+});
 ```
 
-To create an effect outside the constructor, you can pass an `Injector` to `effect` via its options:
+### Reactive context and async operations
 
-```ts
-@Component({...})
-export class EffectiveCounterComponent {
-  readonly count = signal(0);
-  private injector = inject(Injector);
+The reactive context is only active for synchronous code. Any signal reads that occur after an asynchronous boundary will not be tracked as dependencies.
 
-  initializeLogging(): void {
-    effect(() => {
-      console.log(`The count is: ${this.count()}`);
-    }, {injector: this.injector});
-  }
-}
+```ts {avoid}
+effect(async () => {
+  const data = await fetchUserData();
+  // Reactive context is lost here - theme() won't be tracked
+  console.log(`User: ${data.name}, Theme: ${theme()}`);
+});
 ```
 
-### Destroying effects
+To ensure all signal reads are tracked, read signals before the `await`. This includes passing them as arguments to the awaited function, since arguments are evaluated synchronously:
 
-When you create an effect, it is automatically destroyed when its enclosing context is destroyed. This means that effects created within components are destroyed when the component is destroyed. The same goes for effects within directives, services, etc.
+```ts {prefer}
+effect(async () => {
+  const currentTheme = theme(); // Read before await
+  const data = await fetchUserData();
+  console.log(`User: ${data.name}, Theme: ${currentTheme}`);
+});
+```
 
-Effects return an `EffectRef` that you can use to destroy them manually, by calling the `.destroy()` method. You can combine this with the `manualCleanup` option to create an effect that lasts until it is manually destroyed. Be careful to actually clean up such effects when they're no longer required.
+```ts {prefer}
+effect(async () => {
+  // Also works: signal is read before await (as function argument)
+  await renderContent(docContent());
+});
+```
+
+## Advanced derivations
+
+While `computed` handles simple readonly derivations, you might find yourself needing a writable state that is dependent on other signals.
+For more information see the [Dependent state with linkedSignal](/guide/signals/linked-signal) guide.
+
+All signal APIs are synchronous— `signal`, `computed`, `input`, etc. However, applications often need to deal with data that is available asynchronously. A `Resource` gives you a way to incorporate async data into your application's signal-based code and still allow you to access its data synchronously. For more information see the [Async reactivity with resources](/guide/signals/resource) guide.
+
+## Executing side effects on non-reactive APIs
+
+Synchronous or asynchronous derivations are recommended when we want to react to state changes. However, this doesn't cover all the possible use cases, and you'll sometimes find yourself in a situation where you need to react to signal changes on non-reactive apis. Use `effect` or `afterRenderEffect` for those specific usecases. For more information see [Side effects for non-reactive APIs](/guide/signals/effect) guide.
+
+## Reading signals in `OnPush` components
+
+When you read a signal within an `OnPush` component's template, Angular tracks the signal as a dependency of that component. When the value of that signal changes, Angular automatically [marks](api/core/ChangeDetectorRef#markforcheck) the component to ensure it gets updated the next time change detection runs. Refer to the [Skipping component subtrees](best-practices/skipping-subtrees) guide for more information about `OnPush` components.
 
 ## Advanced topics
 
@@ -216,59 +272,6 @@ const doubled = computed(() => count() * 2);
 
 isWritableSignal(count); // true
 isWritableSignal(doubled); // false
-```
-
-### Reading without tracking dependencies
-
-Rarely, you may want to execute code which may read signals within a reactive function such as `computed` or `effect` _without_ creating a dependency.
-
-For example, suppose that when `currentUser` changes, the value of a `counter` should be logged. You could create an `effect` which reads both signals:
-
-```ts
-effect(() => {
-  console.log(`User set to ${currentUser()} and the counter is ${counter()}`);
-});
-```
-
-This example will log a message when _either_ `currentUser` or `counter` changes. However, if the effect should only run when `currentUser` changes, then the read of `counter` is only incidental and changes to `counter` shouldn't log a new message.
-
-You can prevent a signal read from being tracked by calling its getter with `untracked`:
-
-```ts
-effect(() => {
-  console.log(`User set to ${currentUser()} and the counter is ${untracked(counter)}`);
-});
-```
-
-`untracked` is also useful when an effect needs to invoke some external code which shouldn't be treated as a dependency:
-
-```ts
-effect(() => {
-  const user = currentUser();
-  untracked(() => {
-    // If the `loggingService` reads signals, they won't be counted as
-    // dependencies of this effect.
-    this.loggingService.log(`User set to ${user}`);
-  });
-});
-```
-
-### Effect cleanup functions
-
-Effects might start long-running operations, which you should cancel if the effect is destroyed or runs again before the first operation finished. When you create an effect, your function can optionally accept an `onCleanup` function as its first parameter. This `onCleanup` function lets you register a callback that is invoked before the next run of the effect begins, or when the effect is destroyed.
-
-```ts
-effect((onCleanup) => {
-  const user = currentUser();
-
-  const timer = setTimeout(() => {
-    console.log(`1 second ago, the user became ${user}`);
-  }, 1000);
-
-  onCleanup(() => {
-    clearTimeout(timer);
-  });
-});
 ```
 
 ## Using signals with RxJS

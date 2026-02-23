@@ -7,13 +7,14 @@
  */
 
 import {afterNextRender} from '../render3/after_render/hooks';
-import {InjectionToken, Injector} from '../di';
+import {InjectionToken, EnvironmentInjector, Injector, inject} from '../di';
 import {AnimationLViewData, EnterNodeAnimations} from './interfaces';
 
 export interface AnimationQueue {
   queue: Set<VoidFunction>;
   isScheduled: boolean;
   scheduler: typeof initializeAnimationQueueScheduler | null;
+  injector: EnvironmentInjector;
 }
 
 /**
@@ -23,10 +24,14 @@ export const ANIMATION_QUEUE = new InjectionToken<AnimationQueue>(
   typeof ngDevMode !== 'undefined' && ngDevMode ? 'AnimationQueue' : '',
   {
     factory: () => {
+      const injector = inject(EnvironmentInjector);
+      const queue = new Set<VoidFunction>();
+      injector.onDestroy(() => queue.clear());
       return {
-        queue: new Set(),
+        queue,
         isScheduled: false,
         scheduler: null,
+        injector,
       };
     },
   },
@@ -78,7 +83,7 @@ export function scheduleAnimationQueue(injector: Injector) {
         }
         animationQueue.queue.clear();
       },
-      {injector},
+      {injector: animationQueue.injector},
     );
     animationQueue.isScheduled = true;
   }

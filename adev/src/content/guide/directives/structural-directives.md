@@ -31,7 +31,7 @@ Structural directives can be applied directly on an element by prefixing the dir
 You can use this with `SelectDirective` as follows:
 
 ```angular-html
-<p *select="let data from source">The data is: {{data}}</p>
+<p *select="let data; from: source">The data is: {{ data }}</p>
 ```
 
 This example shows the flexibility of structural directive shorthand syntax, which is sometimes called _microsyntax_.
@@ -40,11 +40,11 @@ When used in this way, only the structural directive and its bindings are applie
 
 ```angular-html
 <!-- Shorthand syntax: -->
-<p class="data-view" *select="let data from source">The data is: {{data}}</p>
+<p class="data-view" *select="let data; from: source">The data is: {{ data }}</p>
 
 <!-- Long-form syntax: -->
 <ng-template select let-data [selectFrom]="source">
-  <p class="data-view">The data is: {{data}}</p>
+  <p class="data-view">The data is: {{ data }}</p>
 </ng-template>
 ```
 
@@ -85,7 +85,6 @@ export class SelectDirective {
   private templateRef = inject(TemplateRef);
   private viewContainerRef = inject(ViewContainerRef);
 }
-
 ```
 
 </docs-step>
@@ -95,7 +94,6 @@ Add a `selectFrom` `input()` property.
 ```ts
 export class SelectDirective {
   // ...
-
   selectFrom = input.required<DataSource>();
 }
 ```
@@ -107,7 +105,6 @@ With `SelectDirective` now scaffolded as a structural directive with its input, 
 ```ts
 export class SelectDirective {
   // ...
-
   async ngOnInit() {
     const data = await this.selectFrom.load();
     this.viewContainerRef.createEmbeddedView(this.templateRef, {
@@ -128,11 +125,9 @@ That's it - `SelectDirective` is up and running. A follow-up step might be to [a
 
 When you write your own structural directives, use the following syntax:
 
-<docs-code hideCopy language="typescript">
-
-_:prefix="( :let | :expression ) (';' | ',')? ( :let | :as | :keyExp )_"
-
-</docs-code>
+```ts {hideCopy}
+_: prefix = "( :let | :expression ) (';' | ',')? ( :let | :as | :keyExp )_";
+```
 
 The following patterns describe each portion of the structural directive grammar:
 

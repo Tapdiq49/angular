@@ -6,43 +6,42 @@
  * found in the LICENSE file at https://angular.dev/license
  */
 
-import {ApplicationRef, Component, inject, NgModule} from '@angular/core';
 import {Location, PlatformNavigation} from '@angular/common';
+import {ApplicationRef, Component, inject, NgModule} from '@angular/core';
 import {TestBed} from '@angular/core/testing';
+import {RouterTestingHarness} from '@angular/router/testing';
+import {timeout} from '@angular/private/testing';
+import {BehaviorSubject, filter, firstValueFrom} from 'rxjs';
 import {
-  Event,
-  provideRouter,
-  Navigation,
-  withRouterConfig,
-  Router,
-  NavigationStart,
-  NavigationEnd,
-  RouterLink,
   ActivatedRoute,
-  Params,
-  RouterModule,
-  NavigationCancel,
-  Routes,
-  NavigationError,
-  RedirectCommand,
-  NavigationCancellationCode,
   ActivationStart,
+  Event,
   GuardsCheckStart,
-  GuardsCheckEnd,
+  Navigation,
+  NavigationCancel,
+  NavigationCancellationCode,
+  NavigationEnd,
+  NavigationError,
+  NavigationStart,
+  Params,
+  provideRouter,
+  RedirectCommand,
   ResolveStart,
+  Router,
+  RouterLink,
+  RouterModule,
+  Routes,
+  withRouterConfig,
 } from '../../src';
 import {
+  advance,
+  createRoot,
+  expectEvents,
+  onlyNavigationStartAndEnd,
+  RelativeLinkCmp,
   RootCmp,
   SimpleCmp,
-  onlyNavigationStartAndEnd,
-  expectEvents,
-  RelativeLinkCmp,
-  createRoot,
-  advance,
 } from './integration_helpers';
-import {BehaviorSubject, filter, firstValueFrom} from 'rxjs';
-import {RouterTestingHarness} from '@angular/router/testing';
-import {timeout} from '../helpers';
 
 export function navigationIntegrationTestSuite(browserAPI: 'history' | 'navigation') {
   function setup(routes?: Routes): Router {
@@ -88,7 +87,7 @@ export function navigationIntegrationTestSuite(browserAPI: 'history' | 'navigati
       ]);
     });
 
-    it('should override default onSameUrlNavigation with extras', async () => {
+    it('should override default onSameUrlNavigation with extras (ignore => reload)', async () => {
       TestBed.configureTestingModule({
         providers: [provideRouter([], withRouterConfig({onSameUrlNavigation: 'ignore'}))],
       });
@@ -118,7 +117,7 @@ export function navigationIntegrationTestSuite(browserAPI: 'history' | 'navigati
       ]);
     });
 
-    it('should override default onSameUrlNavigation with extras', async () => {
+    it('should override default onSameUrlNavigation with extras (reload => ignore)', async () => {
       TestBed.configureTestingModule({
         providers: [provideRouter([], withRouterConfig({onSameUrlNavigation: 'reload'}))],
       });
@@ -317,8 +316,9 @@ export function navigationIntegrationTestSuite(browserAPI: 'history' | 'navigati
       expect(navigation.extras.state).toEqual(state);
 
       // Manually set state rather than using navigate()
-      state = {bar: 'foo'};
+      state = {foo: 'replaced'};
       location.replaceState(location.path(), '', state);
+      await timeout();
       location.back();
       await timeout();
       location.forward();
@@ -393,7 +393,13 @@ export function navigationIntegrationTestSuite(browserAPI: 'history' | 'navigati
 
       // Angular does not support restoring state to the primitive.
       expect(navigation.extras.state).toEqual(undefined);
-      expect((location.getState() as any).navigationId).toBeDefined();
+      // On a traversal, we really can't add state when using the navigation API.
+      // A traversal is a strict restoration of a previous state. To add our own state to the entry,
+      // we would need to perform a replaceState under the hood, and that would cancel/reject
+      // the traversal NavigateEvent and break scroll and focus restoration.
+      if (browserAPI === 'history') {
+        expect((location.getState() as any).navigationId).toBeDefined();
+      }
     });
 
     it('should not pollute browser history when replaceUrl is set to true', async () => {
@@ -629,10 +635,10 @@ export function navigationIntegrationTestSuite(browserAPI: 'history' | 'navigati
 
       @Component({
         template: `
-         <router-outlet (deactivate)="logDeactivate('primary')"></router-outlet>
-         <router-outlet name="first" (deactivate)="logDeactivate('first')"></router-outlet>
-         <router-outlet name="second" (deactivate)="logDeactivate('second')"></router-outlet>
-         `,
+          <router-outlet (deactivate)="logDeactivate('primary')"></router-outlet>
+          <router-outlet name="first" (deactivate)="logDeactivate('first')"></router-outlet>
+          <router-outlet name="second" (deactivate)="logDeactivate('second')"></router-outlet>
+        `,
         standalone: false,
       })
       class NamedOutletHost {

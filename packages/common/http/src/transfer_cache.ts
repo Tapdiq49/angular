@@ -60,7 +60,7 @@ export type HttpTransferCacheOptions = {
  * between those origins, so that `HttpTransferCache` feature can recognize those requests as the same
  * ones and reuse the data cached on the server during hydration on the client.
  *
- * **Important note**: the `HTTP_TRANSFER_CACHE_ORIGIN_MAP` token should *only* be provided in
+ * IMPORTANT: The `HTTP_TRANSFER_CACHE_ORIGIN_MAP` token should *only* be provided in
  * the *server* code of your application (typically in the `app.server.config.ts` script). Angular throws an
  * error if it detects that the token is defined while running on the client.
  *
@@ -81,7 +81,7 @@ export type HttpTransferCacheOptions = {
  * @publicApi
  */
 export const HTTP_TRANSFER_CACHE_ORIGIN_MAP = new InjectionToken<Record<string, string>>(
-  typeof ngDevMode !== undefined && ngDevMode ? 'HTTP_TRANSFER_CACHE_ORIGIN_MAP' : '',
+  typeof ngDevMode !== 'undefined' && ngDevMode ? 'HTTP_TRANSFER_CACHE_ORIGIN_MAP' : '',
 );
 
 /**
@@ -115,7 +115,7 @@ interface CacheOptions extends HttpTransferCacheOptions {
 }
 
 const CACHE_OPTIONS = new InjectionToken<CacheOptions>(
-  typeof ngDevMode !== undefined && ngDevMode ? 'HTTP_TRANSFER_STATE_CACHE_OPTIONS' : '',
+  typeof ngDevMode !== 'undefined' && ngDevMode ? 'HTTP_TRANSFER_STATE_CACHE_OPTIONS' : '',
 );
 
 /**
@@ -188,10 +188,10 @@ export function transferCacheInterceptorFn(
 
     switch (responseType) {
       case 'arraybuffer':
-        body = new TextEncoder().encode(undecodedBody).buffer;
+        body = fromBase64(undecodedBody);
         break;
       case 'blob':
-        body = new Blob([undecodedBody]);
+        body = new Blob([fromBase64(undecodedBody)]);
         break;
     }
 
@@ -226,7 +226,10 @@ export function transferCacheInterceptorFn(
         // Only cache successful HTTP responses.
         if (event instanceof HttpResponse) {
           transferState.set<TransferHttpResponse>(storeKey, {
-            [BODY]: event.body,
+            [BODY]:
+              req.responseType === 'arraybuffer' || req.responseType === 'blob'
+                ? toBase64(event.body)
+                : event.body,
             [HEADERS]: getFilteredHeaders(event.headers, headersToInclude),
             [STATUS]: event.status,
             [STATUS_TEXT]: event.statusText,
@@ -311,6 +314,28 @@ function generateHash(value: string): string {
   hash += 2147483647 + 1;
 
   return hash.toString();
+}
+
+function toBase64(buffer: unknown): string {
+  //TODO: replace with when is Baseline widely available
+  // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array/toBase64
+  const bytes = new Uint8Array(buffer as ArrayBufferLike);
+
+  const CHUNK_SIZE = 0x8000; // 32,768 bytes (~32 KB) per chunk, to avoid stack overflow
+
+  let binaryString = '';
+
+  for (let i = 0; i < bytes.length; i += CHUNK_SIZE) {
+    const chunk = bytes.subarray(i, i + CHUNK_SIZE);
+    binaryString += String.fromCharCode.apply(null, chunk as unknown as number[]);
+  }
+  return btoa(binaryString);
+}
+
+function fromBase64(base64: string): ArrayBuffer {
+  const binary = atob(base64);
+  const bytes = Uint8Array.from(binary, (c) => c.charCodeAt(0));
+  return bytes.buffer;
 }
 
 /**

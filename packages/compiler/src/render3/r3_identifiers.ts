@@ -11,14 +11,8 @@ import * as o from '../output/output_ast';
 const CORE = '@angular/core';
 
 export class Identifiers {
-  /* Methods */
-  static NEW_METHOD = 'factory';
-  static TRANSFORM_METHOD = 'transform';
-  static PATCH_DEPS = 'patchedDeps';
-
   static core: o.ExternalReference = {name: null, moduleName: CORE};
 
-  /* Instructions */
   static namespaceHTML: o.ExternalReference = {name: 'ɵɵnamespaceHTML', moduleName: CORE};
 
   static namespaceMathML: o.ExternalReference = {name: 'ɵɵnamespaceMathML', moduleName: CORE};
@@ -421,12 +415,19 @@ export class Identifiers {
   static storeLet: o.ExternalReference = {name: 'ɵɵstoreLet', moduleName: CORE};
   static readContextLet: o.ExternalReference = {name: 'ɵɵreadContextLet', moduleName: CORE};
 
+  static arrowFunction: o.ExternalReference = {name: 'ɵɵarrowFunction', moduleName: CORE};
+
   static attachSourceLocations: o.ExternalReference = {
     name: 'ɵɵattachSourceLocations',
     moduleName: CORE,
   };
 
   static NgOnChangesFeature: o.ExternalReference = {name: 'ɵɵNgOnChangesFeature', moduleName: CORE};
+
+  static ControlFeature: o.ExternalReference = {
+    name: 'ɵɵControlFeature',
+    moduleName: CORE,
+  };
 
   static InheritDefinitionFeature: o.ExternalReference = {
     name: 'ɵɵInheritDefinitionFeature',
@@ -455,6 +456,10 @@ export class Identifiers {
   // sanitization-related functions
   static sanitizeHtml: o.ExternalReference = {name: 'ɵɵsanitizeHtml', moduleName: CORE};
   static sanitizeStyle: o.ExternalReference = {name: 'ɵɵsanitizeStyle', moduleName: CORE};
+  static validateAttribute: o.ExternalReference = {
+    name: 'ɵɵvalidateAttribute',
+    moduleName: CORE,
+  };
   static sanitizeResourceUrl: o.ExternalReference = {
     name: 'ɵɵsanitizeResourceUrl',
     moduleName: CORE,
@@ -468,10 +473,6 @@ export class Identifiers {
   static trustConstantHtml: o.ExternalReference = {name: 'ɵɵtrustConstantHtml', moduleName: CORE};
   static trustConstantResourceUrl: o.ExternalReference = {
     name: 'ɵɵtrustConstantResourceUrl',
-    moduleName: CORE,
-  };
-  static validateIframeAttribute: o.ExternalReference = {
-    name: 'ɵɵvalidateIframeAttribute',
     moduleName: CORE,
   };
 

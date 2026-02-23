@@ -10,9 +10,7 @@ The contents of a component's template are rendered inside its host element.
 // Component source
 @Component({
   selector: 'profile-photo',
-  template: `
-    <img src="profile-photo.jpg" alt="Your profile photo" />
-  `,
+  template: `<img src="profile-photo.jpg" alt="Your profile photo" />`,
 })
 export class ProfilePhoto {}
 ```
@@ -63,6 +61,8 @@ export class CustomSlider {
   /* ... */
 }
 ```
+
+NOTE: The global target names that can be used to prefix an event name are `document:`, `window:` and `body:`.
 
 ## The `@HostBinding` and `@HostListener` decorators
 
@@ -141,7 +141,7 @@ You can set such custom properties on a host element with a [style binding][styl
   /* ... */
   host: {
     '[style.--my-background]': 'color()',
-  }
+  },
 })
 export class MyComponent {
   color = signal('lightgreen');
@@ -150,14 +150,14 @@ export class MyComponent {
 
 In this example, the `--my-background` CSS custom property is bound to the `color` signal. The value of the custom property will automatically update whenever the `color` signal changes. This will affect the current component and all its children that rely on this custom property.
 
-### Setting custom properties on children compoents
+### Setting custom properties on children components
 
 Alternatively, it is also possible to set css custom properties on the host element of children components with a [style binding](guide/templates/binding#css-style-properties).
 
 ```angular-ts
 @Component({
   selector: 'my-component',
-  template: `<my-child [style.--my-background]="color()">`,
+  template: `<my-child [style.--my-background]="color()" />`,
 })
 export class MyComponent {
   color = signal('lightgreen');

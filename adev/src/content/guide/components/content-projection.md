@@ -10,7 +10,9 @@ example, you may want to create a custom card component:
   selector: 'custom-card',
   template: '<div class="card-shadow"> <!-- card content goes here --> </div>',
 })
-export class CustomCard {/* ... */}
+export class CustomCard {
+  /* ... */
+}
 ```
 
 **You can use the `<ng-content>` element as a placeholder to mark where content should go**:
@@ -20,7 +22,9 @@ export class CustomCard {/* ... */}
   selector: 'custom-card',
   template: '<div class="card-shadow"> <ng-content/> </div>',
 })
-export class CustomCard {/* ... */}
+export class CustomCard {
+  /* ... */
+}
 ```
 
 TIP: `<ng-content>` works similarly
@@ -40,7 +44,9 @@ rendered, or **projected**, at the location of that `<ng-content>`:
     </div>
   `,
 })
-export class CustomCard {/* ... */}
+export class CustomCard {
+  /* ... */
+}
 ```
 
 ```angular-html
@@ -95,7 +101,7 @@ export class CardBody {}
 
 ```angular-ts
 <!-- Component template -->
-Component({
+@Component({
   selector: 'custom-card',
   template: `
   <div class="card-shadow">
@@ -218,7 +224,7 @@ placeholder, Angular compares against the `ngProjectAs` value instead of the ele
 <div class="card-shadow">
   <ng-content select="card-title"></ng-content>
   <div class="card-divider"></div>
-  <ng-content></ng-content>
+  <ng-content />
 </div>
 ```
 
