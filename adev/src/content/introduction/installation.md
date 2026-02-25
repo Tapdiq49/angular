@@ -92,7 +92,7 @@ Terminalınızda yeni Angular layihənizə keçin.
 cd my-first-angular-app
 ```
 
-Bu mərhələdə bütün asılılıqlarınız quraşdırılmış olmalıdır (bunu layihənizdə `node_modules` qovluğunun olub-olmadığını yoxlayaraq təsdiqləyə bilərsiniz), buna görə layihənizi aşağıdakı əmri işlədərək başlada bilərsiniz:
+Bu mərhələdə bütün aslılıqlarınız quraşdırılmış olmalıdır (bunu layihənizdə `node_modules` qovluğunun olub-olmadığını yoxlayaraq təsdiqləyə bilərsiniz), buna görə layihənizi aşağıdakı əmri işlədərək başlada bilərsiniz:
 
 ```shell
 npm start

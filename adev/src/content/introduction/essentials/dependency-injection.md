@@ -1,9 +1,9 @@
-<docs-decorative-header title="Asılılıqların yeridilməsi (DI)" imgSrc="adev/src/assets/images/dependency_injection.svg"> 
+<docs-decorative-header title="Aslılıqların yeridilməsi (DI)" imgSrc="adev/src/assets/images/dependency_injection.svg"> 
 <!-- markdownlint-disable-line -->
 Tətbiqiniz və testləriniz boyu kodu təkrar istifadə edin və davranışları idarə edin.
 </docs-decorative-header>
 
-Komponentlər arasında məntiqi paylaşmaq lazım olduqda, Angular [Asılılıqların yeridilməsi (dependency injection)](guide/di) dizayn nümunəsindən istifadə edir. Bu nümunə sizə "servis" yaratmağa imkan verir ki, bu da kodu tək bir mənbədən idarə edərək komponentlərə daxil etməyə (inject etməyə) şərait yaradır.
+Komponentlər arasında məntiqi paylaşmaq lazım olduqda, Angular [Aslılıqların yeridilməsi (dependency injection)](guide/di) dizayn nümunəsindən istifadə edir. Bu nümunə sizə "servis" yaratmağa imkan verir ki, bu da kodu tək bir mənbədən idarə edərək komponentlərə daxil etməyə (inject etməyə) şərait yaradır.
 
 ## Servislər nədir?
 

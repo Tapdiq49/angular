@@ -1,31 +1,31 @@
-# Congratulations!
+# Təbriklər!
 
-You've completed the Signal Forms tutorial and built a complete login form from scratch!
+Siz Siqnal Formaları (Signal Forms) təlimatını tamamladınız və sıfırdan tam bir giriş forması qurdunuz!
 
-## What you learned
+## Nələri öyrəndiniz
 
-Throughout this tutorial, you learned the fundamentals of Angular Signal Forms:
+Bu təlimat boyu siz Angular Siqnal Formalarının əsaslarını öyrəndiniz:
 
-1. **Form Models** - Creating type-safe form data with signals and the `form()` function
-2. **Field Binding** - Using the `[formField]` directive for two-way data binding and displaying the field with `value()`
-3. **Validation** - Applying built-in validators (such as `required()`, `email()`) with custom messages
-4. **Error Display** - Showing validation errors conditionally based on field state
-5. **Form Submission** - Handling form submission with the `submit()` function
+1. **Forma Modelləri** - Siqnallar və `form()` funksiyası ilə tip təhlükəsizliyi olan forma məlumatlarının yaradılması
+2. **Sahə Bağlanması (Field Binding)** - İki tərəfli məlumat binding-i üçün `[formField]` direktivindən istifadə və sahənin `value()` ilə göstərilməsi
+3. **Validasiya** - Xüsusi mesajlarla daxili validatorların (məsələn, `required()`, `email()`) tətbiq edilməsi
+4. **Xəta Göstəricisi** - Sahə vəziyyətinə əsasən validasiya xətalarının şərti olaraq göstərilməsi
+5. **Forma Göndərilməsi** - `submit()` funksiyası ilə forma göndərilməsinin idarə edilməsi
 
-## Next steps
+## Növbəti addımlar
 
-Ready to learn more? Here are recommended next steps:
+Daha çox öyrənməyə hazırsınız? Tövsiyə olunan növbəti addımlar bunlardır:
 
-### Explore the documentation
+### Sənədləri araşdırın
 
-- **[Signal Forms Overview](guide/forms/signals/overview)** - Introduction to Signal Forms and when to use them
-- **[Form Models Guide](guide/forms/signals/models)** - Deep dive into form models and data management
-- **[Validation Guide](guide/forms/signals/validation)** - Comprehensive validation reference
-- **[Field State Management Guide](guide/forms/signals/field-state-management)** - Advanced state patterns
-- **[Custom Controls Guide](guide/forms/signals/custom-controls)** - Building reusable form components -->
+- **[Siqnal Formalarına Ümumi Baxış](guide/forms/signals/overview)** - Siqnal Formalarına giriş və onlardan nə vaxt istifadə etməli
+- **[Forma Modelləri Bələdçisi](guide/forms/signals/models)** - Forma modelləri və məlumat idarəetməsinə dərindən baxış
+- **[Validasiya Bələdçisi](guide/forms/signals/validation)** - Hərtərəfli validasiya arayışı
+- **[Sahə Vəziyyətinin İdarə Edilməsi Bələdçisi](guide/forms/signals/field-state-management)** - Təkmilləşdirilmiş vəziyyət naxışları
+- **[Xüsusi İdarəetmə Elementləri Bələdçisi](guide/forms/signals/custom-controls)** - Təkrar istifadə edilə bilən forma komponentlərinin qurulması
 
-## Keep learning
+## Öyrənməyə davam edin
 
-Remember: Signal Forms is experimental, so check the [official documentation](guide/forms/signals/overview) for updates to the API.
+Unutmayın: Siqnal Formaları eksperimental mərhələdədir, ona görə də API yeniləmələri üçün [rəsmi sənədləri](guide/forms/signals/overview) mütəmadi olaraq yoxlayın.
 
-Happy coding!
+Uğurlu kodlaşdırmalar!

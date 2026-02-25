@@ -1,11 +1,11 @@
-# Deferrable views tutorial
+# Deferrable views (təxirə salına bilən görünüşlər) təlimatı
 
-This interactive tutorial consists of lessons that introduce the Angular deferrable views concepts.
+Bu interaktiv təlimat Angular-ın deferrable views (təxirə salına bilən görünüşlər) konsepsiyalarını təqdim edən dərslərdən ibarətdir.
 
-## How to use this tutorial
+## Bu təlimatdan necə istifadə etməli
 
-Each step represents a concept in Angular deferrable views. You can do one, or all of them.
+Hər bir addım Angular deferrable views-da bir konsepsiyanı təmsil edir. İstədiyiniz qədər və ya bütün dərsləri yerinə yetirə bilərsiniz.
 
-If you get stuck, click "Reveal answer" at the top.
+Əgər çətinlik çəksəniz, yuxarıdakı "Reveal answer" (Cavabı göstər) düyməsini klikləyin.
 
-Alright, let's [get started](/tutorials/deferrable-views/1-what-are-deferrable-views).
+Yaxşı, gəlin [başlayaq](/tutorials/deferrable-views/1-what-are-deferrable-views).

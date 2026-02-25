@@ -28,7 +28,7 @@
   <docs-card title="Server tərəfli renderləmə (SSR)" href="guide/ssr" link="SSR haqqında oxuyun" iconImgSrc="adev/src/assets/icons/ssr.svg">
     Angular həm server-side rendering (SSR), həm də statik sayt generasiyasını (SSG) tam DOM hydration (hidrasiya) ilə birlikdə dəstəkləyir.
   </docs-card>
-  <docs-card title="Asılılıqların yeridilməsi (DI)" href="essentials/dependency-injection" link="Dependency Injection-ı kəşf edin" iconImgSrc="adev/src/assets/icons/di.svg">
+  <docs-card title="Aslılıqların yeridilməsi (DI)" href="essentials/dependency-injection" link="Dependency Injection-ı kəşf edin" iconImgSrc="adev/src/assets/icons/di.svg">
     Bütün tətbiqiniz boyu komponentlər arasında kodu asanlıqla paylaşın.
   </docs-card>
   <docs-card title="Angular Marşrutlaşdırması (Routing)" href="guide/routing" link="Angular Routing-i kəşf edin" iconImgSrc="adev/src/assets/icons/routing.svg">
@@ -44,7 +44,7 @@
     Angular CLI, layihənizi bir dəqiqədən az müddətdə işə salır və real istehsalat tətbiqinə çevrilmək üçün lazım olan əmrləri təmin edir.
   </docs-card>
   <docs-card title="DevTools" href="tools/devtools" link="Angular DevTools" iconImgSrc="adev/src/assets/icons/dev-tools.svg">
-    Angular DevTools brauzerinizin proqramçı alətləri ilə yanaşı işləyir. O, komponent ağacı, asılılıq inyeksiyası və performans profilini analiz etməyə kömək edir.
+    Angular DevTools brauzerinizin proqramçı alətləri ilə yanaşı işləyir. O, komponent ağacı, aslılıq inyeksiyası və performans profilini analiz etməyə kömək edir.
   </docs-card>
   <docs-card title="ng update" href="update" link="ng update" iconImgSrc="adev/src/assets/icons/ng-update.svg">
     Angular CLI-nin `ng update` əmri, rutin dəyişiklikləri avtomatik həll edən kod transformasiyalarını işlədir və əsas versiya yeniləmələrini sadələşdirir.

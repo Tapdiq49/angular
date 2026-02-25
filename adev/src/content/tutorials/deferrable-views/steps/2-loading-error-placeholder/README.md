@@ -1,109 +1,109 @@
-# @loading, @error and @placeholder blocks
+# @loading, @error və @placeholder blokları
 
-Deferrable views let you define content to be shown in different loading states.
+Deferrable views (təxirə salına bilən görünüşlər) müxtəlif yükləmə vəziyyətlərində göstəriləcək məzmunu təyin etməyə imkan verir.
 
 <div class="docs-table docs-scroll-track-transparent">
   <table>
     <tr>
       <td><code>@placeholder</code></td>
       <td>
-        By default, defer blocks do not render any content before they are triggered. The <code>@placeholder</code> is an optional block that declares content to show before the deferred content loads. Angular replaces the placeholder with the deferred content after loading completes. While this block is optional, the Angular team recommends always including a placeholder.
+        Susmaya görə, təxirə salınmış (defer) bloklar tətiklənməmişdən (trigger) əvvəl heç bir məzmun render etmir. <code>@placeholder</code>, təxirə salınmış məzmun yüklənməmişdən əvvəl göstəriləcək məzmunu elan edən seçimli (optional) bir blokdur. Angular yükləmə başa çatdıqdan sonra placeholder-i təxirə salınmış məzmunla əvəz edir. Bu blok seçimli olsa da, Angular komandası həmişə placeholder daxil etməyi tövsiyə edir.
         <a href="https://angular.dev/guide/templates/defer#triggers" target="_blank">
-          Learn more in the full deferrable views documentation
+          Tam deferrable views sənədlərində daha çox öyrənin
         </a>
       </td>
     </tr>
     <tr>
       <td><code>@loading</code></td>
       <td>
-        This optional block allows you to declare content to be shown during the loading of any deferred dependencies.
+        Bu seçimli blok hər hansı aslılıqların (dependencies) yüklənməsi zamanı göstəriləcək məzmunu elan etməyə imkan verir.
       </td>
     </tr>
     <tr>
       <td><code>@error</code></td>
       <td>
-        This block allows you to declare content which is shown if deferred loading fails.
+        Bu blok təxirə salınmış yükləmə uğursuz olduqda göstərilən məzmunu elan etməyə imkan verir.
       </td>
     </tr>
   </table>
 </div>
 
-The contents of all the above sub-blocks are eagerly loaded. Additionally, some features require a `@placeholder` block.
+Yuxarıdakı bütün alt blokların məzmunu dərhal (eagerly) yüklənir. Bundan əlavə, bəzi xüsusiyyətlər `@placeholder` blokunu tələb edir.
 
-In this activity, you'll learn how to use the `@loading`, `@error` and `@placeholder` blocks to manage the states of deferrable views.
+Bu fəaliyyətdə siz deferrable views vəziyyətlərini idarə etmək üçün `@loading`, `@error` və `@placeholder` bloklarından necə istifadə edəcəyinizi öyrənəcəksiniz.
 
 <hr>
 
 <docs-workflow>
 
-<docs-step title="Add `@placeholder` block">
-In your `app.ts`, add a `@placeholder` block to the `@defer` block.
+<docs-step title="`@placeholder` bloku əlavə edin">
+`app.ts` faylınızda `@defer` blokuna bir `@placeholder` bloku əlavə edin.
 
 ```angular-html {highlight:[3,4,5]}
 @defer {
   <article-comments />
 } @placeholder {
-  <p>Placeholder for comments</p>
+  <p>Şərhlər üçün placeholder</p>
 }
 ```
 
 </docs-step>
 
-<docs-step title="Configure the `@placeholder` block">
-The `@placeholder` block accepts an optional parameter to specify the `minimum` amount of time that this placeholder should be shown. This `minimum` parameter is specified in time increments of milliseconds (ms) or seconds (s). This parameter exists to prevent fast flickering of placeholder content in the case that the deferred dependencies are fetched quickly.
+<docs-step title="`@placeholder` blokunu konfiqurasiya edin">
+`@placeholder` bloku bu placeholder-in göstərilməli olduğu `minimum` vaxtı müəyyən etmək üçün seçimli bir parametr qəbul edir. Bu `minimum` parametri millisaniyə (ms) və ya saniyə (s) vahidləri ilə göstərilir. Bu parametr təxirə salınmış aslılıqların tez bir zamanda çəkildiyi (fetch) halda placeholder məzmununun sürətli titrəməsinin (fast flickering) qarşısını almaq üçün mövcuddur.
 
 ```angular-html {highlight:[3,4,5]}
 @defer {
   <article-comments />
 } @placeholder (minimum 1s) {
-  <p>Placeholder for comments</p>
+  <p>Şərhlər üçün placeholder</p>
 }
 ```
 
 </docs-step>
 
-<docs-step title="Add `@loading` block">
-Next add a `@loading` block to the component template.
+<docs-step title="`@loading` bloku əlavə edin">
+Növbəti olaraq komponent template-inə bir `@loading` bloku əlavə edin.
 
-The `@loading` block accepts two optional parameters:
+`@loading` bloku iki seçimli parametr qəbul edir:
 
-- `minimum`: the amount of time that this block should be shown
-- `after`: the amount of time to wait after loading begins before showing the loading template
+- `minimum`: bu blokun göstərilməli olduğu vaxt
+- `after`: yükləmə başladıqdan sonra yükləmə template-ini göstərmək üçün gözlənilməli olan vaxt
 
-Both parameters are specified in time increments of milliseconds (ms) or seconds (s).
+Hər iki parametr millisaniyə (ms) və ya saniyə (s) vahidləri ilə göstərilir.
 
-Update `app.ts` to include a `@loading` block with a minimum parameter of `1s` as well as an after parameter with the value 500ms to the @loading block.
+`app.ts` faylını yeniləyərək minimum parametri `1s` və after parametri `500ms` olan bir `@loading` bloku daxil edin.
 
 ```angular-html {highlight:[5,6,7]}
 @defer {
   <article-comments />
 } @placeholder (minimum 1s) {
-  <p>Placeholder for comments</p>
+  <p>Şərhlər üçün placeholder</p>
 } @loading (minimum 1s; after 500ms) {
-  <p>Loading comments...</p>
+  <p>Şərhlər yüklənir...</p>
 }
 ```
 
-NOTE: this example uses two parameters, separated by the ; character.
+QEYD: Bu nümunə `;` simvolu ilə ayrılmış iki parametrdən istifadə edir.
 
 </docs-step>
 
-<docs-step title="Add `@error` block">
-Finally, add an `@error` block to the `@defer` block.
+<docs-step title="`@error` bloku əlavə edin">
+Sonda `@defer` blokuna bir `@error` bloku əlavə edin.
 
 ```angular-html {highlight:[7,8,9]}
 @defer {
   <article-comments />
 } @placeholder (minimum 1s) {
-  <p>Placeholder for comments</p>
+  <p>Şərhlər üçün placeholder</p>
 } @loading (minimum 1s; after 500ms) {
-  <p>Loading comments...</p>
+  <p>Şərhlər yüklənir...</p>
 } @error {
-  <p>Failed to load comments</p>
+  <p>Şərhləri yükləmək mümkün olmadı</p>
 }
 ```
 
 </docs-step>
 </docs-workflow>
 
-Congratulations! At this point, you have a good understanding about deferrable views. Keep up the great work and let's learn about triggers next.
+Təbriklər! Bu nöqtədə sizin deferrable views haqqında yaxşı təsəvvürünüz var. Əla işə davam edin və növbəti addımda tətikləyicilər (triggers) haqqında öyrənək.

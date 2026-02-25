@@ -1,31 +1,31 @@
-# Add HTTP communication to your app
+# Tətbiqinizə HTTP rabitəsini əlavə edin
 
-This tutorial demonstrates how to integrate HTTP and an API into your app.
+Bu təlimat HTTP və bir API-nin tətbiqinizə necə inteqrasiya olunacağını nümayiş etdirir.
 
-Up until this point your app has read data from a static array in an Angular service. The next step is to use a JSON server that your app will communicate with over HTTP. The HTTP request will simulate the experience of working with data from a server.
+Bu ana qədər tətbiqiniz məlumatları bir Angular servisindəki statik massivdən oxuyub. Növbəti addım tətbiqinizin HTTP vasitəsilə əlaqə saxlayacağı bir JSON serverindən istifadə etməkdir. HTTP sorğusu serverlə məlumatlarla işləmək təcrübəsini simulyasiya edəcək.
 
 <docs-video src="https://www.youtube.com/embed/5K10oYJ5Y-E?si=TiuNKx_teR9baO7k"/>
 
-IMPORTANT: We recommend using your local environment for this step of the tutorial.
+VACİB: Təlimatın bu addımı üçün yerli mühitinizdən istifadə etməyi tövsiyə edirik.
 
-## What you'll learn
+## Nə öyrənəcəksiniz
 
-Your app will use data from a JSON server
+Tətbiqiniz bir JSON serverindən gələn məlumatları istifadə edəcək
 
 <docs-workflow>
 
-<docs-step title="Configure the JSON server">
-JSON Server is an open source tool used to create mock REST APIs. You'll use it to serve the housing location data that is currently stored in the housing service.
+<docs-step title="JSON serverini konfiqurasiya edin">
+JSON Server mock REST API-lər yaratmaq üçün istifadə olunan açıq mənbəli alətdir. Siz ondan hazırda housing servisində saxlanılan yaşayış yeri məlumatlarını təqdim etmək üçün istifadə edəcəksiniz.
 
-1. Install `json-server` from npm by using the following command.
+1. Aşağıdakı əmrdən istifadə edərək npm-dən `json-server`-i quraşdırın.
 
    ```bash
    npm install -g json-server
    ```
 
-1. In the root directory of your project, create a file called `db.json`. This is where you will store the data for the `json-server`.
+1. Layihənizin kök qovluğunda `db.json` adlı fayl yaradın. Bura `json-server` üçün məlumatları saxlayacağınız yerdir.
 
-1. Open `db.json` and copy the following code into the file
+1. `db.json` faylını açın və aşağıdakı kodu fayla kopyalayın
 
    ```json
    {
@@ -134,74 +134,74 @@ JSON Server is an open source tool used to create mock REST APIs. You'll use it 
    }
    ```
 
-1. Save this file.
+1. Bu faylı yadda saxlayın.
 
-1. Time to test your configuration. From the command line, at the root of your project run the following commands.
+1. Konfiqurasiyanızı test etmək vaxtıdır. Əmr satırından (command line), layihənizin kökündə aşağıdakı əmrləri işlədin.
 
    ```bash
    json-server --watch db.json
    ```
 
-1. In your web browser, navigate to the `http://localhost:3000/locations` and confirm that the response includes the data stored in `db.json`.
+1. Veb brauzerinizdə `http://localhost:3000/locations` ünvanına keçin və cavabda `db.json` faylında saxlanılan məlumatların olduğunu təsdiqləyin.
 
-If you have any trouble with your configuration, you can find more details in the [official documentation](https://www.npmjs.com/package/json-server).
+Əgər konfiqurasiyanızla bağlı hər hansı probleminiz yaranarsa, [rəsmi sənədlərdə](https://www.npmjs.com/package/json-server) daha çox təfərrüat tapa bilərsiniz.
 </docs-step>
 
-<docs-step title="Update service to use web server instead of local array">
-The data source has been configured, the next step is to update your web app to connect to it use the data.
+<docs-step title="Servisi yerli massiv əvəzinə veb serverdən istifadə etmək üçün yeniləyin">
+Məlumat mənbəyi konfiqurasiya edildi, növbəti addım veb tətbiqinizi ona qoşulmaq və məlumatları istifadə etmək üçün yeniləməkdir.
 
-1.  In `src/app/housing.service.ts`, make the following changes:
+1.  `src/app/housing.service.ts` faylında aşağıdakı dəyişiklikləri edin:
 
-1.  Update the code to remove `housingLocationList` property and the array containing the data, as well as the `baseUrl` property.
+1.  Kodu `housingLocationList` property-sini, məlumatları ehtiva edən massivi və `baseUrl` property-sini silmək üçün yeniləyin.
 
-1.  Add a string property called `url` and set its value to `'http://localhost:3000/locations'`
+1.  `url` adlı string property əlavə edin və onun dəyərini `'http://localhost:3000/locations'` olaraq təyin edin
 
-    <docs-code header="Add url property to housing.service.ts" path="adev/src/content/tutorials/first-app/steps/14-http/src-final/app/housing.service.ts" visibleLines="[8]"/>
+    <docs-code header="housing.service.ts faylına url property-si əlavə edin" path="adev/src/content/tutorials/first-app/steps/14-http/src-final/app/housing.service.ts" visibleLines="[8]"/>
 
-    This code will result in errors in the rest of the file because it depends on the `housingLocationList` property. We're going to update the service methods next.
+    Bu kod faylın qalan hissəsində xətalara səbəb olacaq, çünki o, `housingLocationList` property-sindən asılıdır. Növbəti olaraq servis metodlarını yeniləyəcəyik.
 
-1.  Update the `getAllHousingLocations` function to make a call to the web server you configured.
+1.  Konfiqurasiya etdiyiniz veb serverə çağırış etmək üçün `getAllHousingLocations` funksiyasını yeniləyin.
 
-     <docs-code header="Update the getAllHousingLocations method in housing.service.ts" path="adev/src/content/tutorials/first-app/steps/14-http/src-final/app/housing.service.ts" visibleLines="[10,13]"/>
+     <docs-code header="housing.service.ts daxilində getAllHousingLocations metodunu yeniləyin" path="adev/src/content/tutorials/first-app/steps/14-http/src-final/app/housing.service.ts" visibleLines="[10,13]"/>
 
-    The code now uses asynchronous code to make a **GET** request over HTTP.
+    Kod indi HTTP üzərindən **GET** sorğusu etmək üçün asinxron koddan istifadə edir.
 
-    HELPFUL: For this example, the code uses `fetch`. For more advanced use cases consider using `HttpClient` provided by Angular.
+    FAYDALI: Bu nümunə üçün kod `fetch` istifadə edir. Daha mürəkkəb istifadə halları üçün Angular tərəfindən təmin edilən `HttpClient`-dən istifadə etməyi düşünün.
 
-1.  Update the `getHousingLocationsById` function to make a call to the web server you configured.
+1.  Konfiqurasiya etdiyiniz veb serverə çağırış etmək üçün `getHousingLocationsById` funksiyasını yeniləyin.
 
-    HELPFUL: Notice the `fetch` method has been updated to _query_ the data for location with a matching `id` property value. See [URL Search Parameter](https://developer.mozilla.org/en-US/docs/Web/API/URL/search) for more information.
+    FAYDALI: Nəzərə alın ki, `fetch` metodu uyğun `id` property dəyəri olan məkən üçün məlumatları _sorğulamaq (query)_ üçün yenilənib. Daha çox məlumat üçün [URL Search Parameter](https://developer.mozilla.org/en-US/docs/Web/API/URL/search) bölməsinə baxın.
 
-     <docs-code header="Update the getHousingLocationById method in housing.service.ts" path="adev/src/content/tutorials/first-app/steps/14-http/src-final/app/housing.service.ts" visibleLines="[15,19]"/>
+     <docs-code header="housing.service.ts daxilində getHousingLocationById metodunu yeniləyin" path="adev/src/content/tutorials/first-app/steps/14-http/src-final/app/housing.service.ts" visibleLines="[15,19]"/>
 
-1.  Once all the updates are complete, your updated service should match the following code.
+1.  Bütün yeniləmələr tamamlandıqdan sonra yenilənmiş servisiniz aşağıdakı koda uyğun olmalıdır.
 
-     <docs-code header="Final version of housing.service.ts" path="adev/src/content/tutorials/first-app/steps/14-http/src-final/app/housing.service.ts" visibleLines="[1,25]" />
+      <docs-code header="housing.service.ts faylının son versiyası" path="adev/src/content/tutorials/first-app/steps/14-http/src-final/app/housing.service.ts" visibleLines="[1,25]" />
 
 </docs-step>
 
-<docs-step title="Update the components to use asynchronous calls to the housing service">
-The server is now reading data from the HTTP request but the components that rely on the service now have errors because they were programmed to use the synchronous version of the service.
+<docs-step title="Komponentləri housing servisinə asinxron çağırışlar etmək üçün yeniləyin">
+Server indi HTTP sorğusundan məlumatları oxuyur, lakin servisə arxalanan komponentlərdə xətalar var, çünki onlar servisin sinxron versiyasından istifadə etmək üçün proqramlaşdırılıblar.
 
-1.  In `src/app/home/home.ts`, update the `constructor` to use the new asynchronous version of the `getAllHousingLocations` method. Because we didn't use signals for our state, you have to notify Angular that a change happened that requires a synchronization. Call `this.changeDetectorRef.markForCheck()` to do this.
+1.  `src/app/home/home.ts` faylında `constructor`-ı `getAllHousingLocations` metodunun yeni asinxron versiyasından istifadə etmək üçün yeniləyin. Vəziyyətimiz (state) üçün sinyallardan (signals) istifadə etmədiyimiz üçün Angular-a sinxronizasiya tələb edən bir dəyişikliyin baş verdiyini bildirməlisiniz. Bunu etmək üçün `this.changeDetectorRef.markForCheck()` metodunu çağırın.
 
-      <docs-code header="Update constructor in home.ts" path="adev/src/content/tutorials/first-app/steps/14-http/src-final/app/home/home.ts" visibleLines="[30,38]"/>
+      <docs-code header="home.ts daxilində constructor-ı yeniləyin" path="adev/src/content/tutorials/first-app/steps/14-http/src-final/app/home/home.ts" visibleLines="[30,38]"/>
 
-1.  In `src/app/details/details.ts`, update the `constructor` to use the new asynchronous version of the `getHousingLocationById` method. As before, you must also call `this.changeDetectorRef.markForCheck()` to notify Angular of the changes.
+1.  `src/app/details/details.ts` faylında `constructor`-ı `getHousingLocationById` metodunun yeni asinxron versiyasından istifadə etmək üçün yeniləyin. Əvvəlki kimi, dəyişikliklərdən Angular-ı xəbərdar etmək üçün `this.changeDetectorRef.markForCheck()` metodunu da çağırmalısınız.
 
-      <docs-code header="Update constructor in details.ts" path="adev/src/content/tutorials/first-app/steps/14-http/src-final/app/details/details.ts" visibleLines="[60,66]"/>
+      <docs-code header="details.ts daxilində constructor-ı yeniləyin" path="adev/src/content/tutorials/first-app/steps/14-http/src-final/app/details/details.ts" visibleLines="[60,66]"/>
 
-1.  Save your code.
+1.  Kodunuzu yadda saxlayın.
 
-1.  Open the application in the browser and confirm that it runs without any errors.
+1.  Tətbiqi brauzerdə açın və hər hansı bir xəta olmadan işlədiyini təsdiqləyin.
     </docs-step>
 
 </docs-workflow>
 
-NOTE: This lesson relies on the `fetch` browser API. For the support of interceptors, please refer to the [Http Client documentation](/guide/http)
+QEYD: Bu dərs `fetch` brauzer API-sinə arxalanır. Interceptor-ların dəstəyi üçün zəhmət olmasa [Http Client sənədlərinə](/guide/http) müraciət edin.
 
-SUMMARY: In this lesson, you updated your app to use a local web server (`json-server`), and use asynchronous service methods to retrieve data.
+XULASƏ: Bu dərsdə siz tətbiqinizi yerli veb serverdən (`json-server`) istifadə etmək və məlumatları əldə etmək üçün asinxron servis metodlarından istifadə etmək üçün yenilədiniz.
 
-Congratulations! You've successfully completed this tutorial and are ready to continue your journey with building even more complex Angular Apps.
+Təbriklər! Siz bu təlimatı uğurla tamamladınız və daha mürəkkəb Angular tətbiqləri qurmaq yolunda səyahətinizə davam etməyə hazırsınız.
 
-If you would like to learn more, please consider completing some of Angular's other developer [tutorials](tutorials) and [guides](overview).
+Əgər daha çox öyrənmək istəyirsinizsə, Angular-ın digər proqramçı [təlimatlarını (tutorials)](tutorials) və [bələdçilərini (guides)](overview) tamamlamağı düşünün.

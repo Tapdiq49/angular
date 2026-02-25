@@ -1,25 +1,25 @@
-# Set up the form model
+# Forma modelini quraşdırın
 
-Every Signal Form starts with a form data model - a signal that defines the shape of your data, and stores your form data.
+Hər bir Siqnal Forması (Signal Form) bir forma məlumat modeli ilə başlayır — bu, məlumatlarınızın formasını müəyyən edən və forma məlumatlarınızı saxlayan bir siqnaldır.
 
-In this lesson, you'll learn how to:
+Bu dərsdə siz aşağıdakıları öyrənəcəksiniz:
 
-- Define a TypeScript interface for your form data
-- Create a signal to hold form values
-- Use the `form()` function to create a Signal Form
+- Forma məlumatlarınız üçün TypeScript interfeysi təyin etmək
+- Forma dəyərlərini saxlamaq üçün siqnal yaratmaq
+- Siqnal Forması yaratmaq üçün `form()` funksiyasından istifadə etmək
 
-Let's build the foundation for our login form!
+Gəlin giriş formamızın təməlini quraq!
 
 <hr />
 
 <docs-workflow>
 
-<docs-step title="Define the LoginData interface">
-Create a TypeScript interface that defines the structure of your login form data. The form will have:
+<docs-step title="LoginData interfeysini təyin edin">
+Giriş forması məlumatlarınızın strukturunu müəyyən edən TypeScript interfeysi yaradın. Formanın aşağıdakı sahələri olacaq:
 
-- An `email` field (string)
-- A `password` field (string)
-- A `rememberMe` field (boolean)
+- `email` sahəsi (string)
+- `password` sahəsi (string)
+- `rememberMe` sahəsi (boolean)
 
 ```ts
 interface LoginData {
@@ -29,11 +29,11 @@ interface LoginData {
 }
 ```
 
-Add this interface above the `@Component` decorator.
+Bu interfeysi `@Component` dekoratorundan yuxarı əlavə edin.
 </docs-step>
 
-<docs-step title="Import signal and form">
-Import the `signal` function from `@angular/core` and the `form` function from `@angular/forms/signals`:
+<docs-step title="signal və form-u import edin">
+`@angular/core`-dan `signal` funksiyasını və `@angular/forms/signals`-dan `form` funksiyasını import edin:
 
 ```ts
 import {Component, signal} from '@angular/core';
@@ -42,8 +42,8 @@ import {form} from '@angular/forms/signals';
 
 </docs-step>
 
-<docs-step title="Create the form model signal">
-In your component class, create a `loginModel` signal with initial values. Use the `LoginData` interface as the type parameter:
+<docs-step title="Forma model siqnalını yaradın">
+Komponent class-ınızda ilkin dəyərlərlə bir `loginModel` siqnalı yaradın. Tip parametri kimi `LoginData` interfeysindən istifadə edin:
 
 ```ts
 loginModel = signal<LoginData>({
@@ -53,21 +53,21 @@ loginModel = signal<LoginData>({
 });
 ```
 
-The initial values start as empty strings for text fields and `false` for the checkbox.
+İlkin dəyərlər mətn sahələri üçün boş string, checkbox üçün isə `false` olaraq başlayır.
 </docs-step>
 
-<docs-step title="Create the form">
-Now create the form by passing your model signal to the `form()` function:
+<docs-step title="Formanı yaradın">
+İndi model siqnalınızı `form()` funksiyasına ötürərək formanı yaradın:
 
 ```ts
 loginForm = form(this.loginModel);
 ```
 
-The `form()` function creates a form from your model, giving you access to field state and validation.
+`form()` funksiyası modelinizdən forma yaradır, bu da sizə sahə vəziyyətinə və validasiyaya müraciət imkanı verir.
 </docs-step>
 
 </docs-workflow>
 
-Excellent! You've set up your form model. The `loginModel` signal holds your form data, and the `loginForm` provides access to each field with type safety.
+Mükəmməl! Siz forma modelinizi quraşdırdınız. `loginModel` siqnalı forma məlumatlarınızı saxlayır, `loginForm` isə hər bir sahəyə tip təhlükəsizliyi (type safety) ilə giriş imkanı təmin edir.
 
-Next, you'll learn [how to connect your form to the template](/tutorials/signal-forms/2-connect-form-template)!
+Növbəti addımda [formanızı template-ə necə qoşacağınızı](/tutorials/signal-forms/2-connect-form-template) öyrənəcəksiniz!

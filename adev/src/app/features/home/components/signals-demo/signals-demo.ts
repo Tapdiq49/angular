@@ -50,7 +50,7 @@ const tsExample = `
 items = signal(['Alma', 'Banan', /*...*/ ]);
 searchTerm = signal('');
 // Filtrlənmiş siyahını törədən computed signal (hesablanmış siqnal).
-// Dependency (asılılıq) dəyişdikdə avtomatik olaraq yenidən işə düşür.
+// Dependency (aslılıq) dəyişdikdə avtomatik olaraq yenidən işə düşür.
 filteredItems = computed(() => {
   const lowerCaseSearchTerm = this.searchTerm().toLowerCase();
   return this.items().filter(item =>

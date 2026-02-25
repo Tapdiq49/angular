@@ -1,60 +1,60 @@
-# Add an interpolation to a component’s template
+# Komponentin template-inə interpolation əlavə edin
 
-This tutorial lesson demonstrates how to add interpolation to Angular templates in order to display dynamic data in a template.
+Bu təlimat dərsi template-də dinamik məlumatları göstərmək üçün Angular template-lərinə interpolation əlavə etməyi nümayiş etdirir.
 
 <docs-video src="https://www.youtube.com/embed/eM3zi_n7lNs?si=IFAly3Ss8dwqFx8N&amp;start=338"/>
 
-## What you'll learn
+## Nə öyrənəcəksiniz
 
-- Your app will display interpolated values in the `HousingLocation` template.
-- Your app will render a housing location data to the browser.
+- Tətbiqiniz `HousingLocation` template-ində interpolyasiya olunmuş (interpolated) dəyərləri göstərəcək.
+- Tətbiqiniz brauzerdə yaşayış yeri məlumatlarını render edəcək.
 
-## Conceptual preview of interpolation
+## Interpolation (İnterpolyasiya) haqqında konseptual baxış
 
-In this step you will display values read from `input` properties in a template using interpolation.
+Bu addımda siz interpolation istifadə edərək template-də `input` property-lərindən oxunan dəyərləri göstərəcəksiniz.
 
-Using the `{{ expression }}` in Angular templates, you can render values from properties, `inputs`, and valid JavaScript expressions.
+Angular template-lərində `{{ expression }}` istifadə edərək property-lərdən, `inputs`-dan və etibarlı JavaScript ifadələrindən gələn dəyərləri render edə bilərsiniz.
 
-For a more in depth explanation, please refer to the [Displaying values with interpolation](guide/templates/binding#render-dynamic-text-with-text-interpolation) guide.
+Daha ətraflı izah üçün zəhmət olmasa [İnterpolyasiya ilə dəyərlərin göstərilməsi](guide/templates/binding#render-dynamic-text-with-text-interpolation) bələdçisinə müraciət edin.
 
 <docs-workflow>
 
-<docs-step title="Update `HousingLocation` template to include interpolated values">
-This step adds new HTML structure and interpolated values in the `HousingLocation` template.
+<docs-step title="İnterpolyasiya olunmuş dəyərləri daxil etmək üçün `HousingLocation` template-ini yeniləyin">
+Bu addım `HousingLocation` template-inə yeni HTML strukturu və interpolyasiya olunmuş dəyərlər əlavə edir.
 
-In the code editor:
+Kod redaktorunda:
 
-1.  Navigate to `src/app/housing-location/housing-location.ts`
-1.  In the template property of the `@Component` decorator, replace the existing HTML markup with the following code:
+1.  `src/app/housing-location/housing-location.ts` ünvanına keçin.
+1.  `@Component` dekoratorunun template property-sində mövcud HTML strukturunu aşağıdakı kodla əvəz edin:
 
-    <docs-code language="angular-ts"  header="Update HousingLocation template in housing-location.ts" path="adev/src/content/tutorials/first-app/steps/08-ngFor/src/app/housing-location/housing-location.ts" visibleLines="[6,17]"/>
+    <docs-code language="angular-ts"  header="housing-location.ts daxilində HousingLocation template-ini yeniləyin" path="adev/src/content/tutorials/first-app/steps/08-ngFor/src/app/housing-location/housing-location.ts" visibleLines="[6,17]"/>
 
-In this updated template code you have used property binding to bind the `housingLocation.photo` to the `src` attribute. The `alt` attribute uses interpolation to give more context to the alt text of the image.
+Bu yenilənmiş template kodunda siz `housingLocation.photo`-nu `src` attribute-una bağlamaq üçün property binding-dən istifadə etdiniz. `alt` attribute-u şəklin alt mətninə daha çox kontekst vermək üçün interpolation-dan istifadə edir.
 
-You use interpolation to include the values for `name`, `city` and `state` of the `housingLocation` property.
+`housingLocation` property-sinin `name`, `city` və `state` dəyərlərini daxil etmək üçün interpolation-dan istifadə edirsiniz.
 
 </docs-step>
 
-<docs-step title="Confirm the changes render in the browser">
-1.  Save all changes.
-1.  Open the browser and confirm that the app renders the photo, city and state sample data.
-    <img alt="browser frame of homes-app displaying logo, filter text input box, search button and the same housing location UI card" src="assets/images/tutorials/first-app/homes-app-lesson-07-step-2.png">
+<docs-step title="Dəyişikliklərin brauzerdə render olunduğunu təsdiqləyin">
+1.  Bütün dəyişiklikləri yadda saxlayın.
+1.  Brauzeri açın və tətbiqin foto, şəhər və ştat nümunə məlumatlarını render etdiyini təsdiqləyin.
+    <img alt="homes-app-ın logo, filtr mətn giriş qutusu, axtarış düyməsi və eyni yaşayış yeri UI kartını göstərən brauzer pəncərəsi" src="assets/images/tutorials/first-app/homes-app-lesson-07-step-2.png">
 </docs-step>
 
 </docs-workflow>
 
-SUMMARY: In this lesson, you added a new HTML structure and used Angular template syntax to render values in the `HousingLocation` template.
+XULASƏ: Bu dərsdə siz yeni HTML strukturu əlavə etdiniz və `HousingLocation` template-ində dəyərləri render etmək üçün Angular template sintaksisindən istifadə etdiniz.
 
-Now, you have two important skills:
+İndi sizin iki vacib bacarığınız var:
 
-- passing data to components
-- Interpolating values into a template
+- komponentlərə məlumat ötürmək
+- template-ə dəyərləri interpolyasiya etmək
 
-With these skills, your app can now share data and display dynamic values in the browser. Great work so far.
+Bu bacarıqlarla tətbiqiniz artıq məlumat paylaşa və brauzerdə dinamik dəyərləri göstərə bilər. İndiyə qədərki işiniz əladır.
 
-For more information about the topics covered in this lesson, visit:
+Bu dərsdə əhatə olunmuş mövzular haqqında daha çox məlumat üçün buraya daxil olun:
 
 <docs-pill-row>
-  <docs-pill href="guide/templates" title="Template syntax"/>
-  <docs-pill href="guide/templates/binding#render-dynamic-text-with-text-interpolation" title="Displaying values with interpolation"/>
+  <docs-pill href="guide/templates" title="Template sintaksisi"/>
+  <docs-pill href="guide/templates/binding#render-dynamic-text-with-text-interpolation" title="İnterpolyasiya ilə dəyərlərin göstərilməsi"/>
 </docs-pill-row>

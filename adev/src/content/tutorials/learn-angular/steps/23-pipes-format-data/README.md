@@ -1,28 +1,28 @@
-# Formatting data with pipes
+# Pipe-lar vasitəsilə məlumatların formatlanması
 
-You can take your use of pipes even further by configuring them. Pipes can be configured by passing options to them.
+Pipe-ların çıxışını konfiqurasiya etməklə onlardan istifadəni daha da irəli apara bilərsiniz. Pipe-lara seçimlər (options) ötürməklə onları konfiqurasiya etmək mümkündür.
 
-NOTE: Learn more about [formatting data with pipes in the in-depth guide](/guide/templates/pipes).
+QEYD: [Ətraflı bələdçidə pipe-lar vasitəsilə məlumatların formatlanması](/guide/templates/pipes) haqqında daha çox öyrənin.
 
-In this activity, you will work with some pipes and pipe parameters.
+Bu fəaliyyətdə siz bəzi pipe-lar və pipe parametrləri ilə işləyəcəksiniz.
 
 <hr>
 
-To pass parameters to a pipe, use the `:` syntax followed by the parameter value. Here's an example:
+Pipe-a parametrlər ötürmək üçün `:` sintaksisindən və ardından parametr dəyərindən istifadə edin. Budur bir nümunə:
 
 ```angular-html
 template: `{{ date | date: 'medium' }}`;
 ```
 
-The output is `Jun 15, 2015, 9:43:11 PM`.
+Çıxış belə olacaq: `Jun 15, 2015, 9:43:11 PM`.
 
-Time to customize some pipe output:
+Bəzi pipe çıxışlarını fərdiləşdirmək vaxtıdır:
 
 <docs-workflow>
 
-<docs-step title="Format a number with `DecimalPipe`">
+<docs-step title="`DecimalPipe` ilə rəqəmi formatlayın">
 
-In `app.ts`, update the template to include parameter for the `decimal` pipe.
+`app.ts` faylında `decimal` pipe-ı üçün parametr daxil etmək məqsədilə template-i yeniləyin.
 
 ```angular-html {highlight:[3]}
 template: ` ...
@@ -30,13 +30,13 @@ template: ` ...
 `
 ```
 
-NOTE: What's that format? The parameter for the `DecimalPipe` is called `digitsInfo`, this parameter uses the format: `{minIntegerDigits}.{minFractionDigits}-{maxFractionDigits}`
+QEYD: Bu hansı formatdır? `DecimalPipe` üçün parametr `digitsInfo` adlanır və bu parametr bu formatdan istifadə edir: `{minIntegerDigits}.{minFractionDigits}-{maxFractionDigits}`
 
 </docs-step>
 
-<docs-step title="Format a date with `DatePipe`">
+<docs-step title="`DatePipe` ilə tarixi formatlayın">
 
-Now, update the template to use the `date` pipe.
+İndi isə `date` pipe-ından istifadə etmək üçün template-i yeniləyin.
 
 ```angular-html {highlight:[3]}
 template: ` ...
@@ -44,13 +44,13 @@ template: ` ...
 `
 ```
 
-For extra fun, try some different parameters for `date`. More information can be found in the [Angular docs](guide/templates/pipes).
+Əlavə əyləncə üçün `date` üçün müxtəlif parametrləri sınayın. Daha çox məlumatı [Angular sənədlərində](guide/templates/pipes) tapa bilərsiniz.
 
 </docs-step>
 
-<docs-step title="Format a currency with `CurrencyPipe`">
+<docs-step title="`CurrencyPipe` ilə valyutanı formatlayın">
 
-For your last task, update the template to use the `currency` pipe.
+Sonuncu tapşırığınız üçün `currency` pipe-ından istifadə etmək məqsədilə template-i yeniləyin.
 
 ```angular-html {highlight:[3]}
 template: ` ...
@@ -58,14 +58,14 @@ template: ` ...
 `
 ```
 
-You can also try different parameters for `currency`. More information can be found in the [Angular docs](guide/templates/pipes).
+Siz həmçinin `currency` üçün müxtəlif parametrləri sınaya bilərsiniz. Daha çox məlumatı [Angular sənədlərində](guide/templates/pipes) tapa bilərsiniz.
 
 </docs-step>
 
 </docs-workflow>
 
-Great work with pipes. You've made some great progress so far.
+Pipe-larla bağlı əla iş gördünüz. İndiyə qədər böyük irəliləyiş əldə etmisiniz.
 
-There are even more built-in pipes that you can use in your applications. You can find the list in the [Angular documentation](guide/templates/pipes).
+Tətbiqlərinizdə istifadə edə biləcəyiniz daha çox daxili pipe-lar var. Siyahını [Angular sənədlərində](guide/templates/pipes) tapa bilərsiniz.
 
-In the case that the built-in pipes don't cover your needs, you can also create a custom pipe. Check out the next lesson to find out more.
+Daxili pipe-ların ehtiyaclarınızı qarşılamadığı təqdirdə, öz xüsusi pipe-ınızı da yarada bilərsiniz. Daha çox məlumat üçün növbəti dərsə baxın.

@@ -77,7 +77,7 @@ export const DOCS_SUB_NAVIGATION_DATA: NavigationItem[] = [
             status: 'yeni',
           },
           {
-            label: 'Asılılıq yeridilməsi (DI) ilə modul dizayn',
+            label: 'Aslılıq yeridilməsi (DI) ilə modul dizayn',
             path: 'essentials/dependency-injection',
             contentPath: 'introduction/essentials/dependency-injection',
           },
@@ -300,7 +300,7 @@ export const DOCS_SUB_NAVIGATION_DATA: NavigationItem[] = [
         ],
       },
       {
-        label: 'Asılılıq yeridilməsi (Dependency Injection)',
+        label: 'Aslılıq yeridilməsi (Dependency Injection)',
         status: 'yeniləndi',
         children: [
           {
@@ -316,7 +316,7 @@ export const DOCS_SUB_NAVIGATION_DATA: NavigationItem[] = [
             status: 'yeniləndi',
           },
           {
-            label: 'Asılılıq təminatçılarının müəyyənləşdirilməsi',
+            label: 'Aslılıq təminatçılarının müəyyənləşdirilməsi',
             path: 'guide/di/defining-dependency-providers',
             contentPath: 'guide/di/defining-dependency-providers',
             status: 'yeniləndi',
@@ -1623,7 +1623,7 @@ export const REFERENCE_SUB_NAVIGATION_DATA: NavigationItem[] = [
         contentPath: 'reference/configs/angular-compiler-options',
       },
       {
-        label: 'npm asılılıqları',
+        label: 'npm aslılıqları',
         path: 'reference/configs/npm-packages',
         contentPath: 'reference/configs/npm-packages',
       },

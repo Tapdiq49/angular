@@ -1,31 +1,31 @@
-# Composing Components
+# Komponentlərin Birləşdirilməsi (Composition)
 
-You've learned to update the component template, component logic, and component styles, but how do you use a component in your application?
+Siz komponent template-ini, məntiqini və üslublarını yeniləməyi öyrəndiniz, bəs bir komponenti tətbiqinizdə necə istifadə edirsiniz?
 
-The `selector` property of the component configuration gives you a name to use when referencing the component in another template. You use the `selector` like an HTML tag, for example `app-user` would be `<app-user />` in the template.
+Komponent konfiqurasiyasının `selector` property-si sizə həmin komponentə başqa bir template-də müraciət etmək üçün ad verir. Siz `selector`-dan HTML teqi kimi istifadə edirsiniz, məsələn, `app-user` template-də `<app-user />` şəklində olacaqdır.
 
-NOTE: Learn more about [using components in the essentials guide](/essentials/components#komponentləri-istifadə-etmək).
+QEYD: [Essentials bələdçisində komponentlərin istifadəsi](/essentials/components#komponentləri-istifadə-etmək) haqqında daha çox öyrənin.
 
-In this activity, you'll learn how to compose components.
+Bu fəaliyyətdə siz komponentləri necə birləşdirməyi öyrənəcəksiniz.
 
 <hr/>
 
-In this example, there are two components `User` and `App`.
+Bu nümunədə iki komponent var: `User` və `App`.
 
 <docs-workflow>
 
-<docs-step title="Add a reference to `User`">
-Update the `App` template to include a reference to the `User` which uses the selector `app-user`. Be sure to add `User` to the imports array of `App`, this makes it available for use in the `App` template.
+<docs-step title="`User` komponentinə istinad əlavə edin">
+`App` template-ini yeniləyərək `app-user` selector-undan istifadə edən `User` komponentinə istinad əlavə edin. `User` komponentini `App`-in `imports` massivinə əlavə etməyi unutmayın; bu, onu `App` template-ində istifadə üçün əlçatan edir.
 
 ```angular-html
 template: `<app-user />`, imports: [User]
 ```
 
-The component now displays the message `Username: youngTech`. You can update the template code to include more markup.
+İndi komponent `Username: youngTech` mesajını göstərir. Daha çox markup əlavə etmək üçün template kodunu yeniləyə bilərsiniz.
 </docs-step>
 
-<docs-step title="Add more markup">
-Because you can use any HTML markup that you want in a template, try updating the template for `App` to also include more HTML elements. This example will add a `<section>` element as the parent of the `<app-user>` element.
+<docs-step title="Daha çox markup əlavə edin">
+Template-də istədiyiniz hər hansı bir HTML markup-dan istifadə edə bildiyiniz üçün, `App` template-ini daha çox HTML elementi daxil edəcək şəkildə yeniləməyə çalışın. Bu nümunədə `<app-user>` elementinin valideyni kimi bir `<section>` elementi əlavə ediləcək.
 
 ```angular-html
 template: `
@@ -36,6 +36,7 @@ template: `
 </docs-step>
 
 </docs-workflow>
-You can use as much HTML markup and as many components as you need to bring your app idea to reality. You can even have multiple copies of your component on the same page.
 
-That's a great segue, how would you conditionally show a component based on data? Head to the next section to find out.
+Tətbiq ideyanızı reallığa çevirmək üçün lazım olduğu qədər HTML markup və komponentdən istifadə edə bilərsiniz. Hətta eyni səhifədə komponentinizin bir neçə nüsxəsini yerləşdirə bilərsiniz.
+
+Bu, yaxşı bir keçiddir — bəs məlumatlara əsasən bir komponenti şərtli olaraq necə göstərmək olar? Öyrənmək üçün növbəti bölməyə keçin.

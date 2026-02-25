@@ -1,14 +1,14 @@
-# Create a custom pipe
+# Xüsusi (custom) pipe yaradın
 
-You can create custom pipes in Angular to fit your data transformation needs.
+Məlumat çevirmə ehtiyaclarınıza uyğun olaraq Angular-da xüsusi pipe-lar yarada bilərsiniz.
 
-NOTE: Learn more about [creating custom pipes in the in-depth guide](/guide/templates/pipes#creating-custom-pipes).
+QEYD: [Ətraflı bələdçidə xüsusi pipe-ların yaradılması](/guide/templates/pipes#creating-custom-pipes) haqqında daha çox öyrənin.
 
-In this activity, you will create a custom pipe and use it in your template.
+Bu fəaliyyətdə siz xüsusi bir pipe yaradacaq və ondan template-inizdə istifadə edəcəksiniz.
 
 <hr>
 
-A pipe is a TypeScript class with a `@Pipe` decorator. Here's an example:
+Pipe, `@Pipe` dekoratoruna malik TypeScript class-ıdır. Budur bir nümunə:
 
 ```ts
 import {Pipe, PipeTransform} from '@angular/core';
@@ -23,18 +23,18 @@ export class StarPipe implements PipeTransform {
 }
 ```
 
-The `StarPipe` accepts a string value and returns that string with stars around it. Take note that:
+`StarPipe` bir string dəyəri qəbul edir və həmin string-i ulduzlarla əhatə olunmuş şəkildə qaytarır. Qeyd edin ki:
 
-- the name in the `@Pipe` decorator configuration is what will be used in the template
-- the `transform` function is where you put your logic
+- `@Pipe` dekorator konfiqurasiyasındakı `name` template-də istifadə olunacaq addır
+- `transform` funksiyası məntiqinizi yerləşdirdiyiniz yerdir
 
-Alright, it's your turn to give this a try — you'll create the `ReversePipe`:
+Yaxşı, növbə sizindir — `ReversePipe` (tərs çevirmə pipe-ı) yaradacaqsınız:
 
 <docs-workflow>
 
-<docs-step title="Create the `ReversePipe`">
+<docs-step title="`ReversePipe` yaradın">
 
-In `reverse.pipe.ts` add the `@Pipe` decorator to the `ReversePipe` class and provide the following configuration:
+`reverse.pipe.ts` faylında `ReversePipe` class-ına `@Pipe` dekoratorunu əlavə edin və aşağıdakı konfiqurasiyanı təmin edin:
 
 ```ts
 @Pipe({
@@ -44,9 +44,9 @@ In `reverse.pipe.ts` add the `@Pipe` decorator to the `ReversePipe` class and pr
 
 </docs-step>
 
-<docs-step title="Implement the `transform` function">
+<docs-step title="`transform` funksiyasını implementasiya edin">
 
-Now the `ReversePipe` class is a pipe. Update the `transform` function to add the reversing logic:
+İndi `ReversePipe` class-ı bir pipe-dır. Tərs çevirmə məntiqini əlavə etmək üçün `transform` funksiyasını yeniləyin:
 
 ```ts {highlight:[3,4,5,6,7,8,9]}
 export class ReversePipe implements PipeTransform {
@@ -64,8 +64,8 @@ export class ReversePipe implements PipeTransform {
 
 </docs-step>
 
-<docs-step title="Use the `ReversePipe` in the template"></docs-step>
-With the pipe logic implemented, the final step is to use it in the template. In `app.ts` include the pipe in the template and add it to the component imports:
+<docs-step title="Template-də `ReversePipe` istifadə edin"></docs-step>
+Pipe məntiqi implementasiya edildikdən sonra son addım ondan template-də istifadə etməkdir. `app.ts` faylında pipe-ı template-ə daxil edin və onu komponent import-larına əlavə edin:
 
 ```angular-ts {highlight:[3,4]}
 @Component({
@@ -77,4 +77,4 @@ With the pipe logic implemented, the final step is to use it in the template. In
 
 </docs-workflow>
 
-And with that you've done it. Congratulations on completing this activity. You now know how to use pipes and even how to implement your own custom pipes.
+Və bununla da siz bacardınız. Bu fəaliyyəti tamamladığınız üçün sizi təbrik edirik. Artıq pipe-lardan necə istifadə edəcəyinizi və hətta öz xüsusi pipe-larınızı necə implementasiya edəcəyinizi bilirsiniz.

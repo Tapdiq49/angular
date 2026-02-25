@@ -1,22 +1,22 @@
-# Connect your form to the template
+# Formanızı template-ə qoşun
 
-Now, you need to connect your form to the template using the `[formField]` directive. This creates two-way data binding between your form model and the input elements.
+İndi `[formField]` direktivindən istifadə edərək formanı template-ə qoşmalısınız. Bu, forma modelinizlə giriş (input) elementləri arasında iki tərəfli məlumat binding-i (two-way data binding) yaradır.
 
-In this lesson, you'll learn how to:
+Bu dərsdə siz aşağıdakıları öyrənəcəksiniz:
 
-- Import the `FormField` directive
-- Use the `[formField]` directive to bind form fields to inputs
-- Connect text inputs and checkboxes to your form
-- Display form field values in the template
+- `FormField` direktivini import etmək
+- Forma sahələrini girişlərə bağlamaq üçün `[formField]` direktivindən istifadə etmək
+- Mətn girişlərini və checkbox-ları formanıza qoşmaq
+- Template-də forma sahə dəyərlərini göstərmək
 
-Let's wire up the template!
+Gəlin template-i qoşaq!
 
 <hr />
 
 <docs-workflow>
 
-<docs-step title="Import the FormField directive">
-Import the `FormField` directive from `@angular/forms/signals` and add it to your component's imports array:
+<docs-step title="FormField direktivini import edin">
+`@angular/forms/signals`-dan `FormField` direktivini import edin və onu komponentinizin imports massivinə əlavə edin:
 
 ```ts
 import { form, FormField } from '@angular/forms/signals';
@@ -32,18 +32,18 @@ import { form, FormField } from '@angular/forms/signals';
 
 </docs-step>
 
-<docs-step title="Bind the email field">
-In your template, add the `[formField]` directive to the email input:
+<docs-step title="Email sahəsini bağlayın">
+Template-inizdə email girişinə `[formField]` direktivini əlavə edin:
 
 ```html
 <input type="email" [formField]="loginForm.email" />
 ```
 
-The `loginForm.email` expression accesses the email field from your form.
+`loginForm.email` ifadəsi formanızdakı email sahəsinə müraciət edir.
 </docs-step>
 
-<docs-step title="Bind the password field">
-Add the `[formField]` directive to the password input:
+<docs-step title="Şifrə (password) sahəsini bağlayın">
+Şifrə girişinə `[formField]` direktivini əlavə edin:
 
 ```html
 <input type="password" [formField]="loginForm.password" />
@@ -51,8 +51,8 @@ Add the `[formField]` directive to the password input:
 
 </docs-step>
 
-<docs-step title="Bind the checkbox field">
-Add the `[formField]` directive to the checkbox input:
+<docs-step title="Checkbox sahəsini bağlayın">
+Checkbox girişinə `[formField]` direktivini əlavə edin:
 
 ```html
 <input type="checkbox" [formField]="loginForm.rememberMe" />
@@ -60,20 +60,20 @@ Add the `[formField]` directive to the checkbox input:
 
 </docs-step>
 
-<docs-step title="Display the form values">
-Below the form, there's a debug section to show current form values. Display each field value using `.value()`:
+<docs-step title="Forma dəyərlərini göstərin">
+Formanın aşağısında cari forma dəyərlərini göstərmək üçün debug (sazlama) bölməsi var. `.value()` istifadə edərək hər bir sahə dəyərini göstərin:
 
 ```angular-html
 <p>Email: {{ loginForm.email().value() }}</p>
-<p>Password: {{ loginForm.password().value() ? '••••••••' : '(empty)' }}</p>
-<p>Remember me: {{ loginForm.rememberMe().value() ? 'Yes' : 'No' }}</p>
+<p>Şifrə: {{ loginForm.password().value() ? '••••••••' : '(boşdur)' }}</p>
+<p>Məni xatırla: {{ loginForm.rememberMe().value() ? 'Bəli' : 'Xeyr' }}</p>
 ```
 
-Form field values are signals, so the displayed values update automatically as you type.
+Forma sahə dəyərləri siqnallardır, beləliklə göstərilən dəyərlər siz yazdıqca avtomatik yenilənir.
 </docs-step>
 
 </docs-workflow>
 
-Great work! You've connected your form to the template and displayed the form values. The `[formField]` directive handles two-way data binding automatically - as you type, the `loginModel` signal updates, and the displayed values update immediately.
+Əla iş! Siz formanızı template-ə qoşdunuz və forma dəyərlərini göstərdiniz. `[formField]` direktivi iki tərəfli məlumat binding-ini avtomatik idarə edir — siz yazdıqca `loginModel` siqnalı yenilənir və göstərilən dəyərlər dərhal yenilənir.
 
-Next, you'll learn [how to add validation to your form](/tutorials/signal-forms/3-add-validation)!
+Növbəti addımda [formanıza validasiyanı necə əlavə edəcəyinizi](/tutorials/signal-forms/3-add-validation) öyrənəcəksiniz!
