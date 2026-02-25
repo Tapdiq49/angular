@@ -1,79 +1,79 @@
-# Create the application’s HousingLocation component
+# Tətbiqin HousingLocation komponentini yaradın
 
-This tutorial lesson demonstrates how to add the `HousingLocation` component to your Angular app.
+Bu təlimat dərsi Angular tətbiqinizə `HousingLocation` komponentini necə əlavə edəcəyinizi nümayiş etdirir.
 
 <docs-video src="https://www.youtube.com/embed/R0nRX8jD2D0?si=U4ONEbPvtptdUHTt&amp;start=440"/>
 
-## What you'll learn
+## Nə öyrənəcəksiniz
 
-- Your app has a new component: `HousingLocation` and it displays a message confirming that the component was added to your application.
+- Tətbiqinizin yeni bir komponenti var: `HousingLocation` və o, komponentin tətbiqinizə əlavə olunduğunu təsdiqləyən bir mesaj göstərir.
 
 <docs-workflow>
 
-<docs-step title="Create the `HousingLocation`">
-In this step, you create a new component for your app.
+<docs-step title="`HousingLocation` komponentini yaradın">
+Bu addımda tətbiqiniz üçün yeni bir komponent yaradırsınız.
 
-In the **Terminal** pane of your IDE:
+IDE-nizin **Terminal** bölməsində:
 
-1. In your project directory, navigate to the `first-app` directory.
+1. Layihə qovluğunuzda `first-app` qovluğuna keçin.
 
-1. Run this command to create a new `HousingLocation`
+1. Yeni bir `HousingLocation` komponenti yaratmaq üçün bu əmri işlədin:
 
    ```shell
    ng generate component housingLocation
    ```
 
-1. Run this command to build and serve your app.
+1. Tətbiqinizi qurmaq və serverdə işə salmaq üçün bu əmri işlədin.
 
    ```shell
    ng serve
    ```
 
-   NOTE: This step is only for your local environment!
+   QEYD: Bu addım yalnız yerli mühitiniz üçündür!
 
-1. Open a browser and navigate to `http://localhost:4200` to find the application.
-1. Confirm that the app builds without error.
+1. Tətbiqi tapmaq üçün brauzeri açın və `http://localhost:4200` ünvanına keçin.
+1. Tətbiqin xətasız qurulduğunu təsdiqləyin.
 
-   HELPFUL: It should render the same as it did in the previous lesson because even though you added a new component, you haven't included it in any of the app's templates, yet.
+   FAYDALI: O, əvvəlki dərsdəki kimi render olunmalıdır, çünki yeni komponent əlavə etsəniz də, hələ ki onu tətbiqin template-lərindən hər hansı birinə daxil etməmisiniz.
 
-1. Leave `ng serve` running as you complete the next steps.
+1. Növbəti addımları tamamlayarkən `ng serve` əmrini işlək vəziyyətdə saxlayın.
    </docs-step>
 
-<docs-step title="Add the new component to your app's layout">
-In this step, you add the new component, `HousingLocation` to your app's `Home`, so that it displays in your app's layout.
+<docs-step title="Yeni komponenti tətbiqinizin düzümünə əlavə edin">
+Bu addımda siz yeni `HousingLocation` komponentini tətbiqinizin `Home` komponentinə əlavə edirsiniz ki, o tətbiqinizin düzümündə görünsün.
 
-In the **Edit** pane of your IDE:
+IDE-nizin **Edit** (Redaktə) bölməsində:
 
-1.  Open `home.ts` in the editor.
-1.  In `home.ts`, import `HousingLocation` by adding this line to the file level imports.
+1.  Redaktorda `home.ts` faylını açın.
+1.  `home.ts` daxilində fayl səviyyəsindəki import-lara bu sətri əlavə edərək `HousingLocation` komponentini import edin.
 
-      <docs-code header="Import HousingLocation in src/app/home/home.ts" path="adev/src/content/tutorials/first-app/steps/04-interfaces/src/app/home/home.ts" visibleLines="[2]"/>
+       <docs-code header="src/app/home/home.ts daxilində HousingLocation-ı import edin" path="adev/src/content/tutorials/first-app/steps/04-interfaces/src/app/home/home.ts" visibleLines="[2]"/>
 
-1.  Next update the `imports` property of the `@Component` metadata by adding `HousingLocation` to the array.
+1.  Növbəti olaraq `@Component` metadata-sındakı `imports` property-sini massivə `HousingLocation` əlavə edərək yeniləyin.
 
-      <docs-code  header="Add HousingLocation to imports array in src/app/home/home.ts" path="adev/src/content/tutorials/first-app/steps/04-interfaces/src/app/home/home.ts" visibleLines="[6]"/>
+       <docs-code  header="src/app/home/home.ts daxilində imports massivinə HousingLocation əlavə edin" path="adev/src/content/tutorials/first-app/steps/04-interfaces/src/app/home/home.ts" visibleLines="[6]"/>
 
-1.  Now the component is ready for use in the template for the `Home`. Update the `template` property of the `@Component` metadata to include a reference to the `<app-housing-location>` tag.
+1.  İndi komponent `Home` komponentinin template-ində istifadə üçün hazırdır. `@Component` metadata-sındakı `template` property-sini `<app-housing-location>` teqinə istinadı daxil edəcək şəkildə yeniləyin.
 
-      <docs-code language="angular-ts" header="Add housing location to the component template in src/app/home/home.ts" path="adev/src/content/tutorials/first-app/steps/04-interfaces/src/app/home/home.ts" visibleLines="[7,17]"/>
+       <docs-code language="angular-ts" header="src/app/home/home.ts daxilində komponent template-inə housing location əlavə edin" path="adev/src/content/tutorials/first-app/steps/04-interfaces/src/app/home/home.ts" visibleLines="[7,17]"/>
 
 </docs-step>
 
-<docs-step title="Add the styles for the component">
-In this step, you will copy over the pre-written styles for the `HousingLocation` to your app so that the app renders properly.
+<docs-step title="Komponent üçün üslubları (styles) əlavə edin">
+Bu addımda, tətbiqin düzgün render olunması üçün `HousingLocation` komponenti üçün əvvəlcədən yazılmış üslubları tətbiqinizə köçürəcəksiniz.
 
-1. Open `src/app/housing-location/housing-location.css`, and paste the styles below into the file:
+1. `src/app/housing-location/housing-location.css` faylını açın və aşağıdakı üslubları fayla yapışdırın:
 
-   NOTE: In the browser, these can go in `src/app/housing-location/housing-location.ts` in the `styles` array.
+   QEYD: Brauzerdə bunlar `src/app/housing-location/housing-location.ts` faylında `styles` massivinə yerləşdirilə bilər.
 
-   <docs-code header="Add CSS styles to housing location to the component in src/app/housing-location/housing-location.css" path="adev/src/content/tutorials/first-app/steps/04-interfaces/src/app/housing-location/housing-location.css"/>
+   <docs-code header="src/app/housing-location/housing-location.css daxilində komponentə CSS üslubları əlavə edin" path="adev/src/content/tutorials/first-app/steps/04-interfaces/src/app/housing-location/housing-location.css"/>
 
-1. Save your code, return to the browser and confirm that the app builds without error. You should find the message "housing-location works!" rendered to the screen.Correct any errors before you continue to the next step.
+1. Kodunuzu yadda saxlayın, brauzerə qayıdın və tətbiqin xətasız qurulduğunu təsdiqləyin. Ekranda "housing-location works!" mesajının render olunduğunu görməlisiniz. Növbəti addıma keçməzdən əvvəl hər hansı xətaları düzəldin.
 
-   <img alt="browser frame of homes-app displaying logo, filter text input box and search button and the message 'housing-location works!" src="assets/images/tutorials/first-app/homes-app-lesson-03-step-2.png">
+   <img alt="homes-app-ın logo, filtr mətn giriş qutusu, axtarış düyməsi və 'housing-location works!' mesajını göstərən brauzer pəncərəsi" src="assets/images/tutorials/first-app/homes-app-lesson-03-step-2.png">
 
 </docs-step>
 
 </docs-workflow>
 
-SUMMARY: In this lesson, you created a new component for your app and added it to the app's layout.
+XULASƏ: Bu dərsdə siz tətbiqiniz üçün yeni bir komponent yaratdınız və onu tətbiqin düzümünə əlavə etdiniz.

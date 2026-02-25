@@ -1,88 +1,88 @@
-# Add routes to the application
+# Tətbiqə marşrutlar (routes) əlavə edin
 
-This tutorial lesson demonstrates how to add routes to your app.
+Bu təlimat dərsi tətbiqinizə marşrutları necə əlavə edəcəyinizi nümayiş etdirir.
 
 <docs-video src="https://www.youtube.com/embed/r5DEBMuStPw?si=H6Bx6nLJoMLaMxkx" />
 
-IMPORTANT: We recommend using your local environment to learn routing.
+VACİB: Marşrutlaşdırmanı (routing) öyrənmək üçün yerli mühitinizdən istifadə etməyi tövsiyə edirik.
 
-## What you'll learn
+## Nə öyrənəcəksiniz
 
-At the end of this lesson your application will have support for routing.
+Bu dərsin sonunda tətbiqiniz marşrutlaşdırma dəstəyinə sahib olacaq.
 
-## Conceptual preview of routing
+## Marşrutlaşdırmaya (routing) konseptual baxış
 
-This tutorial introduces routing in Angular. Routing is the ability to navigate from one component in the application to another. In [Single Page Applications (SPA)](guide/routing), only parts of the page are updated to represent the requested view for the user.
+Bu təlimat Angular-da marşrutlaşdırmanı təqdim edir. Marşrutlaşdırma tətbiqdəki bir komponentdən digərinə naviqasiya etmək qabiliyyətidir. [Təksəhifəli tətbiqlərdə (SPA)](guide/routing) istifadəçi üçün tələb olunan görünüşü təmsil etmək üçün səhifənin yalnız hissələri yenilənir.
 
-The [Angular Router](guide/routing) enables users to declare routes and specify which component should be displayed on the screen if that route is requested by the application.
+[Angular Router](guide/routing) istifadəçilərə marşrutları elan etməyə və həmin marşrut tətbiq tərəfindən tələb edildikdə ekranda hansı komponentin göstərilməli olduğunu müəyyən etməyə imkan verir.
 
-In this lesson, you will enable routing in your application to navigate to the details page.
+Bu dərsdə siz təfərrüat (details) səhifəsinə naviqasiya etmək üçün tətbiqinizdə marşrutlaşdırmanı aktivləşdirəcəksiniz.
 
 <docs-workflow>
 
-<docs-step title="Create a default details component ">
-1. From the terminal, enter the following command to create the `Details`:
+<docs-step title="Standart details komponenti yaradın">
+1. Terminaldan `Details` komponentini yaratmaq üçün aşağıdakı əmri daxil edin:
 
     ```shell
     ng generate component details
     ```
 
-    This component will represent the details page that provides more information on a given housing location.
+    Bu komponent verilmiş yaşayış yeri haqqında daha çox məlumat verən təfərrüat səhifəsini təmsil edəcək.
 
 </docs-step>
 
-<docs-step title="Add routing to the application">
-1.  In the `src/app` directory, create a file called `routes.ts`. This file is where we will define the routes in the application.
+<docs-step title="Tətbiqə marşrutlaşdırma əlavə edin">
+1.  `src/app` qovluğunda `routes.ts` adlı fayl yaradın. Bu fayl tətbiqdəki marşrutları müəyyən edəcəyimiz yerdir.
 
-2.  In `main.ts`, make the following updates to enable routing in the application:
-    1.  Import the routes file and the `provideRouter` function:
+2.  `main.ts` faylında tətbiqdə marşrutlaşdırmanı aktivləşdirmək üçün aşağıdakı yeniləmələri edin:
+    1.  Marşrutlar faylını və `provideRouter` funksiyasını import edin:
 
-          <docs-code header="Import routing details in src/main.ts" path="adev/src/content/tutorials/first-app/steps/11-details-page/src/main.ts" visibleLines="[7,8]"/>
+          <docs-code header="src/main.ts daxilində marşrutlaşdırma təfərrüatlarını import edin" path="adev/src/content/tutorials/first-app/steps/11-details-page/src/main.ts" visibleLines="[7,8]"/>
 
-    1.  Update the call to `bootstrapApplication` to include the routing configuration:
+    1.  Marşrutlaşdırma konfiqurasiyasını daxil etmək üçün `bootstrapApplication` çağırışını yeniləyin:
 
-          <docs-code header="Add router configuration in src/main.ts" path="adev/src/content/tutorials/first-app/steps/11-details-page/src/main.ts" visibleLines="[10,17]"/>
+          <docs-code header="src/main.ts daxilində router konfiqurasiyasını əlavə edin" path="adev/src/content/tutorials/first-app/steps/11-details-page/src/main.ts" visibleLines="[10,17]"/>
 
-3.  In `src/app/app.ts`, update the component to use routing:
-    1.  Add file level imports for the router directives `RouterOutlet` and `RouterLink`:
+3.  `src/app/app.ts` faylında marşrutlaşdırmanı istifadə etmək üçün komponenti yeniləyin:
+    1.  `RouterOutlet` və `RouterLink` router direktivləri üçün fayl səviyyəsində importlar əlavə edin:
 
-          <docs-code language="angular-ts" header="Import router directives in src/app/app.ts" path="adev/src/content/tutorials/first-app/steps/11-details-page/src/app/app.ts" visibleLines="[3]"/>
+          <docs-code language="angular-ts" header="src/app/app.ts daxilində router direktivlərini import edin" path="adev/src/content/tutorials/first-app/steps/11-details-page/src/app/app.ts" visibleLines="[3]"/>
 
-    1.  Add `RouterOutlet` and `RouterLink` to the `@Component` metadata imports
+    1.  `RouterOutlet` və `RouterLink`-i `@Component` metadata importlarına əlavə edin.
 
-          <docs-code language="angular-ts" header="Add router directives to component imports in src/app/app.ts" path="adev/src/content/tutorials/first-app/steps/11-details-page/src/app/app.ts" visibleLines="[6]"/>
+          <docs-code language="angular-ts" header="src/app/app.ts daxilində komponent importlarına router direktivlərini əlavə edin" path="adev/src/content/tutorials/first-app/steps/11-details-page/src/app/app.ts" visibleLines="[6]"/>
 
-    1.  In the `template` property, replace the `<app-home />` tag with the `<router-outlet>` directive and add a link back to the home page. Your code should match this code:
+    1.  `template` property-sində `<app-home />` teqini `<router-outlet>` direktivi ilə əvəz edin və ana səhifəyə geri qayıtmaq üçün link əlavə edin. Kodunuz bu koda uyğun olmalıdır:
 
-          <docs-code language="angular-ts" header="Add router-outlet in src/app/app.ts" path="adev/src/content/tutorials/first-app/steps/11-details-page/src/app/app.ts" visibleLines="[7,18]"/>
+          <docs-code language="angular-ts" header="src/app/app.ts daxilində router-outlet əlavə edin" path="adev/src/content/tutorials/first-app/steps/11-details-page/src/app/app.ts" visibleLines="[7,18]"/>
 
 </docs-step>
 
-<docs-step title="Add route to new component">
-In the previous step you removed the reference to the `<app-home>` component in the template. In this step, you will add a new route to that component.
+<docs-step title="Yeni komponentə marşrut əlavə edin">
+Əvvəlki addımda template-dəki `<app-home>` komponentinə olan müraciəti sildiniz. Bu addımda həmin komponent üçün yeni bir marşrut əlavə edəcəksiniz.
 
-1. In `routes.ts`, perform the following updates to create a route.
-   1. Add a file level imports for the `Home`, `Details` and the `Routes` type that you'll use in the route definitions.
+1. `routes.ts` faylında marşrut yaratmaq üçün aşağıdakı yeniləmələri yerinə yetirin.
+   1. `Home`, `Details` komponentləri və marşrut təriflərində istifadə edəcəyiniz `Routes` tipi üçün fayl səviyyəsində importlar əlavə edin.
 
-      <docs-code header="Import components and Routes" path="adev/src/content/tutorials/first-app/steps/11-details-page/src/app/routes.ts" visibleLines="[1,3]"/>
+      <docs-code header="Komponentləri və Routes tipini import edin" path="adev/src/content/tutorials/first-app/steps/11-details-page/src/app/routes.ts" visibleLines="[1,3]"/>
 
-   1. Define a variable called `routeConfig` of type `Routes` and define two routes for the app:
-      <docs-code header="Add routes to the app" path="adev/src/content/tutorials/first-app/steps/11-details-page/src/app/routes.ts" visibleLines="[5,18]"/>
+   1. `Routes` tipində `routeConfig` adlı bir dəyişən təyin edin və tətbiq üçün iki marşrut müəyyən edin:
+      <docs-code header="Tətbiqə marşrutlar əlavə edin" path="adev/src/content/tutorials/first-app/steps/11-details-page/src/app/routes.ts" visibleLines="[5,18]"/>
 
-      The entries in the `routeConfig` array represent the routes in the application. The first entry navigates to the `Home` whenever the url matches `''`. The second entry uses some special formatting that will be revisited in a future lesson.
+      `routeConfig` massivindəki girişlər tətbiqdəki marşrutları təmsil edir. Birinci giriş URL `''` ilə uyğunlaşdıqda `Home` komponentinə naviqasiya edir. İkinci giriş gələcək dərsdə yenidən baxılacaq xüsusi bir formatdan istifadə edir.
 
-1. Save all changes and confirm that the application works in the browser. The application should still display the list of housing locations.
+1. Bütün dəyişiklikləri yadda saxlayın və tətbiqin brauzerdə işlədiyini təsdiqləyin. Tətbiq hələ də yaşayış yerlərinin siyahısını göstərməlidir.
    </docs-step>
 
 </docs-workflow>
 
-SUMMARY: In this lesson, you enabled routing in your app as well as defined new routes. Now your app can support navigation between views. In the next lesson, you will learn to navigate to the "details" page for a given housing location.
+XULASƏ: Bu dərsdə siz tətbiqinizdə marşrutlaşdırmanı aktivləşdirdiniz, həmçinin yeni marşrutlar təyin etdiniz. İndi tətbiqiniz görünüşlər arasında naviqasiyanı dəstəkləyə bilər. Növbəti dərsdə verilmiş yaşayış yeri üçün "details" (təfərrüat) səhifəsinə necə keçəcəyinizi öyrənəcəksiniz.
 
-You are making great progress with your app, well done.
+Tətbiqinizlə bağlı böyük irəliləyiş əldə edirsiniz, afərin.
 
-For more information about the topics covered in this lesson, visit:
+Bu dərsdə əhatə olunmuş mövzular haqqında daha çox məlumat üçün buraya daxil olun:
 
 <docs-pill-row>
-  <docs-pill href="guide/routing" title="Routing in Angular Overview"/>
-  <docs-pill href="guide/routing/common-router-tasks" title="Common Routing Tasks"/>
+  <docs-pill href="guide/routing" title="Angular-da Marşrutlaşdırmaya Ümumi Baxış"/>
+  <docs-pill href="guide/routing/common-router-tasks" title="Ümumi Marşrutlaşdırma Tapşırıqları"/>
 </docs-pill-row>

@@ -1,106 +1,106 @@
-# Adding a form to your Angular app
+# Angular tətbiqinizə forma əlavə etmək
 
-This tutorial lesson demonstrates how to add a form that collects user data to an Angular app.
-This lesson starts with a functional Angular app and shows how to add a form to it.
+Bu təlimat dərsi Angular tətbiqinə istifadəçi məlumatlarını toplayan bir formanın necə əlavə ediləcəyini nümayiş etdirir.
+Bu dərs funksional bir Angular tətbiqi ilə başlayır və ona formanın necə əlavə olunacağını göstərir.
 
-The data that the form collects is sent only to the app's service, which writes it to the browser's console.
-Using a REST API to send and receive the form's data is not covered in this lesson.
+Formanın topladığı məlumatlar yalnız tətbiqin servisinə göndərilir və servis onu brauzerin konsoluna yazır.
+Formanın məlumatlarını göndərmək və qəbul etmək üçün REST API istifadəsi bu dərsdə əhatə olunmur.
 
 <docs-video src="https://www.youtube.com/embed/kWbk-dOJaNQ?si=FYMXGdUiT-qh321h"/>
 
-IMPORTANT: We recommend using your local environment for this step of the tutorial.
+VACİB: Təlimatın bu addımı üçün yerli mühitinizdən istifadə etməyi tövsiyə edirik.
 
-## What you'll learn
+## Nə öyrənəcəksiniz
 
-- Your app has a form into which users can enter data that is sent to your app's service.
-- The service writes the data from the form to the browser's console log.
+- Tətbiqinizin bir forması var ki, orada istifadəçilər tətbiqinizin servisinə göndərilən məlumatları daxil edə bilərlər.
+- Servis formadan gələn məlumatları brauzerin konsol loquna yazır.
 
 <docs-workflow>
 
-<docs-step title="Add a method to send form data">
-This step adds a method to your app's service that receives the form data to send to the data's destination.
-In this example, the method writes the data from the form to the browser's console log.
+<docs-step title="Form məlumatlarını göndərmək üçün bir metod əlavə edin">
+Bu addım tətbiqinizin servisinə form məlumatlarını qəbul edən və onları məlumatın təyinat yerinə göndərən bir metod əlavə edir.
+Bu nümunədə metod formadan gələn məlumatları brauzerin konsol loquna yazır.
 
-In the **Edit** pane of your IDE:
+IDE-nizin **Edit** (Redaktə) bölməsində:
 
-1.  In `src/app/housing.service.ts`, inside the `HousingService` class, paste this method at the bottom of the class definition.
+1.  `src/app/housing.service.ts` faylında `HousingService` class-ının daxilində aşağıdakı metodu class tərifinin sonuna yapışdırın.
 
-       <docs-code header="Submit method in src/app/housing.service.ts" path="adev/src/content/tutorials/first-app/steps/13-search/src/app/housing.service.ts" visibleLines="[120,124]"/>
+       <docs-code header="src/app/housing.service.ts daxilində submit metodu" path="adev/src/content/tutorials/first-app/steps/13-search/src/app/housing.service.ts" visibleLines="[120,124]"/>
 
-1.  Confirm that the app builds without error.
-    Correct any errors before you continue to the next step.
+1.  Tətbiqin xətasız qurulduğunu təsdiqləyin.
+    Növbəti addıma keçməzdən əvvəl hər hansı xətaları düzəldin.
     </docs-step>
 
-<docs-step title="Add the form functions to the details page">
-This step adds the code to the details page that handles the form's interactions.
+<docs-step title="Təfərrüat səhifəsinə forma funksiyalarını əlavə edin">
+Bu addım təfərrüat səhifəsinə formanın qarşılıqlı əlaqələrini idarə edən kodu əlavə edir.
 
-In the **Edit** pane of your IDE, in `src/app/details/details.ts`:
+IDE-nizin **Edit** (Redaktə) bölməsində, `src/app/details/details.ts` faylında:
 
-1.  After the `import` statements at the top of the file, add the following code to import the Angular form classes.
+1.  Faylın yuxarı hissəsindəki `import` bəyanatlarından sonra Angular forma class-larını import etmək üçün aşağıdakı kodu əlavə edin.
 
-      <docs-code header="Forms imports in src/app/details/details.ts" path="adev/src/content/tutorials/first-app/steps/13-search/src/app/details/details.ts" visibleLines="[5]"/>
+       <docs-code header="src/app/details/details.ts daxilində forma import-ları" path="adev/src/content/tutorials/first-app/steps/13-search/src/app/details/details.ts" visibleLines="[5]"/>
 
-1.  In the `Details` decorator metadata, update the `imports` property with the following code:
+1.  `Details` dekorator metadata-sında `imports` property-sini aşağıdakı kodla yeniləyin:
 
-      <docs-code header="imports directive in src/app/details/details.ts" path="adev/src/content/tutorials/first-app/steps/13-search/src/app/details/details.ts" visibleLines="[9]"/>
+       <docs-code header="src/app/details/details.ts daxilində imports direktivi" path="adev/src/content/tutorials/first-app/steps/13-search/src/app/details/details.ts" visibleLines="[9]"/>
 
-1.  In the `Details` class, before the `constructor()` method, add the following code to create the form object.
+1.  `Details` class-ında, `constructor()` metodundan əvvəl form obyektini yaratmaq üçün aşağıdakı kodu əlavə edin.
 
-      <docs-code header="template directive in src/app/details/details.ts" path="adev/src/content/tutorials/first-app/steps/13-search/src/app/details/details.ts" visibleLines="[52,56]"/>
+       <docs-code header="src/app/details/details.ts daxilində template direktivi" path="adev/src/content/tutorials/first-app/steps/13-search/src/app/details/details.ts" visibleLines="[52,56]"/>
 
-    In Angular, `FormGroup` and `FormControl` are types that enable you to build forms. The `FormControl` type can provide a default value and shape the form data. In this example `firstName` is a `string` and the default value is empty string.
+    Angular-da `FormGroup` və `FormControl` forma qurmağa imkan verən tiplərdir. `FormControl` tipi standart dəyər təmin edə və forma məlumatlarını formalaşdıra bilər. Bu nümunədə `firstName` bir `string`-dir və standart dəyəri boş string-dir.
 
-1.  In the `Details` class, after the `constructor()` method, add the following code to handle the **Apply now** click.
+1.  `Details` class-ında, `constructor()` metodundan sonra **Apply now** düyməsinin kliklənməsini idarə etmək üçün aşağıdakı kodu əlavə edin.
 
-      <docs-code header="template directive in src/app/details/details.ts" path="adev/src/content/tutorials/first-app/steps/13-search/src/app/details/details.ts" visibleLines="[62,68]"/>
+       <docs-code header="src/app/details/details.ts daxilində template direktivi" path="adev/src/content/tutorials/first-app/steps/13-search/src/app/details/details.ts" visibleLines="[62,68]"/>
 
-    This button does not exist yet - you will add it in the next step. In the above code, the `FormControl`s may return `null`. This code uses the nullish coalescing operator to default to empty string if the value is `null`.
+    Bu düymə hələ mövcud deyil - onu növbəti addımda əlavə edəcəksiniz. Yuxarıdakı kodda `FormControl`-lar `null` qaytara bilər. Bu kod, əgər dəyər `null` olarsa, boş string-ə keçmək üçün nullish coalescing operatorundan istifadə edir.
 
-1.  Confirm that the app builds without error.
-    Correct any errors before you continue to the next step.
+1.  Tətbiqin xətasız qurulduğunu təsdiqləyin.
+    Növbəti addıma keçməzdən əvvəl hər hansı xətaları düzəldin.
     </docs-step>
 
-<docs-step title="Add the form's markup to the details page">
-This step adds the markup to the details page that displays the form.
+<docs-step title="Təfərrüat səhifəsinə formanın strukturunu əlavə edin">
+Bu addım təfərrüat səhifəsinə formanı göstərən strukturu əlavə edir.
 
-In the **Edit** pane of your IDE, in `src/app/details/details.ts`:
+IDE-nizin **Edit** (Redaktə) bölməsində, `src/app/details/details.ts` faylında:
 
-1. In the `Details` decorator metadata, update the `template` HTML to match the following code to add the form's markup.
+1. `Details` dekorator metadata-sında formanın strukturunu əlavə etmək üçün `template` HTML-i aşağıdakı koda uyğun yeniləyin.
 
-   <docs-code language="angular-ts" header="template directive in src/app/details/details.ts" path="adev/src/content/tutorials/first-app/steps/13-search/src/app/details/details.ts" visibleLines="[10,45]"/>
+   <docs-code language="angular-ts" header="src/app/details/details.ts daxilində template direktivi" path="adev/src/content/tutorials/first-app/steps/13-search/src/app/details/details.ts" visibleLines="[10,45]"/>
 
-   The template now includes an event handler `(submit)="submitApplication()"`. Angular uses parentheses syntax around the event name to define events in the template code. The code on the right hand side of the equals sign is the code that should be executed when this event is triggered. You can bind to browser events and custom events.
+   Template indi `(submit)="submitApplication()"` adlı bir event handler daxil edir. Angular template kodunda event-ləri müəyyən etmək üçün event adının ətrafında mötərizə sintaksisindən istifadə edir. Bərabərlik işarəsinin sağ tərəfindəki kod bu event tətikləndikdə (trigger) icra edilməli olan koddur. Siz brauzer event-lərinə və xüsusi (custom) event-lərə bağlana bilərsiniz.
 
-1. Confirm that the app builds without error.
-   Correct any errors before you continue to the next step.
+1. Tətbiqin xətasız qurulduğunu təsdiqləyin.
+   Növbəti addıma keçməzdən əvvəl hər hansı xətaları düzəldin.
 
-   <img alt="details page with a form for applying to live at this location" src="assets/images/tutorials/first-app/homes-app-lesson-12-step-3.png">
+   <img alt="bu məkanda yaşamaq üçün müraciət forması olan təfərrüat səhifəsi" src="assets/images/tutorials/first-app/homes-app-lesson-12-step-3.png">
 
 </docs-step>
 
-<docs-step title="Test your app's new form">
-This step tests the new form to see that when the form data is submitted to the app, the form data appears in the console log.
+<docs-step title="Tətbiqinizin yeni formasını test edin">
+Bu addım yeni formanın məlumatları tətbiqə göndərildikdə konsol loqunda göründüyünü yoxlamaq üçün test edir.
 
-1. In the **Terminal** pane of your IDE, run `ng serve`, if it isn't already running.
-1. In your browser, open your app at `http://localhost:4200`.
-1. Right click on the app in the browser and from the context menu, choose **Inspect**.
-1. In the developer tools window, choose the **Console** tab.
-   Make sure that the developer tools window is visible for the next steps
-1. In your app:
-   1. Select a housing location and click **Learn more**, to see details about the house.
-   1. In the house's details page, scroll to the bottom to find the new form.
-   1. Enter data into the form's fields - any data is fine.
-   1. Choose **Apply now** to submit the data.
-1. In the developer tools window, review the log output to find your form data.
+1. IDE-nizin **Terminal** bölməsində, əgər artıq işləmirsə, `ng serve` işlədin.
+1. Brauzerinizdə tətbiqinizi `http://localhost:4200` ünvanında açın.
+1. Brauzerdə tətbiqin üzərində sağ klikləyin və kontekst menyusundan **Inspect** (Yoxla) seçin.
+1. Proqramçı alətləri (developer tools) pəncərəsində **Console** nişanını seçin.
+   Növbəti addımlar üçün proqramçı alətləri pəncərəsinin görünən olduğundan əmin olun.
+1. Tətbiqinizdə:
+   1. Bir yaşayış yeri seçin və ev haqqında detalları görmək üçün **Learn more** klikləyin.
+   2. Evin təfərrüat səhifəsində yeni formanı tapmaq üçün aşağı skrol edin.
+   3. Formanın sahələrinə məlumat daxil edin - hər hansı məlumat olar.
+   4. Məlumatları göndərmək üçün **Apply now** seçin.
+1. Proqramçı alətləri pəncərəsində forma məlumatlarınızı tapmaq üçün loq çıxışını nəzərdən keçirin.
    </docs-step>
 
 </docs-workflow>
 
-SUMMARY: In this lesson, you updated your app to add a form using Angular's forms feature, and connect the data captured in the form to a component using an event handler.
+XULASƏ: Bu dərsdə siz Angular-ın formalar xüsusiyyətindən istifadə edərək tətbiqinizə forma əlavə etmək üçün tətbiqinizi yenilədiniz və formada tutulan məlumatları bir event handler vasitəsilə komponentə bağladınız.
 
-For more information about the topics covered in this lesson, visit:
+Bu dərsdə əhatə olunmuş mövzular haqqında daha çox məlumat üçün buraya daxil olun:
 
 <docs-pill-row>
-  <docs-pill href="guide/forms" title="Angular Forms"/>
+  <docs-pill href="guide/forms" title="Angular Formaları"/>
   <docs-pill href="guide/templates/event-listeners" title="Event Handling"/>
 </docs-pill-row>

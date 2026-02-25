@@ -1,49 +1,49 @@
-# Add a property binding to a component’s template
+# Komponentin template-inə property binding əlavə edin
 
-This tutorial lesson demonstrates how to add property binding to a template and use it to pass dynamic data to components.
+Bu təlimat dərsi template-ə property binding əlavə etməyi və ondan komponentlərə dinamik məlumat ötürmək üçün necə istifadə etməyi nümayiş etdirir.
 
 <docs-video src="https://www.youtube.com/embed/eM3zi_n7lNs?si=AsiczpWnMz5HhJqB&amp;start=599"/>
 
-## What you'll learn
+## Nə öyrənəcəksiniz
 
-- Your app has data bindings in the `Home` template.
-- Your app sends data from the `Home` to the `HousingLocation`.
+- Tətbiqinizin `Home` template-ində məlumat binding-ləri var.
+- Tətbiqiniz `Home` komponentindən `HousingLocation` komponentinə məlumat göndərir.
 
-## Conceptual preview of Inputs
+## Girişlərə (Inputs) konseptual baxış
 
-In this lesson, you'll continue the process of sharing data from the parent component to the child component by binding data to those properties in the template using property binding.
+Bu dərsdə siz template-də property binding-dən istifadə edərək məlumatları valideyn komponentdən övlad komponentə paylaşmaq prosesini davam etdirəcəksiniz.
 
-Property binding enables you to connect a variable to an `Input` in an Angular template. The data is then dynamically bound to the `Input`.
+Property binding dəyişəni Angular template-indəki `Input`-a qoşmağa imkan verir. Məlumatlar daha sonra dinamik olaraq `Input`-a bağlanır (bound).
 
-For a more in depth explanation, please refer to the [Property binding](/guide/templates/binding#css-class-and-style-property-bindings) guide.
+Daha ətraflı izah üçün zəhmət olmasa [Property binding](/guide/templates/binding#css-class-and-style-property-bindings) bələdçisinə müraciət edin.
 
 <docs-workflow>
 
-<docs-step title="Update the `Home` template">
-This step adds property binding to the `<app-housing-location>` tag.
+<docs-step title="`Home` template-ini yeniləyin">
+Bu addım `<app-housing-location>` teqinə property binding əlavə edir.
 
-In the code editor:
+Kod redaktorunda:
 
-1.  Navigate to `src/app/home/home.ts`
-1.  In the template property of the `@Component` decorator, update the code to match the code below:
-    <docs-code language="angular-ts" header="Add housingLocation property binding" path="adev/src/content/tutorials/first-app/steps/07-dynamic-template-values/src/app/home/home.ts" visibleLines="[15,17]"/>
+1.  `src/app/home/home.ts` ünvanına keçin.
+1.  `@Component` dekoratorunun template property-sində kodu aşağıdakı koda uyğun yeniləyin:
+    <docs-code language="angular-ts" header="housingLocation property binding-i əlavə edin" path="adev/src/content/tutorials/first-app/steps/07-dynamic-template-values/src/app/home/home.ts" visibleLines="[15,17]"/>
 
-    When adding a property binding to a component tag, we use the `[attribute] = "value"` syntax to notify Angular that the assigned value should be treated as a property from the component class and not a string value.
+    Komponent teqinə property binding əlavə edərkən biz Angular-a təyin edilmiş dəyərin string dəyəri deyil, komponent class-ından olan bir property kimi qəbul edilməli olduğunu bildirmək üçün `[attribute] = "value"` sintaksisindən istifadə edirik.
 
-    The value on the right-hand side is the name of the property from the `Home`.
+    Sağ tərəfdəki dəyər `Home` komponentindəki property-nin adıdır.
 
 </docs-step>
 
-<docs-step title="Confirm the code still works">
-1.  Save your changes and confirm the app does not have any errors.
-1.  Correct any errors before you continue to the next step.
+<docs-step title="Kodun hələ də işlədiyini təsdiqləyin">
+1.  Dəyişikliklərinizi yadda saxlayın və tətbiqdə xəta olmadığını təsdiqləyin.
+1.  Növbəti addıma keçməzdən əvvəl hər hansı xətaları düzəldin.
 </docs-step>
 
 </docs-workflow>
 
-SUMMARY: In this lesson, you added a new property binding and passed in a reference to a class property. Now, the `HousingLocation` has access to data that it can use to customize the component's display.
+XULASƏ: Bu dərsdə siz yeni bir property binding əlavə etdiniz və class property-sinə müraciət ötürdünüz. İndi `HousingLocation` komponenti komponentin görünüşünü fərdiləşdirmək üçün istifadə edə biləcəyi məlumatlara daxil ola bilir.
 
-For more information about the topics covered in this lesson, visit:
+Bu dərsdə əhatə olunmuş mövzular haqqında daha çox məlumat üçün buraya daxil olun:
 
 <docs-pill-row>
   <docs-pill href="/guide/templates/binding#css-class-and-style-property-bindings" title="Property binding"/>

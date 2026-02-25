@@ -1,26 +1,26 @@
-# Using signals with services
+# Servislərlə siqnallardan istifadə etmək
 
-Now that you've learned [two-way binding with model signals](/tutorials/signals/6-two-way-binding-with-model-signals), let's explore how to use signals with Angular services. Services are perfect for sharing reactive state across multiple components, and signals make this even more powerful by providing automatic change detection and clean reactive patterns.
+Artıq [model siqnalları ilə iki tərəfli binding-i](/tutorials/signals/6-two-way-binding-with-model-signals) öyrəndiniz, gəlin siqnallardan Angular servisləri ilə necə istifadə olunacağını araşdıraq. Servislər reaktiv vəziyyəti bir neçə komponent arasında paylaşmaq üçün mükəmməldir və siqnallar avtomatik dəyişiklik aşkarlanması (change detection) və təmiz reaktiv naxışlar (patterns) təmin edərək bunu daha da güclü edir.
 
-In this activity, you'll learn how to create a cart store with signals that allow the cart display component to react to state changes automatically.
+Bu fəaliyyətdə siz səbət (cart) göstəricisi komponentinin vəziyyət dəyişikliklərinə avtomatik reaksiya verməsinə imkan verən siqnallı bir səbət store-u yaratmağı öyrənəcəksiniz.
 
 <hr />
 
 <docs-workflow>
 
-<docs-step title="Add cart store signals">
-Add readonly and computed signals to make the cart state reactive in `cart-store.ts`.
+<docs-step title="Səbət store siqnallarını əlavə edin">
+`cart-store.ts` faylında səbət vəziyyətini reaktiv etmək üçün readonly və computed siqnallar əlavə edin.
 
 ```ts
-// Add the computed import
+// Computed importunu əlavə edin
 import {Injectable, signal, computed} from '@angular/core';
 
-// Then add these signals to the class:
+// Sonra class-a bu siqnalları əlavə edin:
 
-// Readonly signals
+// Readonly siqnallar
 readonly cartItems = this.items.asReadonly();
 
-// Computed signals
+// Computed siqnallar
 readonly totalQuantity = computed(() => {
   return this.items().reduce((sum, item) => sum + item.quantity, 0);
 });
@@ -30,11 +30,11 @@ readonly totalPrice = computed(() => {
 });
 ```
 
-These signals allow components to reactively access cart data and computed totals. The `asReadonly()` method prevents external code from modifying the cart items directly, while `computed()` creates derived state that automatically updates when the source signal changes.
+Bu siqnallar komponentlərin reaktiv şəkildə səbət məlumatlarına və hesablanmış cəmlərə daxil olmasına imkan verir. `asReadonly()` metodu xarici kodun səbət elementlərini birbaşa dəyişdirməsinin qarşısını alır, `computed()` isə mənbə siqnalı dəyişdikdə avtomatik yenilənən törəmə vəziyyətlər yaradır.
 </docs-step>
 
-<docs-step title="Complete the quantity update methods">
-The cart display component in `cart-display.ts` already uses the cart store signals in its template. Complete the quantity update methods to modify cart items:
+<docs-step title="Miqdar yeniləmə metodlarını tamamlayın">
+`cart-display.ts` faylındakı səbət sərgi komponenti artıq template-də səbət store siqnallarından istifadə edir. Səbət elementlərini dəyişdirmək üçün miqdar yeniləmə metodlarını tamamlayın:
 
 ```ts
 increaseQuantity(id: string) {
@@ -54,11 +54,11 @@ decreaseQuantity(id: string) {
 }
 ```
 
-These methods read the current cart state using `cartItems()` and update quantities through the store's methods. The UI automatically updates when the signals change!
+Bu metodlar `cartItems()` istifadə edərək cari səbət vəziyyətini oxuyur və store metodları vasitəsilə miqdarları yeniləyir. Siqnallar dəyişdikdə UI avtomatik yenilənir!
 </docs-step>
 
-<docs-step title="Update the main app component">
-Update the main app component in `app.ts` to use the cart service and display the cart component.
+<docs-step title="Əsas app komponentini yeniləyin">
+Səbət servisindən istifadə etmək və səbət komponentini göstərmək üçün `app.ts` faylındakı əsas komponenti yeniləyin.
 
 ```angular-ts
 import {Component, inject} from '@angular/core';
@@ -71,9 +71,9 @@ import {CartDisplay} from './cart-display';
   template: `
     <div class="shopping-app">
       <header>
-        <h1>Signals with Services Demo</h1>
+        <h1>Servislərlə Siqnalların Demosu</h1>
         <div class="cart-badge">
-          Cart: {{ cartStore.totalQuantity() }} items (\${{ cartStore.totalPrice() }})
+          Səbət: {{ cartStore.totalQuantity() }} element (\${{ cartStore.totalPrice() }})
         </div>
       </header>
 
@@ -93,11 +93,11 @@ export class App {
 
 </docs-workflow>
 
-Excellent! You've now learned how to use signals with services. Key concepts to remember:
+Mükəmməl! Siz artıq siqnallardan servislərlə necə istifadə edəcəyinizi öyrəndiniz. Yadda saxlanmalı əsas konsepsiyalar:
 
-- **Service-level signals**: Services can use signals to manage reactive state
-- **Dependency injection**: Use `inject()` to access services with signals in components
-- **Computed signals in services**: Create derived state that updates automatically
-- **Readonly signals**: Expose read-only versions of signals to prevent external mutations
+- **Servis səviyyəli siqnallar**: Servislər reaktiv vəziyyəti idarə etmək üçün siqnallardan istifadə edə bilər
+- **Aslılıq inyeksiyası (Dependency injection)**: Komponentlərdə siqnallı servislərə daxil olmaq üçün `inject()` istifadə edin
+- **Servislərdə computed siqnallar**: Avtomatik yenilənən törəmə vəziyyətlər yaradın
+- **Readonly siqnallar**: Xarici mutasiyaların qarşısını almaq üçün siqnalların yalnız oxunabilir versiyalarını təqdim edin
 
-In the next lesson, you'll learn about [how to use signals with directives](/tutorials/signals/8-using-signals-with-directives)!
+Növbəti dərsdə, [direktivlərlə siqnallardan istifadə etməyi](/tutorials/signals/8-using-signals-with-directives) öyrənəcəksiniz!

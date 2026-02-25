@@ -1,15 +1,15 @@
-# Using signals with directives
+# Direktivlərlə siqnallardan istifadə etmək
 
-Now that you've learned [using signals with services](/tutorials/signals/7-using-signals-with-services), let's explore how directives use signals. **The great news: signals work exactly the same in directives as they do in components!** The main difference is that since directives don't have templates, you'll primarily use signals in host bindings to reactively update the host element.
+Artıq [servislərlə siqnallardan istifadə etməyi](/tutorials/signals/7-using-signals-with-services) öyrəndiniz, gəlin direktivlərin siqnallardan necə istifadə etdiyini araşdıraq. **Yaxşı xəbər budur ki: siqnallar direktivlərdə tamamilə komponentlərdə olduğu kimi işləyir!** Əsas fərq odur ki, direktivlərin template-ləri olmadığı üçün siz siqnallardan əsasən host elementini reaktiv şəkildə yeniləmək üçün host binding-lərində (host bindings) istifadə edəcəksiniz.
 
-In this activity, you'll build a highlight directive that demonstrates how signals create reactive behavior in directives.
+Bu fəaliyyətdə siz siqnalların direktivlərdə necə reaktiv davranış yaratdığını nümayiş etdirən işıqlandırma (highlight) direktivi quracaqsınız.
 
 <hr />
 
 <docs-workflow>
 
-<docs-step title="Set up signals just like in a component">
-Import the signal functions and create your reactive state. This works exactly the same as in components:
+<docs-step title="Siqnalları komponentdəki kimi qurun">
+Siqnal funksiyalarını import edin və reaktiv vəziyyətinizi yaradın. Bu, komponentlərdə olduğu kimi eyni şəkildə işləyir:
 
 ```ts
 import {Directive, input, signal, computed} from '@angular/core';
@@ -18,14 +18,14 @@ import {Directive, input, signal, computed} from '@angular/core';
   selector: '[highlight]',
 })
 export class HighlightDirective {
-  // Signal inputs - same as components!
+  // Siqnal input-ları - komponentlərdəki kimi!
   color = input<string>('yellow');
   intensity = input<number>(0.3);
 
-  // Internal state - same as components!
+  // Daxili vəziyyət (state) - komponentlərdəki kimi!
   private isHovered = signal(false);
 
-  // Computed signals - same as components!
+  // Computed siqnallar - komponentlərdəki kimi!
   backgroundStyle = computed(() => {
     const baseColor = this.color();
     const alpha = this.isHovered() ? this.intensity() : this.intensity() * 0.5;
@@ -42,11 +42,11 @@ export class HighlightDirective {
 }
 ```
 
-Notice how this is identical to component patterns - the only difference is we're in a `@Directive` instead of `@Component`.
+Bunun komponent naxışları ilə eyni olduğuna diqqət yetirin — tək fərq bizim `@Component` yerinə `@Directive` daxilində olmağımızdır.
 </docs-step>
 
-<docs-step title="Use signals in host bindings">
-Since directives don't have templates, you'll use signals in **host bindings** to reactively update the host element. Add the `host` configuration and event handlers:
+<docs-step title="Siqnalları host binding-lərində istifadə edin">
+Direktivlərin template-ləri olmadığı üçün siz host elementini reaktiv şəkildə yeniləmək üçün siqnallardan **host binding-lərində** istifadə edəcəksiniz. `host` konfiqurasiyasını və hadisə emalçılarını (event handlers) əlavə edin:
 
 ```ts
 @Directive({
@@ -58,7 +58,7 @@ Since directives don't have templates, you'll use signals in **host bindings** t
   },
 })
 export class HighlightDirective {
-  // ... signals from previous step ...
+  // ... əvvəlki addımdakı siqnallar ...
 
   onMouseEnter() {
     this.isHovered.set(true);
@@ -70,35 +70,35 @@ export class HighlightDirective {
 }
 ```
 
-The host bindings automatically re-evaluate when the signals change - just like template bindings in components! When `isHovered` changes, the `backgroundStyle` computed signal recalculates, and the host binding updates the element's style.
+Host binding-ləri siqnallar dəyişdikdə avtomatik olaraq yenidən qiymətləndirilir — eynilə komponentlərdəki template binding-ləri kimi! `isHovered` dəyişdikdə, `backgroundStyle` computed siqnalı yenidən hesablanır və host binding elementin stilini yeniləyir.
 </docs-step>
 
-<docs-step title="Use the directive in your template">
-Update the app template to demonstrate the reactive directive:
+<docs-step title="Direktivi template-inizdə istifadə edin">
+Reaktiv direktivi nümayiş etdirmək üçün app template-ini yeniləyin:
 
 ```angular-html
 template: `
 <div>
-  <h1>Directive with Signals</h1>
+  <h1>Siqnallı Direktiv</h1>
 
-  <div highlight color="yellow" [intensity]="0.2">Hover me - Yellow highlight</div>
+  <div highlight color="yellow" [intensity]="0.2">Üstümə gəl - Sarı highlight</div>
 
-  <div highlight color="blue" [intensity]="0.4">Hover me - Blue highlight</div>
+  <div highlight color="blue" [intensity]="0.4">Üstümə gəl - Mavi highlight</div>
 
-  <div highlight color="green" [intensity]="0.6">Hover me - Green highlight</div>
+  <div highlight color="green" [intensity]="0.6">Üstümə gəl - Yaşıl highlight</div>
 </div>
 `,
 ```
 
-The directive automatically applies reactive highlighting based on the signal inputs!
+Direktiv siqnal input-larına əsasən reaktiv işıqlandırmanı avtomatik tətbiq edir!
 </docs-step>
 
 </docs-workflow>
 
-Perfect! You've now seen how signals work with directives. Some key takeaways from this lesson are:
+Mükəmməl! Siz siqnalların direktivlərlə necə işlədiyini gördünüz. Bu dərsin bəzi əsas nəticələri:
 
-- **Signals are universal** - All signal APIs (`input()`, `signal()`, `computed()`, `effect()`) work the same in both directives and components
-- **Host bindings are the primary use case** - Since directives don't have templates, you use signals in host bindings to reactively modify the host element
-- **Same reactive patterns** - Signal updates trigger automatic re-evaluation of computed signals and host bindings, just like in component templates
+- **Siqnallar universaldır** - Bütün siqnal API-ləri (`input()`, `signal()`, `computed()`, `effect()`) həm direktivlərdə, həm də komponentlərdə eyni şəkildə işləyir
+- **Host binding-ləri əsas istifadə sahəsidir** - Direktivlərin template-ləri olmadığı üçün host elementini reaktiv şəkildə dəyişdirmək üçün siqnalları host binding-lərində istifadə edirsiniz
+- **Eyni reaktiv naxışlar** - Siqnal yeniləmələri komponent template-lərində olduğu kimi computed siqnalların və host binding-lərin avtomatik yenidən qiymətləndirilməsini tətikləyir
 
-In the next lesson, you'll [learn how to query child elements with signal queries](/tutorials/signals/9-query-child-elements-with-signal-queries)!
+Növbəti dərsdə, [siqnal sorğuları (signal queries) ilə övlad elementləri necə sorğulayacağınızı](/tutorials/signals/9-query-child-elements-with-signal-queries) öyrənəcəksiniz!

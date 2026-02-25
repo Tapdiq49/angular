@@ -1,101 +1,98 @@
-# Angular embedded docs tutorial
+# Angular quraşdırılmış (embedded) sənəd təlimatları
 
-- [Tutorial files](#tutorial-files)
-- [Tutorials directory structure](#tutorials-directory-structure)
-- [Reserved tutorials directories](#reserved-tutorials-directories)
+- [Təlimat faylları](#tutorial-files)
+- [Təlimatların qovluq strukturu](#tutorials-directory-structure)
+- [Rezerv olunmuş təlimat qovluqları](#reserved-tutorials-directories)
 
-## Tutorial files
+## Təlimat faylları {#tutorial-files}
 
-The tutorials content consists of the tutorial content, source code and configuration.
+Təlimatların məzmunu təlimat mətnindən, mənbə kodundan və konfiqurasiyadan ibarətdir.
 
-### Content: `README.md`
+### Məzmun: `README.md`
 
-The tutorial content must be located in a `README.md` file in the tutorial directory.
+Təlimatın məzmunu təlimat qovluğundakı `README.md` faylında yerləşməlidir.
 
-Taking the `learn-angular` tutorial as an example, see: [`src/content/tutorials/learn-angular/intro/README.md`](/src/content/tutorials/learn-angular/intro/README.md)
+`learn-angular` təlimatını nümunə götürdükdə, baxın: [`src/content/tutorials/learn-angular/intro/README.md`](/src/content/tutorials/learn-angular/intro/README.md)
 
-### Configuration: `config.json`
+### Konfiqurasiya: `config.json`
 
-Each tutorial is defined by a `config.json`, which can have the following options:
+Hər bir təlimat `config.json` faylı ilə müəyyən edilir və aşağıdakı seçimlərə malik ola bilər:
 
-- `title`: defines the tutorial title used in the tutorial nav
-- `nextTutorial`: the path of the next tutorial (only in `intro/` step)
-- `src`: the relative path to an external directory, which defines the tutorial source code used in the embedded editor
-- `answerSrc`: the relative path to an external directory, which defines the tutorial answer used in the embedded editor
-- `openFiles`: an array of files to be open in the editor
-- `type`: the type denotes how the tutorial will be presented and which components are necessary for that tutorial
-  - `cli`: a tutorial with a `cli` type will contain only the content and an interactive terminal with the Angular CLI
-  - `editor`: used for the complete embedded editor, containing the code editor, the preview, an interactive terminal and the console with outputs from the dev server
-  - `local`: disables the embedded editor and shows only the content
-  - `editor-only`: a special config used for the tutorial playground and the homepage playground, which disables the content and shows only the embedded editor
+- `title`: təlimatın naviqasiyasında istifadə olunan təlimat başlığını müəyyən edir
+- `nextTutorial`: növbəti təlimatın yolu (yalnız `intro/` addımında)
+- `src`: daxili redaktorda (embedded editor) istifadə olunan təlimat mənbə kodunu müəyyən edən xarici qovluğa nisbi yol
+- `answerSrc`: daxili redaktorda istifadə olunan təlimat cavabını müəyyən edən xarici qovluğa nisbi yol
+- `openFiles`: redaktorda açılacaq faylların siyahısı (massiv)
+- `type`: təlimatın necə təqdim olunacağını və həmin təlimat üçün hansı komponentlərin lazım olduğunu bildirir
+  - `cli`: `cli` tipli təlimat yalnız məzmunu və Angular CLI ilə interaktiv terminalı ehtiva edəcək
+  - `editor`: tam quraşdırılmış redaktor üçün istifadə olunur; kod redaktoru, önizləmə (preview), interaktiv terminal və proqramçı serverindən çıxışları olan konsolu ehtiva edir
+  - `local`: daxili redaktoru deaktiv edir və yalnız məzmunu göstərir
+  - `editor-only`: təlimat Playground və ana səhifə Playground üçün istifadə olunan xüsusi konfiqurasiyadır; məzmunu deaktiv edir və yalnız daxili redaktoru göstərir
 
-### Source code
+### Mənbə kodu
 
-The tutorial source code includes every file in the tutorial directory, except `README.md` and `config.json`.
+Təlimatın mənbə kodu `README.md` və `config.json` istisna olmaqla, təlimat qovluğundakı hər bir faylı əhatə edir.
 
-The tutorial source code has precedence over the [`common`](#common) project file, so if a file exists in both [`common`](#common) and in the tutorial directory, containing the same relative path, the tutorial file will override the [`common`](#common) file.
+Təlimatın mənbə kodu [`common`](#common) layihə faylından üstündür, buna görə də bir fayl həm [`common`](#common) qovluğunda, həm də təlimat qovluğunda eyni nisbi yolla mövcuddursa, təlimat faylı [`common`](#common) faylını əvəzləyəcək (override).
 
-## Tutorials directory structure
+## Təlimatların qovluq strukturu {#tutorials-directory-structure}
 
-A tutorial is composed of an introduction and steps. Both the intro and each step contains its own content, config and source code.
+Təlimat giriş (introduction) və addımlardan (steps) ibarətdir. Həm giriş, həm də hər bir addım öz məzmununa, konfiqurasiyasına və mənbə koduna malikdir.
 
-Taking the `learn-angular` tutorial as an example:
+`learn-angular` təlimatını nümunə götürək:
 
-### Introduction
+### Giriş
 
 [`src/content/tutorials/learn-angular/intro`](/src/content/tutorials/learn-angular/intro)
 
-is the introduction of the tutorial, which will live in the `/tutorials/learn-angular` route.
+təlimatın girişi hissəsidir və `/tutorials/learn-angular` marşrutunda (route) yerləşəcək.
 
-### Steps
+### Addımlar
 
-[`src/content/tutorials/learn-angular/steps`](/src/content/tutorials/learn-angular/steps) is the directory that contains the tutorial steps.
+[`src/content/tutorials/learn-angular/steps`](/src/content/tutorials/learn-angular/steps) təlimat addımlarını ehtiva edən qovluqdur.
 
-These are some examples from the `learn-angular` tutorial:
+Bunlar `learn-angular` təlimatından bəzi nümunələrdir:
 
-- [`learn-angular/steps/1-components-in-angular`](/src/content/tutorials/learn-angular/steps/1-components-in-angular): The route will be `/tutorials/learn-angular/components-in-angular`
-- [`learn-angular/steps/2-updating-the-component-class`](/src/content/tutorials/learn-angular/steps/2-updating-the-component-class): The route will be `/tutorials/learn-angular/updating-the-component-class`
+- [`learn-angular/steps/1-components-in-angular`](/src/content/tutorials/learn-angular/steps/1-components-in-angular): Marşrut `/tutorials/learn-angular/components-in-angular` olacaq
+- [`learn-angular/steps/2-updating-the-component-class`](/src/content/tutorials/learn-angular/steps/2-updating-the-component-class): Marşrut `/tutorials/learn-angular/updating-the-component-class` olacaq
 
-Each step directory must start with a number followed by a hyphen, then followed by the step pathname.
+Hər bir addım qovluğu bir rəqəmlə başlamalı, ardından defis, sonra isə addım yolu adı (pathname) gəlməlidir.
 
-- The number denotes the step, defining which will be the previous and next step within a tutorial.
-- The hyphen is a delimiter :).
-- The pathname taken from the directory name defines the step URL.
+- Rəqəm addımı bildirir və təlimat daxilində hansı addımın əvvəlki və növbəti olacağını müəyyən edir.
+- Defis bir ayırıcıdır :).
+- Qovluq adından götürülən yol adı (pathname) addımın URL-ni müəyyən edir.
 
-## Reserved tutorials directories
+## Rezerv olunmuş təlimat qovluqları {#reserved-tutorials-directories}
 
-### `common`
+### `common` {#common}
 
-The common project is a complete Angular project that is reused by all tutorials. It contains all
-dependencies(`package.json`, `package-lock.json`), project configuration(`tsconfig.json`, `angular.json`) and main files to bootstrap the application(`index.html`, `main.ts`, `app.module.ts`).
+Ümumi (common) layihə bütün təlimatlar tərəfindən təkrar istifadə olunan tam bir Angular layihəsidir. O, bütün aslılıqları (`package.json`, `package-lock.json`), layihə konfiqurasiyasını (`tsconfig.json`, `angular.json`) və tətbiqi işə salmaq üçün əsas faylları (`index.html`, `main.ts`, `app.module.ts`) ehtiva edir.
 
-A common project is used for a variety of reasons:
+Ümumi layihə bir neçə səbəbdən istifadə olunur:
 
-- Avoid duplication of files in tutorials.
-- Optimize in-app performance by requesting the common project files and dependencies only once, benefiting from the
-  browser cache on subsequent requests.
-- Require a single `npm install` for all tutorials, therefore reducing the time to interactive with the tutorial
-  when navigating different tutorials and steps.
-- Provide a consistent environment for all tutorials.
-- Allow each tutorial to focus on the specific source code for what's being taught and not on the project setup.
+- Təlimatlarda faylların təkrarlanmasının qarşısını almaq.
+- Ümumi layihə fayllarını və aslılıqları yalnız bir dəfə sorğu etməklə tətbiqdaxili performansı optimallaşdırmaq; sonrakı sorğularda brauzer keşindən yararlanmaq.
+- Bütün təlimatlar üçün tək bir `npm install` tələb etmək, beləliklə müxtəlif təlimatlar və addımlar arasında naviqasiya edərkən interaktivliyə qədər olan vaxtı (time to interactive) azaltmaq.
+- Bütün təlimatlar üçün ardıcıl mühit təmin etmək.
+- Hər bir təlimatın layihə quraşdırılmasına deyil, öyrədilən sahəyə aid xüsusi mənbə koduna fokuslanmasına imkan vermək.
 
-See [`src/content/tutorials/common`](/src/content/tutorials/common)
+Baxın: [`src/content/tutorials/common`](/src/content/tutorials/common)
 
 ### `playground`
 
-The playground contains the source code for the tutorials playground at `/playground`. It should not contain any content.
+Playground `/playground` ünvanındakı təlimat meydançası üçün mənbə kodunu ehtiva edir. O, hər hansı bir məzmun daxil etməməlidir.
 
-See [`src/content/tutorials/playground`](/src/content/tutorials/playground)
+Baxın: [`src/content/tutorials/playground`](/src/content/tutorials/playground)
 
 ### `homepage`
 
-The homepage contains the source code for the homepage playground. It should not contain any content.
+Homepage ana səhifə playground-u üçün mənbə kodunu ehtiva edir. O, hər hansı bir məzmun daxil etməməlidir.
 
-See [`src/content/tutorials/homepage`](/src/content/tutorials/homepage)
+Baxın: [`src/content/tutorials/homepage`](/src/content/tutorials/homepage)
 
-## Update dependencies
+## Aslılıqların yenilənməsi
 
-To update the dependencies of all tutorials you can run the following script
+Bütün təlimatların aslılıqlarını yeniləmək üçün aşağıdakı skripti işlədə bilərsiniz:
 
 ```bash
 rm ./adev/src/content/tutorials/homepage/package-lock.json  ./adev/src/content/tutorials/first-app/common/package-lock.json ./adev/src/content/tutorials/learn-angular/common/package-lock.json ./adev/src/content/tutorials/playground/common/package-lock.json ./adev/src/content/tutorials/deferrable-views/common/package-lock.json

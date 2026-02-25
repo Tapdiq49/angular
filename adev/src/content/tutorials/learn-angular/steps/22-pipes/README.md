@@ -1,14 +1,14 @@
-# Pipes
+# Pipe-lar
 
-Pipes are functions that are used to transform data in templates. In general, pipes are "pure" functions that don't cause side effects. Angular has a number of helpful built-in pipes you can import and use in your components. You can also create a custom pipe.
+Pipe-lar template-lərdə məlumatları çevirmək üçün istifadə olunan funksiyalardır. Ümumiyyətlə, pipe-lar yan təsirlərə (side effects) səbəb olmayan "pure" (saf) funksiyalardır. Angular, komponentlərinizdə import edib istifadə edə biləcəyiniz bir sıra faydalı daxili pipe-lara malikdir. Siz həmçinin xüsusi (custom) pipe da yarada bilərsiniz.
 
-NOTE: Learn more about [pipes in the in-depth guide](/guide/templates/pipes).
+QEYD: [Ətraflı bələdçidə pipe-lar](/guide/templates/pipes) haqqında daha çox öyrənin.
 
-In this activity, you will import a pipe and use it in the template.
+Bu fəaliyyətdə siz bir pipe-ı import edib template-də istifadə edəcəksiniz.
 
 <hr>
 
-To use a pipe in a template include it in an interpolated expression. Check out this example:
+Template-də pipe istifadə etmək üçün onu interpolation ifadəsinə daxil edin. Bu nümunəyə baxın:
 
 ```angular-ts {highlight:[1,5,6]}
 import {UpperCasePipe} from '@angular/common';
@@ -23,12 +23,12 @@ export class App {
 }
 ```
 
-Now, it's your turn to give this a try:
+İndi isə sizin növbənizdir:
 
 <docs-workflow>
 
-<docs-step title="Import the `LowerCase` pipe">
-First, update `app.ts` by adding the file level import for `LowerCasePipe` from `@angular/common`.
+<docs-step title="`LowerCase` pipe-ını import edin">
+İlk olaraq, `@angular/common` paketindən `LowerCasePipe` üçün fayl səviyyəsində import əlavə edərək `app.ts` faylını yeniləyin.
 
 ```ts
 import {LowerCasePipe} from '@angular/common';
@@ -36,8 +36,8 @@ import {LowerCasePipe} from '@angular/common';
 
 </docs-step>
 
-<docs-step title="Add the pipe to the template imports">
-Next, update `@Component()` decorator `imports` to include a reference to `LowerCasePipe`
+<docs-step title="Pipe-ı template import-larına əlavə edin">
+Növbəti addım olaraq, `@Component()` dekoratorunun `imports` massivinə `LowerCasePipe`-ı əlavə edin.
 
 ```ts {highlight:[3]}
 @Component({
@@ -48,8 +48,8 @@ Next, update `@Component()` decorator `imports` to include a reference to `Lower
 
 </docs-step>
 
-<docs-step title="Add the pipe to the template">
-Finally, in `app.ts` update the template to include the `lowercase` pipe:
+<docs-step title="Pipe-ı template-ə əlavə edin">
+Nəhayət, `app.ts` faylında template-i `lowercase` pipe-ını daxil edəcək şəkildə yeniləyin:
 
 ```angular-html
 template: `{{ username | lowercase }}`
@@ -59,6 +59,6 @@ template: `{{ username | lowercase }}`
 
 </docs-workflow>
 
-Pipes can also accept parameters which can be used to configure their output. Find out more in the next activity.
+Pipe-lar həmçinin çıxışı konfiqurasiya etmək üçün istifadə olunan parametrləri qəbul edə bilər. Növbəti fəaliyyətdə daha çox məlumat əldə edin.
 
-P.S. you are doing great ⭐️
+P.S. Əla gedirsiniz ⭐️

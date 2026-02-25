@@ -1,86 +1,86 @@
-# Build your first Angular app
+# İlk Angular tətbiqinizi qurun
 
-This tutorial consists of lessons that introduce the Angular concepts you need to know to start coding in Angular.
+Bu təlimat Angular-da kod yazmağa başlamaq üçün bilməli olduğunuz Angular konsepsiyalarını təqdim edən dərslərdən ibarətdir.
 
-You can do as many or as few as you would like and you can do them in any order.
+İstədiyiniz qədər və ya az dərs edə bilərsiniz və onları hər hansı bir ardıcıllıqla yerinə yetirə bilərsiniz.
 
-HELPFUL: Prefer video? We also have a full [YouTube course](https://youtube.com/playlist?list=PL1w1q3fL4pmj9k1FrJ3Pe91EPub2_h4jF&si=1q9889ulHp8VZ0e7) for this tutorial!
+FAYDALI: Videoya üstünlük verirsiniz? Bu təlimat üçün tam [YouTube kursumuz](https://youtube.com/playlist?list=PL1w1q3fL4pmj9k1FrJ3Pe91EPub2_h4jF&si=1q9889ulHp8VZ0e7) da var!
 
 <docs-video src="https://www.youtube.com/embed/xAT0lHYhHMY?si=cKUW_MGn3MesFT7o"/>
 
-## Before you start
+## Başlamazdan əvvəl
 
-For the best experience with this tutorial, review these requirements to make sure you have what you need to be successful.
+Bu təlimatdan ən yaxşı təcrübəni əldə etmək üçün, uğurlu olmaq üçün lazım olan her şeyə sahib olduğunuzdan əmin olmaq üçün bu tələbləri nəzərdən keçirin.
 
-### Your experience
+### Təcrübəniz
 
-The lessons in this tutorial assume that you have experience with the following:
+Bu təlimatdakı dərslər aşağıdakılar üzrə təcrübənizin olduğunu fərz edir:
 
-1. Created an HTML web page by editing the HTML directly.
-1. Programmed web site content in JavaScript.
-1. Read Cascading Style Sheet (CSS) content and understand how selectors are used.
-1. Used command-line instructions to perform tasks on your computer.
+1. HTML-i birbaşa redaktə etməklə HTML veb səhifəsi yaratmaq.
+1. JavaScript-də veb sayt məzmununu proqramlaşdırmaq.
+1. Cascading Style Sheet (CSS) məzmununu oxumaq və selektorların necə istifadə edildiyini başa düşmək.
+1. Kompüterinizdə tapşırıqları yerinə yetirmək üçün əmr satırı (command-line) təlimatlarından istifadə etmək.
 
-### Your equipment
+### Avadanlığınız
 
-These lessons can be completed using a local installation of the Angular tools or in our embedded editor. Local Angular development can be completed on Windows, MacOS or Linux based systems.
+Bu dərslər Angular alətlərinin yerli quraşdırılması və ya quraşdırılmış redaktorumuz vasitəsilə tamamlana bilər. Yerli Angular inkişafı Windows, MacOS və ya Linux əsaslı sistemlərdə həyata keçirilə bilər.
 
-NOTE: Look for alerts like this one, which call out steps that may only be for your local editor.
+QEYD: Yalnız yerli redaktorunuz üçün ola biləcək addımları göstərən bu kimi xəbərdarlıqlara diqqət yetirin.
 
-## Conceptual preview of your first Angular app
+## İlk Angular tətbiqinizin konseptual ön baxışı
 
-The lessons in this tutorial create an Angular app that lists houses for rent and shows the details of individual houses.
-This app uses features that are common to many Angular apps.
+Bu təlimatdakı dərslər icarəyə verilən evlərin siyahısını göstərən və hər bir evin təfərrüatlarını əks etdirən Angular tətbiqi yaradır.
+Bu tətbiq bir çox Angular tətbiqləri üçün ümumi olan xüsusiyyətlərdən istifadə edir.
 
-<img alt="Output of homes landing page" src="assets/images/tutorials/first-app/homes-app-landing-page.png">
+<img alt="Evlərin ana səhifəsinin çıxışı" src="assets/images/tutorials/first-app/homes-app-landing-page.png">
 
-## Local development environment
+## Yerli inkişaf mühiti
 
-NOTE: This step is only for your local environment!
+QEYD: Bu addım yalnız yerli mühitiniz üçündür!
 
-Perform these steps in a command-line tool on the computer you want to use for this tutorial.
+Bu addımları bu təlimat üçün istifadə etmək istədiyiniz kompüterdə əmr satırı alətində yerinə yetirin.
 
 <docs-workflow>
 
-<docs-step title="Identify the version of `node.js` that Angular requires">
-Angular requires an active LTS or maintenance LTS version of Node. Let's confirm your version of `node.js`. For information about specific version requirements, see the engines property in the [package.json file](https://unpkg.com/browse/@angular/core@15.1.5/package.json).
+<docs-step title="Angular-ın tələb etdiyi `node.js` versiyasını müəyyənləşdirin">
+Angular Node-un aktiv LTS və ya texniki xidmət (maintenance) LTS versiyasını tələb edir. Gəlin `node.js` versiyanızı təsdiqləyək. Xüsusi versiya tələbləri haqqında məlumat üçün [package.json faylındakı](https://unpkg.com/browse/@angular/core@15.1.5/package.json) engines property-sinə baxın.
 
-From a **Terminal** window:
+**Terminal** pəncərəsindən:
 
-1. Run the following command: `node --version`
-1. Confirm that the version number displayed meets the requirements.
+1. Aşağıdakı əmri işlədin: `node --version`
+1. Göstərilən versiya nömrəsinin tələblərə cavab verdiyini təsdiqləyin.
    </docs-step>
 
-<docs-step title="Install the correct version of `node.js` for Angular">
-If you do not have a version of `node.js` installed, please follow the [directions for installation on nodejs.org](https://nodejs.org/en/download/)
+<docs-step title="Angular üçün düzgün `node.js` versiyasını quraşdırın">
+Əgər `node.js` versiyanız quraşdırılmayıbsa, zəhmət olmasa [nodejs.org ünvanındakı quraşdırma təlimatlarını](https://nodejs.org/en/download/) izləyin.
 </docs-step>
 
-<docs-step title="Install the latest version of Angular">
-With `node.js` and `npm` installed, the next step is to install the [Angular CLI](tools/cli) which provides tooling for effective Angular development.
+<docs-step title="Angular-ın ən son versiyasını quraşdırın">
+`node.js` və `npm` quraşdırıldıqdan sonra növbəti addım effektiv Angular inkişafı üçün alətlər təqdim edən [Angular CLI](tools/cli)-ni quraşdırmaqdır.
 
-From a **Terminal** window run the following command: `npm install -g @angular/cli`.
+**Terminal** pəncərəsindən aşağıdakı əmri işlədin: `npm install -g @angular/cli`.
 </docs-step>
 
-<docs-step title="Install integrated development environment (IDE)">
-You are free to use any tool you prefer to build apps with Angular. We recommend the following:
+<docs-step title="İnteqrasiya olunmuş inkişaf mühitini (IDE) quraşdırın">
+Angular ilə tətbiqlər qurmaq üçün üstünlük verdiyiniz hər hansı alətdən istifadə etməkdə sərbəstsiniz. Aşağıdakıları tövsiyə edirik:
 
 1. [Visual Studio Code](https://code.visualstudio.com/)
-2. As an optional, but recommended step you can further improve your developer experience by installing the [Angular Language Service](https://marketplace.visualstudio.com/items?itemName=Angular.ng-template)
+2. Könüllü, lakin tövsiyə olunan bir addım olaraq [Angular Language Service](https://marketplace.visualstudio.com/items?itemName=Angular.ng-template) quraşdıraraq proqramçı təcrübənizi daha da artıra bilərsiniz.
 3. [WebStorm](https://www.jetbrains.com/webstorm/)
    </docs-step>
 
-<docs-step title="Optional: set-up your AI powered IDE">
+<docs-step title="Könüllü: AI dəstəkli IDE-nizi quraşdırın">
 
-In case you're following this tutorial in your preferred AI powered IDE, [check out Angular prompt rules and best practices](/ai/develop-with-ai).
+Əgər bu təlimatı üstünlük verdiyiniz AI dəstəkli IDE-də izləyirsinizsə, [Angular prompt qaydaları və ən yaxşı təcrübələrə baxın](/ai/develop-with-ai).
 
 </docs-step>
 
 </docs-workflow>
 
-For more information about the topics covered in this lesson, visit:
+Bu dərsdə əhatə olunmuş mövzular haqqında daha çox məlumat üçün buraya daxil olun:
 
 <docs-pill-row>
-  <docs-pill href="/overview" title="What is Angular"/>
-  <docs-pill href="/tools/cli/setup-local" title="Setting up the local environment and workspace"/>
-  <docs-pill href="/cli" title="Angular CLI Reference"/>
+  <docs-pill href="/overview" title="Angular nədir"/>
+  <docs-pill href="/tools/cli/setup-local" title="Yerli mühitin və iş sahəsinin qurulması"/>
+  <docs-pill href="/cli" title="Angular CLI Arayışı"/>
 </docs-pill-row>

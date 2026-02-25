@@ -1,18 +1,18 @@
-# Getting form control value
+# Form kontrol dəyərinin əldə edilməsi
 
-Now that your forms are set up with Angular, the next step is to access the values from the form controls.
+Formalarınız artıq Angular ilə quraşdırıldığına görə, növbəti addım form kontrollarından (form controls) dəyərləri əldə etməkdir.
 
-NOTE: Learn more about [adding a basic form control in the in-depth guide](/guide/forms/reactive-forms#adding-a-basic-form-control).
+QEYD: [Ətraflı bələdçidə əsas form kontrolunun əlavə edilməsi](/guide/forms/reactive-forms#adding-a-basic-form-control) haqqında daha çox öyrənin.
 
-In this activity, you'll learn how to get the value from your form input.
+Bu fəaliyyətdə siz form girişindən (input) dəyəri necə əldə edəcəyinizi öyrənəcəksiniz.
 
 <hr>
 
 <docs-workflow>
 
-<docs-step title="Show the value of the input field in the template">
+<docs-step title="Giriş sahəsinin dəyərini template-də göstərin">
 
-To display the input value in a template, you can use the interpolation syntax `{{}}` just like any other class property of the component:
+Giriş dəyərini template-də göstərmək üçün, komponentin hər hansı digər class property-si kimi `{{}}` interpolation sintaksisindən istifadə edə bilərsiniz:
 
 ```angular-ts {highlight:[5]}
 @Component({
@@ -21,7 +21,7 @@ To display the input value in a template, you can use the interpolation syntax `
     ...
     <p>Framework: {{ favoriteFramework }}</p>
     <label for="framework">
-      Favorite Framework:
+      Sevimli Framework:
       <input id="framework" type="text" [(ngModel)]="favoriteFramework" />
     </label>
   `,
@@ -33,9 +33,9 @@ export class User {
 
 </docs-step>
 
-<docs-step title="Retrieve the value of an input field">
+<docs-step title="Giriş sahəsinin dəyərini əldə edin">
 
-When you need to reference the input field value in the component class, you can do so by accessing the class property with the `this` syntax.
+Giriş sahəsinin (input field) dəyərinə komponent class-ı daxilində müraciət etmək lazım olduqda, bunu `this` sintaksisi vasitəsilə class property-sinə müraciət edərək edə bilərsiniz.
 
 ```angular-ts {highlight:[15]}
 ...
@@ -43,7 +43,7 @@ When you need to reference the input field value in the component class, you can
   selector: 'app-user',
   template: `
     ...
-    <button (click)="showFramework()">Show Framework</button>
+    <button (click)="showFramework()">Framework-ü göstər</button>
   `,
   ...
 })
@@ -61,6 +61,6 @@ export class User {
 
 </docs-workflow>
 
-Great job learning how to display the input values in your template and access them programmatically.
+Giriş dəyərlərini template-inizdə göstərməyi və onlara proqramlı şəkildə daxil olmağı öyrəndiyiniz üçün əla iş gördünüz.
 
-Time to progress onto the next way of managing forms with Angular: reactive forms. If you'd like to learn more about template-driven forms, please refer to the [Angular forms documentation](guide/forms/template-driven-forms).
+Angular ilə formaları idarə etməyin növbəti üsuluna keçmək vaxtıdır: reaktiv formalar (reactive forms). Template-driven formalar haqqında daha çox öyrənmək istəyirsinizsə, [Angular formaları sənədlərinə](guide/forms/template-driven-forms) baxın.

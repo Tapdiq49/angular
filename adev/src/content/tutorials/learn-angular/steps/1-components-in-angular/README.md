@@ -1,23 +1,23 @@
-# Components in Angular
+# Angular-da Komponentlər
 
-Components are the foundational building blocks for any Angular application. Each component has three parts:
+Komponentlər hər hansı bir Angular tətbiqinin təməl quruluş bloklarıdır. Hər bir komponent üç hissədən ibarətdir:
 
-- TypeScript class
-- HTML template
-- CSS styles
+- TypeScript class-ı
+- HTML template-i
+- CSS üslubları
 
-NOTE: Learn more about [components in the essentials guide](/essentials/components).
+QEYD: [Essentials bələdçisində komponentlər](/essentials/components) haqqında daha çox öyrənin.
 
-In this activity, you'll learn how to update the template and styles of a component.
+Bu fəaliyyətdə siz bir komponentin template-ini və üslublarını necə yeniləməyi öyrənəcəksiniz.
 
 <hr />
 
-This is a great opportunity for you to get started with Angular.
+Bu, Angular ilə başlamaq üçün əla fürsətdir.
 
 <docs-workflow>
 
-<docs-step title="Update the component template">
-Update the `template` property to read `Hello Universe`
+<docs-step title="Komponent template-ini yeniləyin">
+`Hello Universe` mətnini göstərmək üçün `template` property-sini yeniləyin:
 
 ```ts
 template: `
@@ -25,11 +25,11 @@ template: `
 `,
 ```
 
-When you changed the HTML template, the preview updated with your message. Let's go one step further: change the color of the text.
+HTML template-ini dəyişdikdə, önizləmə (preview) sizin mesajınızla yeniləndi. Gəlin bir addım daha irəli gedək: mətnin rəngini dəyişək.
 </docs-step>
 
-<docs-step title="Update the component styles">
-Update the styles value and change the `color` property from `blue` to `#a144eb`.
+<docs-step title="Komponent üslublarını yeniləyin">
+Styles dəyərini yeniləyin və `color` property-sini `blue`-dan `#a144eb`-ə dəyişin.
 
 ```ts
 styles: `
@@ -39,9 +39,9 @@ styles: `
 `,
 ```
 
-When you check the preview, you'll find that the text color will be changed.
+Önizləməyə baxdıqda mətnin rənginin dəyişdiyini görəcəksiniz.
 </docs-step>
 
 </docs-workflow>
 
-In Angular, you can use all the browser supported CSS and HTML that's available. If you'd like, you can store your template and styles in separate files.
+Angular-da brauzer tərəfindən dəstəklənən bütün CSS və HTML imkanlarından istifadə edə bilərsiniz. İstəsəniz, template və üslublarınızı ayrıca fayllarda da saxlaya bilərsiniz.

@@ -1,24 +1,24 @@
-# Learn Angular Signal Forms
+# Angular Siqnal Formalarını (Signal Forms) öyrənin
 
-This interactive tutorial will teach you how to build reactive forms using Angular's experimental Signal Forms API.
+Bu interaktiv təlimat sizə Angular-ın eksperimental Signal Forms API-dən istifadə edərək reaktiv formalar qurmağı öyrədəcək.
 
-IMPORTANT: Signal Forms is currently [experimental](reference/releases#experimental). The API may change before stabilizing. Check the [official documentation](guide/forms/signals/overview) for the latest updates.
+VACİB: Siqnal Formaları (Signal Forms) hazırda [eksperimental](reference/releases#experimental) mərhələdədir. API stabilləşənə qədər dəyişə bilər. Ən son yeniləmələr üçün [rəsmi sənədlərə](guide/forms/signals/overview) baxın.
 
-## How to use this tutorial
+## Bu təlimatdan necə istifadə etməli
 
-This tutorial assumes you understand Angular's core concepts and have basic familiarity with signals. If you're new to Angular, read our [essentials guide](/essentials). If you're new to signals, complete the [signals tutorial](/tutorials/signals) first.
+Bu təlimat sizin Angular-ın əsas konsepsiyalarını başa düşdüyünüzü və siqnallarla ilkin tanışlığınızın olduğunu fərz edir. Əgər Angular-da yenisinizsə, [əsaslar bələdçimizi](/essentials) oxuyun. Əgər siqnallarda yenisinizsə, əvvəlcə [siqnallar təlimatını](/tutorials/signals) tamamlayın.
 
-Each step represents a concept in Signal Forms. You'll build a complete login form from scratch, learning the fundamentals step by step.
+Hər bir addım Siqnal Formalarında bir konsepsiyanı təmsil edir. Siz sıfırdan tamamlanmış bir giriş (login) forması quracaq və əsasları addım-addım öyrənəcəksiniz.
 
-**Your learning path:**
+**Sizin öyrənmə yolunuz:**
 
-1. Set up the form model with TypeScript and signals
-2. Connect the form to your template
-3. Add validation rules
-4. Display validation errors to users
-5. Handle form submission
-6. Explore advanced topics and next steps
+1. TypeScript və siqnallarla forma modelini quraşdırın
+2. Formanı template-inizə qoşun
+3. Validasiya qaydaları əlavə edin
+4. Validasiya xətalarını istifadəçilərə göstərin
+5. Forma göndərilməsini (submission) idarə edin
+6. Təkmilləşdirilmiş mövzuları və növbəti addımları araşdırın
 
-If you get stuck, click "Reveal answer" at the top.
+Əgər çətinlik çəksəniz, yuxarıdakı "Reveal answer" (Cavabı göstər) düyməsini klikləyin.
 
-Alright, let's [get started](/tutorials/signal-forms/1-set-up-form-model)!
+Yaxşı, gəlin [başlayaq](/tutorials/signal-forms/1-set-up-form-model)!

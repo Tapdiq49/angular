@@ -1,35 +1,35 @@
-# Forms Overview
+# Formalara (Forms) Baxış
 
-Forms are a big part of many apps because they enable your app to accept user input. Let's learn about how forms are handled in Angular.
+Formalar bir çox tətbiqlərin vacib hissəsidir, çünki onlar tətbiqinizə istifadəçi daxiletməsini qəbul etməyə imkan verir. Gəlin Angular-da formaların necə idarə olunduğunu öyrənək.
 
-In Angular, there are two types of forms: template-driven and reactive. You'll learn about both over the next few activities.
+Angular-da formaların iki növü var: template-driven (template əsaslı) və reactive (reaktiv). Növbəti bir neçə fəaliyyətdə hər ikisini öyrənəcəksiniz.
 
-NOTE: Learn more about [forms in Angular in the in-depth guide](/guide/forms).
+QEYD: [Ətraflı bələdçidə Angular-da formalar](/guide/forms) haqqında daha çox öyrənin.
 
-In this activity, you'll learn how to set up a form using a template-driven approach.
+Bu fəaliyyətdə siz template-driven yanaşmasından istifadə edərək formanı necə quracağınızı öyrənəcəksiniz.
 
 <hr>
 
 <docs-workflow>
 
-<docs-step title="Create an input field">
+<docs-step title="Giriş (input) sahəsi yaradın">
 
-In `user.ts`, update the template by adding a text input with the `id` set to `framework`, type set to `text`.
+`user.ts` faylında `id` attribute-u `framework`, tipi isə `text` olaraq təyin edilmiş bir mətn girişi əlavə edərək template-i yeniləyin.
 
 ```angular-html
 <label for="framework">
-  Favorite Framework:
+  Sevimli Framework:
   <input id="framework" type="text" />
 </label>
 ```
 
 </docs-step>
 
-<docs-step title="Import `FormsModule`">
+<docs-step title="`FormsModule` import edin">
 
-For this form to use Angular features that enable data binding to forms, you'll need to import the `FormsModule`.
+Bu formanın formalara data bağlamağa (data binding) imkan verən Angular xüsusiyyətlərindən istifadə etməsi üçün `FormsModule`-u import etməlisiniz.
 
-Import the `FormsModule` from `@angular/forms` and add it to the `imports` array of the `User`.
+`@angular/forms` paketindən `FormsModule`-u import edin və `User` komponentinin `imports` massivinə əlavə edin.
 
 ```ts {highlight:[2,6]}
 import {Component} from '@angular/core';
@@ -44,27 +44,27 @@ export class User {}
 
 </docs-step>
 
-<docs-step title="Add binding to the value of the input">
+<docs-step title="Giriş dəyərinə binding əlavə edin">
 
-The `FormsModule` has a directive called `ngModel` that binds the value of the input to a property in your class.
+`FormsModule` daxilində giriş dəyərini class-ınızdakı bir property-yə bağlayan `ngModel` adlı bir direktiv var.
 
-Update the input to use the `ngModel` directive, specifically with the following syntax `[(ngModel)]="favoriteFramework"` to bind to the `favoriteFramework` property.
+Property-ni `favoriteFramework` property-sinə bağlamaq üçün `ngModel` direktivindən istifadə edin, xüsusən də `[(ngModel)]="favoriteFramework"` sintaksisi ilə girişi (input) yeniləyin.
 
 ```html {highlight:[3]}
 <label for="framework">
-  Favorite Framework:
+  Sevimli Framework:
   <input id="framework" type="text" [(ngModel)]="favoriteFramework" />
 </label>
 ```
 
-After you've made changes, try entering a value in the input field. Notice how it updates on the screen (yes, very cool).
+Dəyişiklikləri etdikdən sonra giriş sahəsinə (input field) bir dəyər daxil etməyə çalışın. Onun ekranda necə yeniləndiyinə diqqət yetirin (bəli, çox maraqlıdır).
 
-NOTE: The syntax `[()]` is known as "banana in a box" but it represents two-way binding: property binding and event binding. Learn more in the [Angular docs about two-way data binding](guide/templates/two-way-binding).
+QEYD: `[()]` sintaksisi "banana in a box" kimi tanınır, lakin o, ikitərəfli bağlamanı (two-way binding) təmsil edir: property binding və event binding. [Angular sənədlərində ikitərəfli data binding](guide/templates/two-way-binding) haqqında daha çox öyrənin.
 
 </docs-step>
 
 </docs-workflow>
 
-You've now taken an important first step towards building forms with Angular.
+Siz artıq Angular ilə formalar qurmaq istiqamətində mühüm bir addım atdınız.
 
-Nice work. Let's keep the momentum going!
+Yaxşı işdir. Gəlin sürəti davam etdirək!

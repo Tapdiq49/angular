@@ -1,15 +1,15 @@
-# Query child elements with signal queries
+# Siqnal sorğuları (signal queries) ilə övlad elementləri sorğulamaq
 
-Now that you've learned [how to use signals with directives](/tutorials/signals/8-using-signals-with-directives), let's explore signal-based query APIs. These provide a reactive way to access and interact with child components and directives. Both components and directives can perform queries while also being queried themselves. Unlike the traditional ViewChild, signal queries automatically update and provide type-safe access to child components and directives.
+Artıq [direktivlərlə siqnallardan necə istifadə olunacağını](/tutorials/signals/8-using-signals-with-directives) öyrəndiniz, gəlin siqnal əsaslı sorğu (query) API-lərini kəşf edək. Bunlar övlad komponentlərə və direktivlərə daxil olmaq və onlarla qarşılıqlı əlaqədə olmaq üçün reaktiv bir yol təqdim edir. Həm komponentlər, həm də direktivlər sorğular həyata keçirə bilər, eyni zamanda özləri də sorğulana bilərlər. Ənənəvi ViewChild-dan fərqli olaraq, siqnal sorğuları avtomatik yenilənir və övlad komponentlərə və direktivlərə tip baxımından təhlükəsiz (type-safe) giriş imkanı verir.
 
-In this activity, you'll add viewChild queries to interact with child components programmatically.
+Bu fəaliyyətdə siz övlad komponentlərlə proqramlı şəkildə qarşılıqlı əlaqədə olmaq üçün viewChild sorğuları əlavə edəcəksiniz.
 
 <hr />
 
 <docs-workflow>
 
-<docs-step title="Add viewChild import">
-First, add the `viewChild` import to access child components in `app.ts`.
+<docs-step title="viewChild importunu əlavə edin">
+Əvvəlcə, `app.ts` faylındakı övlad komponentlərə daxil olmaq üçün `viewChild` importunu əlavə edin.
 
 ```ts
 import {Component, signal, computed, viewChild, ChangeDetectionStrategy} from '@angular/core';
@@ -17,20 +17,20 @@ import {Component, signal, computed, viewChild, ChangeDetectionStrategy} from '@
 
 </docs-step>
 
-<docs-step title="Create viewChild queries">
-Add viewChild queries to the App component to access child components.
+<docs-step title="viewChild sorğuları yaradın">
+Övlad komponentlərə daxil olmaq üçün App komponentinə viewChild sorğuları əlavə edin.
 
 ```ts
-// Query APIs to access child components
+// Övlad komponentlərə daxil olmaq üçün sorğu API-ləri
 firstProduct = viewChild(ProductCard);
 cartSummary = viewChild(CartSummary);
 ```
 
-These queries create signals that reference child component instances.
+Bu sorğular övlad komponent instansiyalarına müraciət edən siqnallar yaradır.
 </docs-step>
 
-<docs-step title="Implement parent methods">
-Use the viewChild queries to call methods on child components in `app.ts`:
+<docs-step title="Valideyn metodlarını implementasiya edin">
+`app.ts` faylındakı övlad komponentlərin metodlarını çağırmaq üçün viewChild sorğularından istifadə edin:
 
 ```ts
 showFirstProductDetails() {
@@ -50,17 +50,17 @@ initiateCheckout() {
 
 </docs-step>
 
-<docs-step title="Test the interactions">
-The control buttons should now work:
+<docs-step title="Qarşılıqlı əlaqələri test edin">
+İdarəetmə düymələri artıq işləməlidir:
 
-- **"Show First Product Details"** - Calls `highlight()` on the ProductCard
-- **"Initiate Checkout"** - Calls `initiateCheckout()` on the CartSummary
+- **"Birinci Məhsulun Təfərrüatlarını Göstər"** - ProductCard üzərində `highlight()` metodunu çağırır
+- **"Ödəniş Prosesinə Başla"** - CartSummary üzərində `initiateCheckout()` metodunu çağırır
 
-Click the buttons to see how viewChild queries enable parent components to control child behavior.
+ViewChild sorğularının valideyn komponentlərinə övlad davranışını necə idarə etməyə imkan verdiyini görmək üçün düymələri klikləyin.
 </docs-step>
 
 </docs-workflow>
 
-Perfect! You've learned how to use signal-based query APIs for child component interaction:
+Mükəmməl! Siz övlad komponentlərlə qarşılıqlı əlaqə üçün siqnal əsaslı sorğu API-lərindən necə istifadə olunacağını öyrəndiniz.
 
-In the next lesson, you'll learn about [how to react to signal changes with effect](/tutorials/signals/10-reacting-to-signal-changes-with-effect)!
+Növbəti dərsdə, [effect ilə siqnal dəyişikliklərinə necə reaksiya verəcəyinizi](/tutorials/signals/10-reacting-to-signal-changes-with-effect) öyrənəcəksiniz!

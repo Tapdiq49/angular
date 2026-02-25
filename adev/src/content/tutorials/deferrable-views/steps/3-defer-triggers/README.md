@@ -1,107 +1,107 @@
-# Defer triggers
+# Defer triggers (Təxirə salınma tətikləyiciləri)
 
-While the default options for `@defer` offer great options for lazy loading parts of your components it may still be desirable to further customize the deferred loading experience.
+`@defer` üçün susmaya görə (default) seçimlər komponentlərinizin hissələrini lazy loading (təmbəl yükləmə) etmək üçün böyük imkanlar təqdim etsə də, təxirə salınmış yükləmə təcrübəsini daha da fərdiləşdirmək istəyi hələ də yarana bilər.
 
-By default, deferred content loads when the browser is idle. You can, however, customize when this loading occurs by specifying a **trigger**. This lets you pick the loading behavior best suited to your component.
+Susmaya görə, təxirə salınmış məzmun brauzer boş (idle) olduqda yüklənir. Bununla belə, siz bir **trigger** (tətikləyici) müəyyən edərək bu yükləmənin nə vaxt baş verəcəyini fərdiləşdirə bilərsiniz. Bu, komponentinizə ən uyğun yükləmə davranışını seçməyə imkan verir.
 
-Deferrable views offer two types of loading trigger:
+Deferrable views (təxirə salına bilən görünüşlər) iki növ yükləmə tətikləyicisi təklif edir:
 
 <div class="docs-table docs-scroll-track-transparent">
   <table>
     <tr>
       <td><code>on</code></td>
       <td>
-        A trigger condition using a trigger from the list of built-in triggers.<br/>
-        For example: <code>@defer (on viewport)</code>
+        Daxili tətikləyicilər siyahısından bir tətikləyicini istifadə edən tətiklənmə şərti.<br/>
+        Məsələn: <code>@defer (on viewport)</code>
       </td>
     </tr>
     <tr>
       <td><code>when</code></td>
       <td>
-        A condition as an expression which is evaluated for truthiness. When the expression is truthy, the placeholder is swapped with the lazily loaded content.<br/>
-        For example: <code>@defer (when customizedCondition)</code>
+        Doğruluğu (truthiness) qiymətləndirilən bir ifadə şəklində şərt. İfade doğru (truthy) olduqda, placeholder lazy loading ilə yüklənmiş məzmunla əvəz olunur.<br/>
+        Məsələn: <code>@defer (when customizedCondition)</code>
       </td>
     </tr>
   </table>
 </div>
 
-If the `when` condition evaluates to `false`, the `defer` block is not reverted back to the placeholder. The swap is a one-time operation.
+Əgər `when` şərti `false` olaraq qiymətləndirilərsə, `defer` bloku yenidən placeholder-ə qaytarılmır. Əvəzetmə birdəfəlik əməliyyatdır.
 
-You can define multiple event triggers at once, these triggers will be evaluated as OR conditions.
+Siz eyni anda birdən çox hadisə tətikləyicisi təyin edə bilərsiniz, bu tətikləyicilər "OR" (VƏ YA) şərtləri kimi qiymətləndiriləcək.
 
-- Ex: `@defer (on viewport; on timer(2s))`
-- Ex: `@defer (on viewport; when customizedCondition)`
+- Məs: `@defer (on viewport; on timer(2s))`
+- Məs: `@defer (on viewport; when customizedCondition)`
 
-In this activity, you'll learn how to use triggers to specify the condition to load the deferrable views.
+Bu fəaliyyətdə siz deferrable views-un yüklənmə şərtini müəyyən etmək üçün tətikləyicilərdən necə istifadə edəcəyinizi öyrənəcəksiniz.
 
 <hr>
 
 <docs-workflow>
 
-<docs-step title="Add `on hover` trigger">
-In your `app.ts`,  add an `on hover` trigger to the `@defer` block.
+<docs-step title="`on hover` tətikləyicisi əlavə edin">
+`app.ts` faylınızda `@defer` blokuna bir `on hover` tətikləyicisi əlavə edin.
 
 ```angular-html {highlight:[1]}
 @defer (on hover) {
   <article-comments />
 } @placeholder (minimum 1s) {
-  <p>Placeholder for comments</p>
+  <p>Şərhlər üçün placeholder</p>
 } @loading (minimum 1s; after 500ms) {
-  <p>Loading comments...</p>
+  <p>Şərhlər yüklənir...</p>
 } @error {
-  <p>Failed to load comments</p>
+  <p>Şərhləri yükləmək mümkün olmadı</p>
 }
 ```
 
-Now, the page will not render the comments section until you hover its placeholder.
+İndi səhifə, siz onun placeholder-inin üzərinə gəlməyincə (hover) şərhlər bölməsini render etməyəcək.
 </docs-step>
 
-<docs-step title="Add a 'Show all comments' button">
-Next, update the template to include a button with the label "Show all comments". Include a template variable called `#showComments` with the button.
+<docs-step title="'Show all comments' düyməsi əlavə edin">
+Növbəti olaraq template-i "Show all comments" yazısı olan bir düymə daxil edəcək şəkildə yeniləyin. Düyməyə `#showComments` adlı bir template dəyişəni daxil edin.
 
 ```angular-html {highlight:[1]}
-<button type="button" #showComments>Show all comments</button>
+<button type="button" #showComments>Hamısını göstər</button>
 
 @defer (on hover) {
   <article-comments />
 } @placeholder (minimum 1s) {
-  <p>Placeholder for comments</p>
+  <p>Şərhlər üçün placeholder</p>
 } @loading (minimum 1s; after 500ms) {
-  <p>Loading comments...</p>
+  <p>Şərhlər yüklənir...</p>
 } @error {
-  <p>Failed to load comments</p>
+  <p>Şərhləri yükləmək mümkün olmadı</p>
 }
 ```
 
-NOTE: for more information on [template variables check the documentation](/guide/templates/variables#declaring-a-template-reference-variable).
+QEYD: [template dəyişənləri haqqında daha çox məlumat üçün sənədlərə baxın](/guide/templates/variables#declaring-a-template-reference-variable).
 
 </docs-step>
 
-<docs-step title="Add `on interaction` trigger">
-Update the `@defer` block in the template to use the `on interaction` trigger. Provide the `showComments` template variable as the parameter to `interaction`.
+<docs-step title="`on interaction` tətikləyicisi əlavə edin">
+Template-dəki `@defer` blokunu `on interaction` tətikləyicisini istifadə edəcək şəkildə yeniləyin. `showComments` template dəyişənini `interaction` üçün parametr kimi təqdim edin.
 
 ```angular-html {highlight:[3]}
-<button type="button" #showComments>Show all comments</button>
+<button type="button" #showComments>Hamısını göstər</button>
 
 @defer (on hover; on interaction(showComments)) {
   <article-comments />
 } @placeholder (minimum 1s) {
-  <p>Placeholder for comments</p>
+  <p>Şərhlər üçün placeholder</p>
 } @loading (minimum 1s; after 500ms) {
-  <p>Loading comments...</p>
+  <p>Şərhlər yüklənir...</p>
 } @error {
-  <p>Failed to load comments</p>
+  <p>Şərhləri yükləmək mümkün olmadı</p>
 }
 ```
 
-With these changes, the page will wait for one of the following conditions before rendering the comments section:
+Bu dəyişikliklərlə səhifə şərhlər bölməsini render etməmişdən əvvəl aşağıdakı şərtlərdən birini gözləyəcək:
 
-- User hovers the comments section’s placeholder
-- User clicks on the “Show all comments" button
+- İstifadəçi şərhlər bölməsinin placeholder-inin üzərinə gəlir (hover)
+- İstifadəçi “Hamısını göstər" düyməsini klikləyir
 
-You can reload the page to try out different triggers to render the comments section.
+Şərhlər bölməsini render etmək üçün fərqli tətikləyiciləri sınamaq məqsədilə səhifəni yeniləyə bilərsiniz.
 </docs-step>
 </docs-workflow>
 
-If you would like to learn more, check out the documentation for [Deferrable View](/guide/templates/defer).
-Keep learning to unlock more of Angular's great features.
+Daha çox öyrənmək istəyirsinizsə, [Deferrable View](/guide/templates/defer) sənədlərinə baxın.
+Angular-ın digər möhtəşəm xüsusiyyətlərini kəşf etmək üçün öyrənməyə davam edin.

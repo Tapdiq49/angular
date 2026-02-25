@@ -145,6 +145,6 @@ MƏSLƏHƏT: Angular şablonları haqqında daha çox məlumat əldə etmək ist
 Artıq tətbiqinizdə dinamik məlumat və şablonlarınız olduğuna görə, müəyyən elementləri şərti olaraq gizlətmək, elementlər üzərində dövrə vurmaq və s. vasitəsilə şablonları necə təkmilləşdirəcəyinizi öyrənmək vaxtıdır.
 
 <docs-pill-row>
-  <docs-pill title="Asılılıq inyeksiyası ilə modul dizayn" href="essentials/dependency-injection" />
+  <docs-pill title="Aslılıq inyeksiyası ilə modul dizayn" href="essentials/dependency-injection" />
   <docs-pill title="Dərin şablonlar bələdçisi (In-depth template guide)" href="guide/templates" />
 </docs-pill-row>
