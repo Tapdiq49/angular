@@ -1,107 +1,107 @@
-# Design patterns for AI SDKs and signal APIs
+# AI SDK-ları və signal API-ləri üçün dizayn nümunələri (Design Patterns)
 
-Interacting with AI and Large Language Model (LLM) APIs introduces unique challenges, such as managing asynchronous operations, handling streaming data, and designing a responsive user experience for potentially slow or unreliable network requests. Angular [signals](guide/signals) and the [`resource`](guide/signals/resource) API provide powerful tools to solve these problems elegantly.
+AI və Böyük Dil Modeli (Large Language Model - LLM) API-ləri ilə əlaqə qurmaq asinxron əməliyyatları idarə etmək, axın (streaming) məlumatlarını emal etmək və potensial olaraq yavaş və ya etibarsız şəbəkə sorğuları üçün cavab verən bir istifadəçi təcrübəsi dizayn etmək kimi unikal problemlər yaradır. Angular [signals](guide/signals) və [`resource`](guide/signals/resource) API-si bu problemləri zərif şəkildə həll etmək üçün güclü alətlər təqdim edir.
 
-## Triggering requests with signals
+## Siqnallarla (Signals) Sorğuları Tetiklemek
 
-A common pattern when working with user-provided prompts is to separate the user's live input from the submitted value that triggers the API call.
+İstifadəçi tərəfindən verilən sorğularla işləyərkən ümumi bir nümunə, istifadəçinin canlı girişini API çağırışını təkikləyən göndərilmiş dəyərdən ayırmaqdır.
 
-1. Store the user's raw input in one signal as they type
-2. When the user submits (e.g., by clicking a button), update a second signal with contents of the first signal.
-3. Use the second signal in the **`params`** field of your `resource`.
+1. İstifadəçinin yazarkən xam girişini bir siqnalda saxlayın
+2. İstifadəçi göndərdikdə (məs., bir düyməni tıkladıqda), ikinci siqnalı birinci siqnalin məzmunu ilə yeniləyin.
+3. `resource`-nuzun **`params`** sahəsində ikinci siqnaldan istifadə edin.
 
-This setup ensures the resource's **`loader`** function only runs when the user explicitly submits their prompt, not on every keystroke. You can use additional signal parameters, like a `sessionId` or `userId` (which can be useful for creating persistent LLM sessions), in the `loader` field. This way, the request always uses these parameters' current values without re-triggering the asynchronous function defined in the `loader` field.
+Bu quraşdırma, `resource`-un **`loader`** funksiyasının yalnız istifadəçi sorğusunu açıq şəkildə göndərdikdə işləməsini təmin edir, hər düymə basımında deyil. `loader` sahəsindəki `sessionId` və ya `userId` kimi əlavə siqnal parametrlərindən istifadə edə bilərsiniz (bu, davamlı LLM sessiyaları yaratmaq üçün faydalı ola bilər). Bu şəkildə, sorğu həmişə bu parametrlərin cari dəyərlərindən istifadə edir, `loader` sahəsindəki asinxron funksiyanı yenidən tetiklemeden.
 
-Many AI SDKs provide helper methods for making API calls. For example, the Genkit client library exposes a `runFlow` method for calling Genkit flows, which you can call from a resource's `loader`. For other APIs, you can use the [`httpResource`](guide/signals/resource#reactive-data-fetching-with-httpresource).
+Bir çox AI SDK, API çağırışları üçün köməkçi metodlar təqdim edir. Məsələn, Genkit müştəri kitabxanası Genkit axınlarını (flows) çağırmaq üçün bir `runFlow` metodu açır və siz onu `resource`-un `loader`-indən çağıra bilərsiniz. Digər API-lər üçün [`httpResource`](guide/signals/resource#reactive-data-fetching-with-httpresource)-dan istifadə edə bilərsiniz.
 
-The following example shows a `resource` that fetches parts of an AI-generated story. The `loader` is triggered only when the `storyInput` signal changes.
+Aşağıdakı nümunə, AI tərəfindən yaradılan hekayənin hissələrini gətirən bir `resource` göstərir. `loader` yalnız `storyInput` siqnalı dəyişdikdə tetiklenir.
 
 ```ts
-// A resource that fetches three parts of an AI generated story
+// AI tərəfindən yaradılan hekayənin üç hissəsini gətirən resource
 storyResource = resource({
-  // The default value to use before the first request or on error
+  // İlk sorğudan əvvəl və ya xəta zamanı istifadə ediləcək standart dəyər
   defaultValue: DEFAULT_STORY,
-  // The loader is re-triggered when this signal changes
+  // Bu siqnal dəyişdikdə loader yenidən tetiklenir
   params: () => this.storyInput(),
-  // The async function to fetch data
+  // Məlumatları gətirmək üçün asinxron funksiya
   loader: ({params}): Promise<StoryData> => {
-    // The params value is the current value of the storyInput signal
+    // params dəyəri storyInput siqnalının cari dəyəridir
     const url = this.endpoint();
     return runFlow({
       url,
       input: {
         userInput: params,
-        sessionId: this.storyService.sessionId(), // Read from another signal
+        sessionId: this.storyService.sessionId(), // Başqa siqnaldan oxuyun
       },
     });
   },
 });
 ```
 
-## Preparing LLM data for templates
+## LLM Məlumatlarını Şablonlar üçün Hazırlamaq
 
-You can configure LLM APIs to return structured data. Strongly typing your `resource` to match the expected output from the LLM provides better type safety and editor autocompletion.
+LLM API-lərini strukturlu məlumat qaytarmaq üçün konfiqurasiya edə bilərsiniz. `resource`-unuzu LLM-dən gözlənilən çıxışa uyğun olaraq güclü şəkildə tipləşdirmək daha yaxşı tip təhlükəsizliyi (type safety) və redaktor avtotamamlanması (autocompletion) təmin edir.
 
-To manage state derived from a resource, use a `computed` signal or `linkedSignal`. Because `linkedSignal` [provides access to prior values](guide/signals/linked-signal), it can serve a variety of AI-related use cases, including
+`resource`-dan əldə edilən vəziyyəti idarə etmək üçün `computed` siqnal və ya `linkedSignal` istifadə edin. `linkedSignal` [əvvəlki dəyərlərə giriş imkanı verdiyi](guide/signals/linked-signal) üçün, o, aşağıdakılar daxil olmaqla bir sıra AI-yə aid istifadə hallarına xidmət edə bilər:
 
-- building a chat history
-- preserving or customizing data that templates display while LLMs generate content
+- söhbət tarixçəsi (chat history) qurmaq
+- LLM-lər məzmun yaradarkən şablonların göstərdiyi məlumatları qorumaq və ya fərdiləşdirmək
 
-In the example below, `storyParts` is a `linkedSignal` that appends the latest story parts returned from `storyResource` to the existing array of story parts.
+Aşağıdakı nümunədə, `storyParts` elə bir `linkedSignal`-dır ki, `storyResource`-dan qaytarılan ən son hekayə hissələrini mövcud hekayə hissələri massivine əlavə edir.
 
 ```ts
 storyParts = linkedSignal<string[], string[]>({
-  // The source signal that triggers the computation
+  // Hesablamanı tetikleyen mənbə siqnal
   source: () => this.storyResource.value().storyParts,
-  // The computation function
+  // Hesablama funksiyası
   computation: (newStoryParts, previous) => {
-    // Get the previous value of this linkedSignal, or an empty array
+    // Bu linkedSignal-ın əvvəlki dəyərini alın və ya boş massiv
     const existingStoryParts = previous?.value || [];
-    // Return a new array with the old and new parts
+    // Köhnə və yeni hissələrlə yeni massiv qaytarın
     return [...existingStoryParts, ...newStoryParts];
   },
 });
 ```
 
-## Performance and user experience
+## Performans və İstifadəçi Təcrübəsi
 
-LLM APIs may be slower and more error-prone than conventional, more deterministic APIs. You can use several Angular features to build a performant and user-friendly interface.
+LLM API-ləri adi, deterministik API-lərə nisbətən daha yavaş və xətaya daha meyilli ola bilər. Performanslı ve istifadəçi dostu bir arayüz qurmaq üçün bir neçə Angular xüsusiyyətindən istifadə edə bilərsiniz.
 
-- **Scoped Loading:** place the `resource` in the component that directly uses the data. This helps limit change detection cycles (especially in zoneless applications) and prevents blocking other parts of your application. If data needs to be shared across multiple components, provide the `resource` from a service.
-- **SSR and Hydration:** use Server-Side Rendering (SSR) with incremental hydration to render the initial page content quickly. You can show a placeholder for the AI-generated content and defer fetching the data until the component hydrates on the client.
-- **Loading State:** use the `resource` `LOADING` [status](guide/signals/resource#resource-status) to show an indicator, like a spinner, while the request is in flight. This status covers both initial loads and reloads.
-- **Error Handling and Retries:** use the `resource` [**`reload()`**](guide/signals/resource#reloading) method as a simple way for users to retry failed requests, may be more prevalent when relying on AI generated content.
+- **Məhdudlaşdırılmış Yükləmə (Scoped Loading):** `resource`-u birbaşa məlumatlardan istifadə edən komponentdə yerləşdirin. Bu, dəyişiklik aşkarlama dövrlərini (change detection cycles) məhdudlaşdırmağa kömək edir (xüsusilə zonasız (zoneless) tətbiqlərdə) və tətbiqinizin digər hissələrinin bloklanmasının qarşısını alır. Məlumatların bir neçə komponent arasında paylaşılması lazım olduqda, `resource`-u bir xidmətdən (service) təmin edin.
+- **SSR və Hidratasiya (Hydration):** İlkin səhifə məzmununu tez render etmək üçün artan hidratasiya ilə Server Tərəfli Render-dən (SSR) istifadə edin. AI tərəfindən yaradılan məzmun üçün bir yer saxlayıcı (placeholder) göstərə bilər və komponent müştəridə hidrate olana qədər məlumatların gətirilməsini təxirə sala bilərsiniz.
+- **Yükləmə Vəziyyəti (State):** Sorğu davam edərkən fırlan (spinner) kimi bir göstərici göstərmək üçün `resource`-un `LOADING` [statusundan](guide/signals/resource#resource-status) istifadə edin. Bu status həm ilk yükləmələri, həm də yenidən yükləmələri əhatə edir.
+- **Xəta Emalı (Error Handling) və Yenidən Cəhdlər (Retries):** İstifadəçilərin uğursuz sorğuları yenidən cəhd etmələri üçün sadə bir yol kimi `resource`-un [**`reload()`**](guide/signals/resource#reloading) metodundan istifadə edin; bu, AI tərəfindən yaradılan məzmuna etibar edərkən daha çox yayılmış ola bilər.
 
-The following example demonstrates how to create a responsive UI to dynamically display an AI generated image with loading and retry functionality.
+Aşağıdakı nümunə, yükləmə və yenidən cəhd funksionallığı ilə AI tərəfindən yaradılan şəkli dinamik olaraq göstərmək üçün cavab verən bir arayüz (UI) yaratmağı nümayiş etdirir.
 
 ```angular-html
-<!-- Display a loading spinner while the LLM generates the image -->
+<!-- LLM şəkli yaradarkən yükləmə fırlanı göstər -->
 @if (imgResource.isLoading()) {
   <div class="img-placeholder">
     <mat-spinner [diameter]="50" />
   </div>
-  <!-- Dynamically populates the src attribute with the generated image URL -->
+  <!-- Yaradılan şəkil URL-i ilə src atributunu dinamik doldurur -->
 } @else if (imgResource.hasValue()) {
   <img [src]="imgResource.value()" />
-  <!-- Provides a retry option if the request fails  -->
+  <!-- Sorğu uğursuz olarsa yenidən cəhd seçimi təqdim edir  -->
 } @else {
   <div class="img-placeholder" (click)="imgResource.reload()">
     <mat-icon fontIcon="refresh" />
-    <p>Failed to load image. Click to retry.</p>
+    <p>Şəkil yüklənmədi. Yenidən cəhd etmək üçün tıklayın.</p>
   </div>
 }
 ```
 
-## AI patterns in action: streaming chat responses
+## Tətbiqdə AI nümunələri: Axın (Streaming) söhbət cavabları
 
-Interfaces often display partial results from LLM-based APIs incrementally as response data arrives. Angular's resource API provides the ability to stream responses to support this type of pattern. The `stream` property of `resource` accepts an asynchronous function you can use to apply updates to a signal value over time. The signal being updated represents the data being streamed.
+Arayüzlər çox vaxt cavab məlumatları gəldikcə LLM-yə əsaslanan API-lərdən qismən nəticələri tədricən göstərir. Angular-ın resource API-si bu tip nümunəni dəstəkləmək üçün cavabları axın şəklində ötürmə imkanı təqdim edir. `resource`-un `stream` xüsusiyyəti, zamanla bir siqnal dəyərini yeniləmək üçün istifadə edə biləcəyiniz asinxron bir funksiya qəbul edir. Yenilənən siqnal axın edilən məlumatları təmsil edir.
 
 ```ts
 characters = resource({
   stream: async () => {
     const data = signal<ResourceStreamItem<string>>({value: ''});
-    // Calls a Genkit streaming flow using the streamFlow method
-    // exposed by the Genkit client SDK
+    // Genkit müştəri SDK-sı tərəfindən açılan streamFlow metodu
+    // vasitəsilə Genkit axın axını çağırır
     const response = streamFlow({
       url: '/streamCharacters',
       input: 10,
@@ -124,11 +124,11 @@ characters = resource({
 });
 ```
 
-The `characters` member is updated asynchronously and can be displayed in the template.
+`characters` üzvü asinxron olaraq yenilənir və şablonda göstərilə bilər.
 
 ```angular-html
 @if (characters.isLoading()) {
-  <p>Loading...</p>
+  <p>Yüklənir...</p>
 } @else if (characters.hasValue()) {
   <p>{{ characters.value() }}</p>
 } @else {
@@ -136,7 +136,7 @@ The `characters` member is updated asynchronously and can be displayed in the te
 }
 ```
 
-On the server side, in `server.ts` for example, the defined endpoint sends the data to be streamed to the client. The following code uses Gemini with the Genkit framework but this technique is applicable to other APIs that support streaming responses from LLMs:
+Server tərəfində, məsələn `server.ts`-də, müəyyən edilmiş son nöqtə (endpoint) axın ediləcək məlumatları müştəriyə göndərir. Aşağıdakı kod Genkit çərçivəsi (framework) ilə Gemini-dən istifadə edir, lakin bu texnika LLM-lərdən axın cavablarını dəstəkləyən digər API-lərə də tətbiq olunur:
 
 ```ts
 import {startFlowServer} from '@genkit-ai/express';
@@ -158,7 +158,7 @@ export const streamCharacters = ai.defineFlow(
       config: {
         temperature: 1,
       },
-      prompt: `Generate ${count} different RPG game characters.`,
+      prompt: `${count} fərqli RPG oyun xarakteri yarat.`,
     });
 
     (async () => {
