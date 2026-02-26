@@ -1,10 +1,10 @@
-<h1 align="center">Angular - The modern web developer's platform</h1>
+<h1 align="center">Angular - Müasir veb tərtibatçının platforması</h1>
 
 <p align="center">
   <img src="adev/src/assets/images/press-kit/angular_icon_gradient.gif" alt="angular-logo" width="120px" height="120px"/>
   <br>
-  <em>Angular is a development platform for building mobile and desktop web applications
-    <br> using TypeScript/JavaScript and other languages.</em>
+  <em>Angular — TypeScript/JavaScript və digər dillərdən istifadə edərək
+    <br> mobil və masaüstü veb tətbiqlər yaratmaq üçün bir inkişaf platformasıdır.</em>
   <br>
 </p>
 
@@ -14,9 +14,9 @@
 </p>
 
 <p align="center">
-  <a href="CONTRIBUTING.md">Contributing Guidelines</a>
+  <a href="CONTRIBUTING.md">Töhfə Qaydaları (Contributing Guidelines)</a>
   ·
-  <a href="https://github.com/angular/angular/issues">Submit an Issue</a>
+  <a href="https://github.com/angular/angular/issues">Problem Bildir</a>
   ·
   <a href="https://blog.angular.dev/">Blog</a>
   <br>
@@ -31,106 +31,106 @@
 
 <hr>
 
-## Documentation
+## Sənədləşmə
 
-Get started with Angular, learn the fundamentals and explore advanced topics on our documentation website.
+Angular ilə işə başlayın, əsasları öyrənin və sənədləşmə saytımızda qabaqcıl mövzuları araşdırın.
 
-- [Getting Started][quickstart]
-- [Architecture][architecture]
-- [Components and Templates][componentstemplates]
-- [Forms][forms]
+- [İşə Başlama (Getting Started)][quickstart]
+- [Arxitektura (Architecture)][architecture]
+- [Komponentlər və Şablonlar (Components and Templates)][componentstemplates]
+- [Formlar (Forms)][forms]
 - [API][api]
 
-### Advanced
+### Qabaqcıl Mövzular
 
 - [Angular Elements][angularelements]
-- [Server Side Rendering][ssr]
+- [Server Tərəfli Render (Server Side Rendering)][ssr]
 - [Schematics][schematics]
-- [Lazy Loading][lazyloading]
-- [Animations][animations]
+- [Tənbəl Yükləmə (Lazy Loading)][lazyloading]
+- [Animasiyalar (Animations)][animations]
 
-### Local Development
+### Yerli İnkişaf (Local Development)
 
-To contribute to the Angular Docs, check out the [Angular.dev README](adev/README.md)
+Angular sənədlərinə töhfə vermək üçün [Angular.dev README](adev/README.md) faylına baxın.
 
-## Development Setup
+## İnkişaf Mühitinin Qurulması
 
-### Prerequisites
+### Ön Şərtlər
 
-- Install [Node.js] which includes [Node Package Manager][npm]
+- [Node Package Manager][npm] daxil olmaqla [Node.js]-i quraşdırın.
 
-### Setting Up a Project
+### Layihənin Qurulması
 
-Install the Angular CLI globally:
+Angular CLI-ni qlobal olaraq quraşdırın:
 
 ```
 npm install -g @angular/cli
 ```
 
-Create workspace:
+İş sahəsi (workspace) yaradın:
 
 ```
 ng new [PROJECT NAME]
 ```
 
-Run the application:
+Tətbiqi işə salın:
 
 ```
 cd [PROJECT NAME]
 ng serve
 ```
 
-Angular is cross-platform, fast, scalable, has incredible tooling, and is loved by millions.
+Angular çarpaz platformalı (cross-platform), sürətli, genişlənə bilən, inanılmaz alətlərə malik və milyonlar tərəfindən sevilən bir çərçivədir (framework).
 
-## Quickstart
+## Sürətli Başlanğıc
 
-[Get started in 5 minutes][quickstart].
+[5 dəqiqədə işə başlayın][quickstart].
 
-## Ecosystem
+## Ekosistem
 
 <p>
   <img src="/contributing-docs/images/angular-ecosystem-logos.png" alt="angular ecosystem logos" width="500px" height="auto">
 </p>
 
-- [Angular Command Line (CLI)][cli]
+- [Angular Komanda Sətri Arayüzü (CLI)][cli]
 - [Angular Material][angularmaterial]
 
-## Changelog
+## Dəyişikliklər Jurnalı
 
-[Learn about the latest improvements][changelog].
+[Ən son yeniliklər haqqında məlumat əldə edin][changelog].
 
-## Upgrading
+## Yeniləmə
 
-Check out our [upgrade guide](https://angular.dev/update-guide/) to find out the best way to upgrade your project.
+Layihənizi yeniləməyin ən yaxşı yolunu tapmaq üçün [yeniləmə bələdçimizə](https://angular.dev/update-guide/) baxın.
 
-## Contributing
+## Töhfə Vermək
 
-### Contributing Guidelines
+### Töhfə Qaydaları (Contributing Guidelines)
 
-Read through our [contributing guidelines][contributing] to learn about our submission process, coding rules, and more.
+Təqdimetmə prosesimiz, kodlaşdırma qaydaları və daha çox şey haqqında öyrənmək üçün [töhfə qaydalarımızı][contributing] oxuyun.
 
-### Want to Help?
+### Kömək etmək istəyirsiniz?
 
-Want to report a bug, contribute some code, or improve the documentation? Excellent! Read up on our guidelines for [contributing][contributing] and then check out one of our issues labeled as <kbd>[help wanted](https://github.com/angular/angular/labels/help%20wanted)</kbd> or <kbd>[good first issue](https://github.com/angular/angular/labels/good%20first%20issue)</kbd>.
+Bir xəta bildirmək, kod töhfəsi vermək və ya sənədləşməni inkişaf etdirmək istəyirsiniz? Əla! [Töhfə vermək][contributing] üçün qaydalarımızı oxuyun, sonra <kbd>[help wanted](https://github.com/angular/angular/labels/help%20wanted)</kbd> (kömək tələb olunur) və ya <kbd>[good first issue](https://github.com/angular/angular/labels/good%20first%20issue)</kbd> (yaxşı ilk tapşırıq) etiketli tapşırıqlarımızdan birinə baxın.
 
-### Code of Conduct
+### Davranış Qaydaları
 
-Help us keep Angular open and inclusive. Please read and follow our [Code of Conduct][codeofconduct].
+Angular-ı açıq və hamı üçün əlçatan saxlamağa kömək edin. Zəhmət olmasa [Davranış Qaydalarımızı][codeofconduct] oxuyun və onlara riayət edin.
 
-## Community
+## İcma
 
-Join the conversation and help the community.
+Müzakirəyə qoşulun və icmaya kömək edin.
 
-- [X (formerly Twitter)][X (formerly Twitter)]
+- [X (keçmiş Twitter)][X (formerly Twitter)]
 - [Bluesky][bluesky]
 - [Discord][discord]
 - [YouTube][youtube]
 - [StackOverflow][stackoverflow]
-- Find a Local [Meetup][meetup]
+- Yaxınlığınızdakı [Meetup][meetup]-u tapın
 
 [![Love Angular badge](https://img.shields.io/badge/angular-love-blue?logo=angular&angular=love)](https://www.github.com/angular/angular)
 
-**Love Angular? Give our repo a star :star: :arrow_up:.**
+**Angular-ı sevirsiniz? Depomuzda ulduz qoyun :star: :arrow_up:.**
 
 [contributing]: CONTRIBUTING.md
 [quickstart]: https://angular.dev/tutorials/learn-angular

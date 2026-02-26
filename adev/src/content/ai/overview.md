@@ -1,118 +1,118 @@
 <!-- TODO: need an Angular + AI logo -->
 
-<docs-decorative-header title="Build with AI" imgSrc="adev/src/assets/images/what_is_angular.svg"> <!-- markdownlint-disable-line -->
-Build AI-powered apps. Develop faster with AI.
+<docs-decorative-header title="AI ilə Qurun (Build with AI)" imgSrc="adev/src/assets/images/what_is_angular.svg"> <!-- markdownlint-disable-line -->
+AI dəstəkli tətbiqlər qurun. AI ilə daha sürətli inkişaf edin.
 </docs-decorative-header>
 
-HELPFUL: Looking to get started with building in your favorite AI powered IDE? <br>Check out our [prompt rules and best practices](/ai/develop-with-ai).
+HELPFUL: Sevdiyiniz AI dəstəkli IDE-də qurmağa başlamaq istəyirsiniz? <br>Bizim [sorğu (prompt) qaydalarımıza və ən yaxşı təcrübələrimizə](/ai/develop-with-ai) baxın.
 
-Generative AI (GenAI) with large language models (LLMs) enables the creation of sophisticated and engaging application experiences, including personalized content, intelligent recommendations, media generation and comprehension, information summarization, and dynamic functionality.
+Böyük dil modelləri (LLM) ilə generativ AI (GenAI), fərdiləşdirilmiş məzmun, ağıllı tövsiyələr, media yaratma və anlama, məlumatların ümumiləşdirilməsi və dinamik funksionallıq daxil olmaqla mürəkkəb və cəlbedici tətbiq təcrübələrinin yaradılmasına imkan verir.
 
-Developing features like these would have previously required deep domain expertise and significant engineering effort. However, new products and SDKs are lowering the barrier to entry. Angular is well-suited for integrating AI into your web application as a result of:
+Bu kimi xüsusiyyətlər əvvəllər dərin sahə ekspertizası və əhəmiyyətli mühəndislik səyi tələb edirdi. Lakin yeni məhsullar və SDK-lar giriş maneəsini aşağı salır. Angular-ın aşağıdakılara görə veb tətbiqinizə AI inteqrasiyası üçün çox uyğundur:
 
-- Angular's robust templating APIs enable the creation of dynamic, cleanly composed UIs made from generated content
-- Strong, signal-based architecture designed to dynamically manage data and state
-- Angular integrates seamlessly with AI SDKs and APIs
+- Angular-ın güclü şablon (templating) API-ləri, yaradılan məzmundan ibarət dinamik, təmiz şəkildə mürəkkəb arayüzlərin (UI) yaradılmasına imkan verir
+- Məlumat və vəziyyəti dinamik şəkildə idarə etmək üçün nəzərdə tutulmuş siqnal-əsaslı (signal-based) güclü arxitektura
+- Angular, AI SDK-ları və API-ləri ilə problemsiz inteqrasiya edir
 
-This guide demonstrates how you can use [Genkit](/ai#build-ai-powered-applications-with-genkit-and-angular), [Firebase AI Logic](/ai#build-ai-powered-applications-with-firebase-ai-logic-and-angular), and the [Gemini API](/ai#build-ai-powered-applications-with-gemini-api-and-angular) to infuse your Angular apps with AI today. This guide will jumpstart your AI-powered web app development journey by explaining how to begin integrating AI into Angular apps. This guide also shares resources, such as starter kits, example code, and recipes for common workflows, you can use to get up to speed quickly.
+Bu bələdçi, Angular tətbiqlərinizi bu gün AI ilə zənginləşdirmək üçün [Genkit](/ai#build-ai-powered-applications-with-genkit-and-angular), [Firebase AI Logic](/ai#build-ai-powered-applications-with-firebase-ai-logic-and-angular) və [Gemini API](/ai#build-ai-powered-applications-with-gemini-api-and-angular)-dən necə istifadə edə biləcəyinizi nümayiş etdirir. Bu bələdçi, AI-nin Angular tətbiqlərinə inteqrasiyasına necə başlayacağınızı izah edərək AI dəstəkli veb tətbiq inkişafı səfərinizə başlamanıza kömək edəcək. Bu bələdçi həmçinin sürətlə ayağa qalxmaq üçün istifadə edə biləcəyiniz başlangıc dəstlər (starter kits), nümunə kodlar və ümumi iş axınları üçün reseptlər kimi resursları da paylaşır.
 
-To get started, you should have a basic understanding of Angular. New to Angular? Try our [essentials guide](/essentials) or our [getting started tutorials](/tutorials).
+Başlamaq üçün Angular haqqında əsas anlayışa sahib olmalısınız. Angular-a yeni başlayırsınız? [Əsaslar bələdçimizi](/essentials) və ya [başlanğıc dərsliklərini (tutorials)](/tutorials) sınayın.
 
-NOTE: While this page features integrations and examples with Google AI products, tools like Genkit are model agnostic and allow you to choose your own model. In many cases, the examples and code samples are applicable to other third-party solutions.
+QEYD: Bu səhifə Google AI məhsulları ilə inteqrasiyaları və nümunələri özündə cəmləşdirsə də, Genkit kimi alətlər model-agnostikdir (model-agnostic) və öz modelinizi seçməyə imkan verir. Bir çox halda, nümunələr və kod nümunələri digər üçüncü tərəf həllərə də tətbiq oluna bilər.
 
-## Getting Started
+## Başlamaq
 
-Building AI-powered applications is a new and rapidly developing field. It can be challenging to decide where to start and which technologies to choose. The following section provides three options to choose from:
+AI dəstəkli tətbiqlər qurmaq yeni və sürətlə inkişaf edən bir sahədir. Haradan başlayacağınıza və hansı texnologiyaları seçəcəyinizə qərar vermək çətin ola bilər. Aşağıdakı bölmə seçmək üçün üç variant təqdim edir:
 
-1. _Genkit_ gives you the choice of [supported model and interface with a unified API](https://genkit.dev) for building full-stack applications. Ideal for applications requiring sophisticated back-end AI logic, such as personalized recommendations.
+1. _Genkit_, tam stack tətbiqlər qurmaq üçün [dəstəklənən model və interfeysi vahid API ilə](https://genkit.dev) seçmə imkanı verir. Fərdiləşdirilmiş tövsiyələr kimi mürəkkəb arxa plan (back-end) AI məntiqi tələb edən tətbiqlər üçün idealdır.
 
-1. _Firebase AI Logic_ provides a secure client-side API for Google's models to build client-side only applications or mobile apps. Best for interactive AI features directly in the browser, such as real-time text analysis or basic chatbots.
+1. _Firebase AI Logic_, brauzerda birbaşa AI xüsusiyyətləri üçün ən uyğun olan yalnız müştəri tərəfli (client-side) tətbiqlər və ya mobil tətbiqlər qurmaq üçün Google-un modellərinə təhlükəsiz müştəri tərəfli API təqdim edir. Real vaxtlı mətn təhlili və ya əsas chatbotlar kimi brauzerda birbaşa interaktiv AI xüsusiyyətləri üçün ən yaxşısıdır.
 
-1. _Gemini API_ enables you to build an application that uses the methods and functionality exposed through the API surface directly, best for full-stack applications. Suitable for applications needing direct control over AI models, like custom image generation or deep data processing.
+1. _Gemini API_, tam stack tətbiqlər üçün ən uyğun olan API səthi vasitəsilə açıq metodlar və funksionallıqdan birbaşa istifadə edən bir tətbiq qurmağa imkan verir. Xüsusi şəkil yaratma və ya dərin məlumat emalı kimi AI modelləri üzərində birbaşa nəzarət tələb edən tətbiqlər üçün uyğundur.
 
 ### Build AI-powered applications with Genkit and Angular
 
-[Genkit](https://genkit.dev) is an open-source toolkit designed to help you build AI-powered features in web and mobile apps. It offers a unified interface for integrating AI models from Google, OpenAI, Anthropic, Ollama, and more, so you can explore and choose the best models for your needs. As a server-side solution, your web apps need a supported server environment, such as a node-based server in order to integrate with Genkit. Building a full-stack app using Angular SSR gives you the starting server-side code, for example.
+[Genkit](https://genkit.dev), veb və mobil tətbiqlərdə AI dəstəkli xüsusiyyətlər qurmağa kömək etmək üçün nəzərdə tutulmuş açıq mənbəli (open-source) bir alət dəstidir. Google, OpenAI, Anthropic, Ollama və daha çoxundan AI modellarini inteqrasiya etmək üçün vahid bir interfeys təklif edir, buna görə ehtiyaclarınız üçün ən yaxşı modelləri araşdırıb seçə bilərsiniz. Server tərəfli (server-side) bir həll olaraq, veb tətbiqlərinizin Genkit ilə inteqrasiya üçün node-əsaslı server kimi dəstəklənən bir server mühitinə ehtiyacı var. Məsələn, Angular SSR istifadə edərək tam stack tətbiq qurmaq sizə başlanğıc server tərəfli kodu verir.
 
-Here are examples of how to build with Genkit and Angular:
+Budur Genkit və Angular ilə necə quracağınızın nümunələri:
 
-- [Agentic Apps with Genkit and Angular starter-kit](https://github.com/angular/examples/tree/main/genkit-angular-starter-kit) — New to building with AI? Start here with a basic app that features an agentic workflow. Perfect place to start for your first AI building experience.
+- [Genkit və Angular başlangıc dəsti ilə Agentik Tətbiqlər](https://github.com/angular/examples/tree/main/genkit-angular-starter-kit) — AI ilə qurmağa yeni başlayırsınız? Agentik iş axınını özündə cəmləşdirən əsas bir tətbiqlə buradan başlayın. İlk AI quruculuq təcrübəniz üçün mükəmməl bir yer.
 
-- [Use Genkit in an Angular app](https://genkit.dev/docs/frameworks/angular/) — Build a basic application that uses Genkit Flows, Angular and Gemini 2.5 Flash. This step-by-step walkthrough guides you through creating a full-stack Angular application with AI features.
+- [Angular tətbiqində Genkit istifadəsi](https://genkit.dev/docs/frameworks/angular/) — Genkit Flows, Angular və Gemini 2.5 Flash istifadə edərək əsas bir tətbiq qurun. Bu addım-addım izahat, AI xüsusiyyətləri olan tam stack Angular tətbiqi yaratmağınızda sizə rəhbərlik edir.
 
-- [Dynamic Story Generator app](https://github.com/angular/examples/tree/main/genkit-angular-story-generator) — Learn to build an agentic Angular app powered by Genkit, Gemini and Imagen 3 to dynamically generate a story based on user interaction featuring beautiful image panels to accompany the events that take place. Start here if you'd like to experiment with a more advanced use-case.
+- [Dinamik Hekayə Generatoru tətbiqi](https://github.com/angular/examples/tree/main/genkit-angular-story-generator) — Genkit, Gemini və Imagen 3 ilə işləyən, istifadəçi interaksiyasına əsaslanaraq dinamik olaraq baş verən hadisələri müşayiət edən gözəl şəkil panelləri ilə bir hekayə yaradan agentik Angular tətbiqi qurmağı öyrənin. Daha qabaqcıl bir istifadə halı sınamaq istəyirsinizsə buradan başlayın.
 
-  This example also has an in-depth video walkthrough of the functionality:
-  - [Watch "Building Agentic Apps with Angular and Genkit live!"](https://youtube.com/live/mx7yZoIa2n4?feature=share)
-  - [Watch "Building Agentic Apps with Angular and Genkit live! PT 2"](https://youtube.com/live/YR6LN5_o3B0?feature=share)
+  Bu nümunənin həmçinin funksionallığın ətraflı video izahatı var:
+  - ["Angular və Genkit ilə Agentik Tətbiqlər qurmaq canlı!" izlə](https://youtube.com/live/mx7yZoIa2n4?feature=share)
+  - ["Angular və Genkit ilə Agentik Tətbiqlər qurmaq canlı! 2-ci hissə" izlə](https://youtube.com/live/YR6LN5_o3B0?feature=share)
 
-- [Building Agentic apps with Firebase and Google Cloud (Barista Example)](https://developers.google.com/solutions/learn/agentic-barista) - Learn how to build an agentic coffee ordering app with Firebase and Google Cloud. This example uses both Firebase AI Logic and Genkit.
+- [Firebase və Google Cloud ilə Agentik tətbiqlər qurmaq (Barista Nümunəsi)](https://developers.google.com/solutions/learn/agentic-barista) - Firebase və Google Cloud ilə agentik bir qəhvə sifariş tətbiqi necə quracağınızı öyrənin. Bu nümunə həm Firebase AI Logic həm də Genkit istifadə edir.
 
-- [Creating Dynamic, Server-Driven UIs](https://github.com/angular/examples/tree/main/dynamic-sdui-app) - Learn to build Agentic Angular apps with UI views that are generated at runtime based on user input.
+- [Dinamik, Server Tərəfindən İdarə Olunan Arayüzlər (SDUI) Yaratmaq](https://github.com/angular/examples/tree/main/dynamic-sdui-app) - İstifadəçi girişinə əsaslanaraq icra zamanında (runtime) yaradılan UI baxışları olan Agentik Angular tətbiqləri qurmağı öyrənin.
 
-  This example also has an in-depth video walkthrough of the functionality:
-  - [Watch "Exploring the future of web apps"](https://www.youtube.com/live/4qargCqOu70?feature=share)
+  Bu nümunənin həmçinin funksionallığın ətraflı video izahatı var:
+  - ["Veb tətbiqlərin gələcəyini araşdırmaq" izlə](https://www.youtube.com/live/4qargCqOu70?feature=share)
 
 ### Build AI-powered applications with Firebase AI Logic and Angular
 
-[Firebase AI Logic](https://firebase.google.com/products/vertex-ai-in-firebase) provides a secure way to interact with Vertex AI Gemini API or Imagen API directly from your web and mobile apps. This is compelling for Angular developers since apps can be either full-stack or client-side only. If you are developing a client-side only application, Firebase AI Logic is a good fit for incorporating AI into your web apps.
+[Firebase AI Logic](https://firebase.google.com/products/vertex-ai-in-firebase), veb və mobil tətbiqlərinizdən birbaşa Vertex AI Gemini API və ya Imagen API ilə əlaqə qurmaq üçün təhlükəsiz bir yol təqdim edir. Bu, Angular tətbiqləri ya tam stack, ya da yalnız müştəri tərəfli (client-side) ola biləcəyi üçün Angular tərtibatçıları üçün cəlbedicidir. Yalnız müştəri tərəfli bir tətbiq hazırlayırsınızsa, Firebase AI Logic veb tətbiqlərinizə AI daxil etmək üçün yaxşı bir seçimdir.
 
-Here is an example of how to build with Firebase AI Logic and Angular:
+Budur Firebase AI Logic və Angular ilə necə quracağınızın nümunəsi:
 
-- [Firebase AI Logic x Angular Starter Kit](https://github.com/angular/examples/tree/main/vertex-ai-firebase-angular-example) - Use this starter-kit to build an e-commerce application with a chat agent that can perform tasks. Start here if you do not have experience building with Firebase AI Logic and Angular.
+- [Firebase AI Logic x Angular Başlangıc Dəsti](https://github.com/angular/examples/tree/main/vertex-ai-firebase-angular-example) - Tapşırıqları yerinə yetirə bilən bir söhbət agenti olan elektron ticarət (e-commerce) tətbiqi qurmaq üçün bu başlangıc dəstindən istifadə edin. Firebase AI Logic və Angular ilə qurmaq təcrübəniz yoxdursa buradan başlayın.
 
-  This example includes an [in-depth video walkthrough explaining the functionality and demonstrates how to add new features](https://youtube.com/live/4vfDz2al_BI).
+  Bu nümunə funksionallığı izah edən və yeni xüsusiyyətlərin necə əlavə ediləcəyini nümayiş etdirən [ətraflı video izahatı](https://youtube.com/live/4vfDz2al_BI) ehtiva edir.
 
 ### Build AI-powered applications with Gemini API and Angular
 
-The [Gemini API](https://ai.google.dev/gemini-api/docs) provides access to state-of-the-art models from Google that support audio, images, video, and text input. These models that are optimized for specific use cases, [learn more on the Gemini API documentation site](https://ai.google.dev/gemini-api/docs/models).
+[Gemini API](https://ai.google.dev/gemini-api/docs), audio, şəkil, video və mətn girişini dəstəkləyən Google-un ən son modellərinə giriş imkanı verir. Xüsusi istifadə halları üçün optimallaşdırılmış bu modellər haqqında [Gemini API sənədləşmə saytında daha ətraflı məlumat əldə edin](https://ai.google.dev/gemini-api/docs/models).
 
-- [AI Text Editor Angular app template](https://github.com/FirebaseExtended/firebase-framework-tools/tree/main/starters/angular/ai-text-editor) - Use this template to start with a fully functioning text editor with AI-powered features like refining text, expanding text and formalizing text. This is a good starting point to gain experience with calling the Gemini API via HTTP.
+- [AI Mətn Redaktoru Angular tətbiq şablonu](https://github.com/FirebaseExtended/firebase-framework-tools/tree/main/starters/angular/ai-text-editor) - Mətni incəltmə, genişləndirmə və rəsmiləşdirmə kimi AI dəstəkli xüsusiyyətlərə malik tam işlək mətn redaktoru ilə başlamaq üçün bu şablondan istifadə edin. Gemini API-ni HTTP vasitəsilə çağırma təcrübəsi qazanmaq üçün yaxşı bir başlanğıc nöqtəsidir.
 
-- [AI Chatbot app template](https://github.com/FirebaseExtended/firebase-framework-tools/tree/main/starters/angular/ai-chatbot) - This template starts with a chatbot user interface that communicates with the Gemini API via HTTP.
+- [AI Chatbot tətbiq şablonu](https://github.com/FirebaseExtended/firebase-framework-tools/tree/main/starters/angular/ai-chatbot) - Bu şablon HTTP vasitəsilə Gemini API ilə əlaqə quran bir chatbot istifadəçi arayüzündən başlayır.
 
-## Best Practices
+## Ən Yaxşı Təcrübələr
 
-### Connecting to model providers and keeping your API Credentials Secure
+### Model təminatçılarına qoşulmaq və API Etimadnaməlerinizi Təhlükəsiz Saxlamaq
 
-When connecting to model providers, it is important to keep your API secrets safe. _Never put your API key in a file that ships to the client, such as `environments.ts`_.
+Model təminatçılarına qoşularkən API sirrlərinizi təhlükəsiz saxlamaq vacibdir. _API açarınızı heç vaxt `environments.ts` kimi müştəriyə göndərilən bir faylda yerləşdirməyin_.
 
-Your application's architecture determines which AI APIs and tools to choose. Specifically, choose based on whether or not your application is client-side or server-side. Tools such as Firebase AI Logic provide a secure connection to the model APIs for client-side code. If you want to use a different API than Firebase AI Logic or prefer to use a different model provider, consider creating a proxy-server or even [Cloud Functions for Firebase](https://firebase.google.com/docs/functions) to serve as a proxy and not expose your API keys.
+Tətbiqinizin arxitekturası hansı AI API-lərini və alətlərini seçəcəyinizi müəyyən edir. Xüsusi olaraq, tətbiqinizin müştəri tərəfli (client-side) olub-olmadığına görə seçin. Firebase AI Logic kimi alətlər, müştəri tərəfli kod üçün model API-lərinə təhlükəsiz bir bağlantı təmin edir. Firebase AI Logic-dən fərqli bir API istifadə etmək və ya fərqli model təminatçısına üstünlük verirmisinizə, API açarlarınızı ifşa etməmək üçün bir proksi-server (proxy-server) və ya hətta [Firebase üçün Cloud Functions](https://firebase.google.com/docs/functions) yaratmağı düşünün.
 
-For an example of connecting using a client-side app, see the code: [Firebase AI Logic Angular example repository](https://github.com/angular/examples/tree/main/vertex-ai-firebase-angular-example).
+Müştəri tərəfli tətbiq istifadə edərək qoşulma nümunəsi üçün koda baxın: [Firebase AI Logic Angular nümunə deposu](https://github.com/angular/examples/tree/main/vertex-ai-firebase-angular-example).
 
-For server-side connections to model APIs that require API keys, prefer using a secrets manager or environment variable, not `environments.ts`. You should follow standard best practices for securing API keys and credentials. Firebase now provides a new secrets manager with the latest updates from Firebase App Hosting. To learn more, [check out the official documentation](https://firebase.google.com/docs/app-hosting/configure).
+API açarları tələb edən model API-lərinə server tərəfli bağlantılar üçün `environments.ts` deyil, sirr meneceri (secrets manager) və ya mühit dəyişənindən (environment variable) istifadəni üstün tutun. API açarlarını və etimadnamələrini qorumaq üçün standart ən yaxşı təcrübələrə əməl etməlisiniz. Firebase indi Firebase App Hosting-in ən son yenilikləri ilə yeni bir sirr meneceri təqdim edir. Ətraflı məlumat üçün [rəsmi sənədlərə baxın](https://firebase.google.com/docs/app-hosting/configure).
 
-For a server-side connection example in a full-stack application, see the code: [Angular AI Example (Genkit and Angular Story Generator) repository](https://github.com/angular/examples/tree/main/genkit-angular-story-generator).
+Tam stack tətbiqdə server tərəfli bağlantı nümunəsi üçün koda baxın: [Angular AI Nümunəsi (Genkit və Angular Hekayə Generatoru) deposu](https://github.com/angular/examples/tree/main/genkit-angular-story-generator).
 
-### Use Tool Calling to enhance apps
+### Tətbiqləri təkmilləşdirmək üçün Alət Çağırışından (Tool Calling) istifadə edin
 
-If you want to build agentic workflows, where agents are able to act and use tools to solve problems based on prompts use "tool calling". Tool calling, also known as function calling, is a way to provide LLMs the ability to make requests back to the application that called it. As a developer, you define which tools are available and you are in control of how or when the tools are called.
+Agentlərin sorğulara (prompts) əsaslanaraq problemləri həll etmək üçün hərəkət edə bildiyi və alətlər istifadə edə bildiyi agentik iş axınları (agentic workflows) qurmaq istəyirsinizsə, "alət çağırışı" istifadə edin. Funksiya çağırışı (function calling) olaraq da bilinən alət çağırışı, LLM-lərə onu çağıran tətbiqə geri sorğu göndərmə imkanı verməyin bir yoludur. Bir tərtibatçı olaraq hansı alətlərin mövcud olduğunu müəyyən edirsiniz və alətlərin necə və nə zaman çağrılacağına siz nəzarət edirsiniz.
 
-Tool calling further enhances your web apps by expanding your AI integration further than a question and answer style chat bot. In fact, you can empower your model to request function calls using the function calling API of your model provider. The available tools can be used to perform more complex actions within the context of your application.
+Alət çağırışı, AI inteqrasiyanızı sual-cavab üslublu chatbotun ötəsinə genişlədərək veb tətbiqlərinizi daha da inkişaf etdirir. Əslində, model təminatçınızın funksiya çağırışı API-sini istifadə edərək modelinizi funksiya çağırışları tələb etməklə gücləndirə bilərsiniz. Mövcud alətlər, tətbiqinizin kontekstindəki daha mürəkkəb hərəkətləri yerinə yetirmək üçün istifadə edilə bilər.
 
-In the [e-commerce example](https://github.com/angular/examples/blob/main/vertex-ai-firebase-angular-example/src/app/ai.service.ts#L88) of the [Angular examples repository](https://github.com/angular/examples), the LLM requests to make calls to functions for inventory in order to gain the necessary context to perform more complex tasks such as calculating how much a group of items in the store will cost. The scope of the available API is up to you as a developer just as is whether or not to call a function requested by the LLM. You remain in control of the flow of execution. You can expose specific functions of a service for example but not all functions of that service.
+[Angular nümunələri deposunun](https://github.com/angular/examples) [elektron ticarət nümunəsindəki](https://github.com/angular/examples/blob/main/vertex-ai-firebase-angular-example/src/app/ai.service.ts#L88) LLM, mağazadakı bir qrup əşyanın nə qədər tutacağını hesablamaq kimi daha mürəkkəb tapşırıqları yerinə yetirmək üçün lazımi konteksti əldə etmək məqsədiylə inventar üçün funksiyalara çağırışlar etməyi tələb edir. Mövcud API-nin əhatə dairəsi LLM-in tələb etdiyi bir funksiyanı çağırıb-çağırmamaq kimi, sizin bir tərtibatçı olaraq sizə aiddır. İcranın axınına nəzarəti sizdə qalır. Məsələn, bir xidmətin bütün funksiyalarını deyil, xüsusi funksiyalarını açıq edə bilərsiniz.
 
-### Handling non-deterministic responses
+### Qeyri-deterministik cavabların idarə edilməsi (Handling non-deterministic responses)
 
-Because models can return non-deterministic results, your applications should be designed with that in mind. Here are a few strategies that you can use in your application implementation:
+Modellər qeyri-deterministik nəticələr qaytara biləcəyi üçün tətbiqləriniz bunu nəzərə alaraq hazırlanmalıdır. Tətbiq icrası zamanı istifadə edə biləcəyiniz bir neçə strategiya var:
 
-- Adjust prompts and model parameters (such as [temperature](https://ai.google.dev/gemini-api/docs/prompting-strategies)) for more or less deterministic responses. You can [find out more in the prompting strategies section](https://ai.google.dev/gemini-api/docs/prompting-strategies) of [ai.google.dev](https://ai.google.dev/).
-- Use the "human in the loop" strategy where a human verifies outputs before proceeding in a workflow. Build your application workflows to allow operators (humans or other models) to verify outputs and confirm key decisions.
-- Employ tool (or function) calling and schema constraints to guide and restrict model responses to predefined formats, increasing response predictability.
+- Daha deterministik və ya daha az deterministik cavablar üçün sorğuları (prompts) və model parametrlərini (məsələn, [temperatur](https://ai.google.dev/gemini-api/docs/prompting-strategies)) tənzimləyin. [ai.google.dev](https://ai.google.dev/)-in [sorğu strategiyaları bölməsindən](https://ai.google.dev/gemini-api/docs/prompting-strategies) daha ətraflı məlumat ala bilərsiniz.
+- Bir iş axınında davam etmədən əvvəl insan çıxışları yoxladığında "dövrədə insan" (human in the loop) strategiyasından istifadə edin. Çıxışları yoxlamaq və əsas qərarları təsdiqləmək üçün operatorlara (insanlar və ya digər modellər) imkan verəcək şəkildə tətbiq iş axınları qurun.
+- Model cavablarını əvvəlcədən müəyyən edilmiş formatlara yönəltmək və məhdudlaşdırmaq, cavab proqnozlaşdırılmasını artırmaq üçün alət (və ya funksiya) çağırışından və sxem məhdudiyyətlərindən (schema constraints) istifadə edin.
 
-Even considering these strategies and techniques, sensible fallbacks should be incorporated in your application design. Follow existing standards of application resiliency. For example, it is not acceptable for an application to crash if a resource or API is not available. In that scenario, an error message is displayed to the user and, if applicable, options for next steps are also displayed. Building AI-powered applications requires the same consideration. Confirm that the response is aligned with the expected output and provide a "safe landing" in case it is not aligned by way of [graceful degradation](https://developer.mozilla.org/en-US/docs/Glossary/Graceful_degradation). This also applies to API outages for LLM providers.
+Bu strategiya və texnikaları nəzərə alsaq belə, tətbiq dizaynınıza ağlabatan alternativ variantlar (fallbacks) daxil edilməlidir. Tətbiqin dayanıqlıq (resiliency) üzrə mövcud standartları izləyin. Məsələn, bir resurs və ya API mövcud olmadıqda tətbiqin çöküşü qəbuledilməzdir. Bu ssenaridə istifadəçiyə bir xəta mesajı göstərilir və əgər mümkündürsə, növbəti addımlar üçün seçimlər də göstərilir. AI dəstəkli tətbiqlər qurmaq eyni diqqəti tələb edir. Cavabın gözlənilən çıxışla uyğun olduğunu təsdiqləyin və [zərif deqradasiya (graceful degradation)](https://developer.mozilla.org/en-US/docs/Glossary/Graceful_degradation) yolu ilə uyğun olmadığı halda "təhlükəsiz eniş" təmin edin. Bu, LLM təminatçıları üçün API fasilələrinə də aiddir.
 
-Consider this example: The LLM provider is not responding. A potential strategy to handle the outage is:
+Bu nümunəni nəzərdən keçirin: LLM təminatçısı cavab vermir. Fasiləni idarə etmək üçün potensial strategiya:
 
-- Save the response from the user to use in a retry scenario (now or at a later time)
-- Alert the user to the outage with an appropriate message that doesn't reveal sensitive information
-- Resume the conversation at a later time once the services are available again.
+- Yenidən cəhd ssenarisindən (indi və ya daha sonra) istifadə etmək üçün istifadəçinin cavabını saxlayın
+- Həssas məlumatları ifşa etməyən uyğun bir mesajla istifadəçiyə fasilə barədə xəbər verin
+- Xidmətlər yenidən mövcud olduqdan sonra söhbəti daha sonra davam etdirin.
 
-## Next steps
+## Növbəti addımlar
 
-To learn about LLM prompts and AI IDE setup, see the following guides:
+LLM sorğuları (prompts) və AI IDE quraşdırması haqqında öyrənmək üçün aşağıdakı bələdçilərə baxın:
 
 <docs-pill-row>
-  <docs-pill href="ai/develop-with-ai" title="LLM prompts and IDE setup"/>
+  <docs-pill href="ai/develop-with-ai" title="LLM sorğuları (prompts) və IDE quraşdırması"/>
 </docs-pill-row>
