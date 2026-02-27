@@ -188,8 +188,29 @@ section {
   }
 
   .search-field {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
     @include mq.for-tablet-down() {
       display: none;
+    }
+  }
+
+  .adev-github-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--secondary-contrast);
+    transition: color 0.3s ease;
+
+    &:hover {
+      color: var(--primary-contrast);
+    }
+
+    svg {
+      width: 24px;
+      height: 24px;
     }
   }
 

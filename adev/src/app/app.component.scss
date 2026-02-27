@@ -29,6 +29,7 @@
   @include mq.for-tablet-landscape-down {
     flex-direction: column;
   }
+
   // If navs are open, render a blurry background over content
   &:has(.docs-nav-secondary--open),
   &:has(.adev-nav-primary--open) {
@@ -71,10 +72,13 @@
   font-size: 0.875rem;
   transform: translateY(-150%);
   transition: transform 0.3s ease-out;
-  &:focus-visible {
+
+  &:focus {
     transform: translateY(0);
   }
 }
+
+
 
 .docs-app-main-content {
   display: flex;
@@ -91,7 +95,7 @@
     width: 100vw;
     height: 100vh;
     backdrop-filter: blur(2px);
-    background-color: color-mix(in srgb, var(--page-background) 5%, transparent);
+    background-color: color-mix(in srgb, var(--gray-1000) 5%, transparent);
     z-index: 50;
     visibility: hidden;
     opacity: 0;

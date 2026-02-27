@@ -6,8 +6,8 @@
  * found in the LICENSE file at https://angular.dev/license
  */
 
-import {DOCUMENT, Injectable, VERSION, computed, inject} from '@angular/core';
-import {httpResource} from '@angular/common/http';
+import { DOCUMENT, Injectable, VERSION, computed, inject } from '@angular/core';
+import { httpResource } from '@angular/common/http';
 
 import versionJson from '../../../assets/others/versions.json';
 
@@ -22,7 +22,7 @@ export const INITIAL_ADEV_DOCS_VERSION = 18;
 export const VERSION_PLACEHOLDER = '{{version}}';
 export const MODE_PLACEHOLDER = '{{prefix}}';
 
-type VersionJson = {version: string; url: string};
+type VersionJson = { version: string; url: string };
 
 /**
  * This service will rely on 2 sources of data for the list of versions.
@@ -62,7 +62,7 @@ export class VersionManager {
   // which is the most up-to-date anyway.
   remoteVersions = httpResource(
     () => ({
-      url: 'https://angular.dev/assets/others/versions.json',
+      url: '/assets/others/versions.json',
       transferCache: false,
       cache: 'no-cache',
     }),
@@ -94,11 +94,15 @@ export class VersionManager {
   );
 
   readonly currentDocsVersion = computed(() => {
-    // In devmode the version is 0, so we'll target next (which is first on the list)
-    if (VERSION.major === '0' || VERSION.patch.includes('next')) {
-      return this.versions()[0];
+    const versions = this.versions();
+
+    // Default to v21 if available in the list, unless a specific major version match is required
+    const v21 = versions.find((v) => v.displayName === 'v21');
+
+    if (v21 && (VERSION.major === '0' || VERSION.patch.includes('next'))) {
+      return v21;
     }
 
-    return this.versions().find((v) => v.displayName.includes(VERSION.major)) ?? this.versions()[0];
+    return versions.find((v) => v.displayName.includes(VERSION.major)) ?? v21 ?? versions[0];
   });
 }
