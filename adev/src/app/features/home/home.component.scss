@@ -28,12 +28,8 @@
   left: calc(var(--layout-padding) + var(--primary-nav-width));
   z-index: 1;
 
-  @include mq.for-tablet-landscape-down {
-    justify-content: center;
-    margin-top: 4rem;
-  }
-
-  @include mq.for-phone-only {
+  @include mq.for-tablet-down {
+    justify-content: flex-start;
     margin-top: 1rem;
   }
 }
@@ -95,16 +91,13 @@ section {
   @include mq.for-tablet-landscape-up {
     padding-left: 7rem;
   }
+
   text-align: center;
+
   h2 {
     padding: 0 1rem;
     font-size: clamp(1rem, 9vw, 38pt);
   }
-}
-
-#features {
-  margin: 0;
-  padding: 2.5rem 1rem;
 }
 
 @property --gradient-angle {
@@ -117,6 +110,7 @@ section {
   from {
     --gradient-angle: 0deg;
   }
+
   to {
     --gradient-angle: 360deg;
   }
@@ -139,10 +133,12 @@ section {
     --pulse-inner: 30%;
     --pulse-outer: 75%;
   }
+
   50% {
     --pulse-inner: 30%;
     --pulse-outer: 60%;
   }
+
   100% {
     --pulse-inner: 30%;
     --pulse-outer: 75%;
@@ -154,6 +150,7 @@ section {
   display: flex;
   flex-direction: column;
   height: min(700px, 100vh);
+
   @include mq.for-tablet-down {
     height: min(700px, calc(100vh - 60px));
   }
@@ -161,13 +158,14 @@ section {
   .pattern {
     @include background-pattern;
     width: calc(100% - 7rem);
+
     @include mq.for-tablet-landscape-down {
       width: 100%;
     }
+
     animation: rotateGradient 10s linear infinite;
 
-    background: conic-gradient(
-      from 122deg at 50% 50%,
+    background: conic-gradient(from 122deg at 50% 50%,
       transparent 17%,
       #f627e3 25%,
       #6911d2 32%,
@@ -175,8 +173,7 @@ section {
       transparent 61%,
       #6911d2 71%,
       #f627e3 81%,
-      transparent 91%
-    );
+      transparent 91%);
 
     &:after {
       // A fading bottom for the pattern
@@ -191,8 +188,29 @@ section {
   }
 
   .search-field {
-    @include mq.for-tablet-landscape-down() {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    @include mq.for-tablet-down() {
       display: none;
+    }
+  }
+
+  .adev-github-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--secondary-contrast);
+    transition: color 0.3s ease;
+
+    &:hover {
+      color: var(--primary-contrast);
+    }
+
+    svg {
+      width: 24px;
+      height: 24px;
     }
   }
 
@@ -276,12 +294,9 @@ section {
     border: 1px solid var(--quinary-contrast);
     border-radius: 0.5rem;
     width: fit-content;
+    max-width: 100%;
+    box-sizing: border-box;
     margin: 0 auto 2rem;
-
-    @include mq.for-phone-only {
-      width: auto;
-      margin: 0 0.5rem 1rem;
-    }
 
     .tab-background {
       position: absolute;
@@ -297,12 +312,15 @@ section {
     &:has(> :nth-child(2)[aria-selected='true']) .tab-background {
       transform: translateX(0%);
     }
+
     &:has(> :nth-child(3)[aria-selected='true']) .tab-background {
       transform: translateX(100%);
     }
+
     &:has(> :nth-child(4)[aria-selected='true']) .tab-background {
       transform: translateX(200%);
     }
+
     &:has(> :nth-child(5)[aria-selected='true']) .tab-background {
       transform: translateX(300%);
     }
@@ -322,15 +340,23 @@ section {
     position: relative;
     z-index: 1;
 
+    @include mq.for-tablet-down {
+      font-size: 12px;
+      padding: 0.4rem;
+    }
+
+    @include mq.for-phone-only {
+      font-size: 10px;
+      padding: 0.3rem;
+    }
+
     &:hover {
       color: var(--primary-contrast);
     }
   }
 
   [ngTab][aria-selected='true'] {
-    color: var(
-      --electric-violet
-    ); // the gradient would "look" better but fails constrast requirements
+    color: var(--electric-violet); // the gradient would "look" better but fails constrast requirements
   }
 
   .sliding-window {
@@ -339,16 +365,19 @@ section {
     transition: all 0.2s ease-in-out;
   }
 
-  [ngTabList]:has(> :nth-child(2)[aria-selected='true']) ~ .sliding-window {
+  [ngTabList]:has(> :nth-child(2)[aria-selected='true'])~.sliding-window {
     transform: translateX(0%);
   }
-  [ngTabList]:has(> :nth-child(3)[aria-selected='true']) ~ .sliding-window {
+
+  [ngTabList]:has(> :nth-child(3)[aria-selected='true'])~.sliding-window {
     transform: translateX(-25%);
   }
-  [ngTabList]:has(> :nth-child(4)[aria-selected='true']) ~ .sliding-window {
+
+  [ngTabList]:has(> :nth-child(4)[aria-selected='true'])~.sliding-window {
     transform: translateX(-50%);
   }
-  [ngTabList]:has(> :nth-child(5)[aria-selected='true']) ~ .sliding-window {
+
+  [ngTabList]:has(> :nth-child(5)[aria-selected='true'])~.sliding-window {
     transform: translateX(-75%);
   }
 
@@ -360,7 +389,11 @@ section {
     width: 25%;
     box-sizing: border-box;
 
-    @include mq.for-phone-only {
+    @include mq.for-tablet-down {
+      padding: 1rem;
+    }
+
+    @media (max-width: 480px) {
       padding: 0.5rem;
     }
   }
@@ -384,6 +417,11 @@ section {
     grid-template-columns: 1fr;
     gap: 2rem;
     padding: 1.5rem;
+  }
+
+  @media (max-width: 480px) {
+    padding: 1rem;
+    gap: 1.5rem;
   }
 }
 
@@ -426,7 +464,8 @@ section {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 1.5rem;
-    text-align: left; /* reset center alignment from section */
+    text-align: left;
+    /* reset center alignment from section */
     overflow-x: auto;
     margin: 0 1rem;
 
@@ -467,12 +506,10 @@ section {
     justify-content: center;
     color: var(--primary-contrast);
     position: relative;
-    background: linear-gradient(
-      90deg,
-      var(--orange-red) 0%,
-      var(--vivid-pink) 50%,
-      var(--electric-violet) 100%
-    );
+    background: linear-gradient(90deg,
+        var(--orange-red) 0%,
+        var(--vivid-pink) 50%,
+        var(--electric-violet) 100%);
 
     &::after {
       content: '';
@@ -528,6 +565,7 @@ section {
     width: 100%;
 
     background: radial-gradient(transparent 28%, #f627e3 45%, #6911d2 55%, transparent 69%);
+
     @include mq.for-phone-only {
       opacity: 0.7;
     }
@@ -540,15 +578,18 @@ section {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
     h2 {
       margin-bottom: 0;
     }
+
     h3 {
       font-size: 12pt;
       color: var(--quaternary-contrast);
       max-width: 400px;
       margin: 0 1rem;
     }
+
     button {
       margin-top: 2rem;
     }
@@ -565,13 +606,11 @@ section {
     width: calc(100% - 7rem);
 
     animation: pulse 4s ease-in-out infinite;
-    background: radial-gradient(
-      circle at 50% 125%,
-      transparent 20%,
-      #f627e3 35%,
-      #6911d2 55%,
-      transparent var(--pulse-outer)
-    );
+    background: radial-gradient(circle at 50% 125%,
+        transparent 20%,
+        #f627e3 35%,
+        #6911d2 55%,
+        transparent var(--pulse-outer));
 
     @include mq.for-tablet-landscape-down {
       width: 100%;
@@ -677,12 +716,10 @@ section {
         }
       }
 
-      background: linear-gradient(
-        var(--gradient-angle),
+      background: linear-gradient(var(--gradient-angle),
         var(--orange-red) 0%,
         var(--electric-violet) 39%,
-        transparent 81%
-      );
+        transparent 81%);
     }
 
     .card-content {
@@ -698,6 +735,7 @@ section {
         line-height: 1.5;
         margin-bottom: 1.5rem;
         font-size: 1rem;
+
         .emphasis {
           color: var(--secondary-contrast);
         }
@@ -710,13 +748,11 @@ section {
       gap: 0.5rem;
       color: var(--tertiary-contrast);
       transition: color 0.3s ease;
-      background: linear-gradient(
-        90deg,
-        var(--tertiary-contrast) 0%,
-        var(--tertiary-contrast) 47%,
-        var(--orange-red) 51%,
-        var(--electric-violet) 100%
-      );
+      background: linear-gradient(90deg,
+          var(--tertiary-contrast) 0%,
+          var(--tertiary-contrast) 47%,
+          var(--orange-red) 51%,
+          var(--electric-violet) 100%);
       background-size: 200% 100%;
       background-position: 0% 0%;
       background-clip: text;
@@ -809,15 +845,13 @@ section {
     box-sizing: border-box;
     animation: rotateGradient 10s linear infinite;
 
-    background: conic-gradient(
-      from var(--gradient-angle) at 50% 50%,
-      var(--hot-red) 0%,
-      var(--vivid-pink) 20%,
-      var(--electric-violet) 40%,
-      transparent 50%,
-      transparent 85%,
-      var(--hot-red) 100%
-    );
+    background: conic-gradient(from var(--gradient-angle) at 50% 50%,
+        var(--hot-red) 0%,
+        var(--vivid-pink) 20%,
+        var(--electric-violet) 40%,
+        transparent 50%,
+        transparent 85%,
+        var(--hot-red) 100%);
 
     &::after {
       content: '';

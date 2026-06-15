@@ -15,7 +15,7 @@ export interface NavigationItem {
   level?: number;
   parent?: NavigationItem;
   contentPath?: string;
-  status?: 'new' | 'updated';
+  status?: 'yeni' | 'yeniləndi';
   category?: string;
   categoriesStatus?: Record<string, 'new' | 'updated'>[];
   isCrossReferenced?: boolean;

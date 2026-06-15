@@ -6,13 +6,13 @@
  * found in the LICENSE file at https://angular.dev/license
  */
 
-import {contentResolver, flatNavigationData, mapNavigationItemsToRoutes} from '@angular/docs';
-import {Route} from '@angular/router';
-import {SUB_NAVIGATION_DATA} from './sub-navigation-data';
-import {mapApiManifestToRoutes} from '../features/references/helpers/manifest.helper';
+import { contentResolver, flatNavigationData, mapNavigationItemsToRoutes } from '@angular/docs';
+import { Route } from '@angular/router';
+import { SUB_NAVIGATION_DATA } from './sub-navigation-data';
+import { mapApiManifestToRoutes } from '../features/references/helpers/manifest.helper';
 import MainComponent from '../main.component';
-import {DEFAULT_PAGES, PAGE_PREFIX} from '../core/constants/pages';
-import {REDIRECT_ROUTES} from './redirections';
+import { DEFAULT_PAGES, PAGE_PREFIX } from '../core/constants/pages';
+import { REDIRECT_ROUTES } from './redirections';
 
 // Docs navigation data contains routes which navigates to /tutorials pages, in
 // that case we should load Tutorial component
@@ -105,7 +105,7 @@ const tutorialComponentRoutes = mapNavigationItemsToRoutes(
   tutorialsNavigationItems.filter((route) => route.path !== DEFAULT_PAGES.TUTORIALS),
   {
     loadComponent: () => import('../features/tutorial/tutorial.component'),
-    data: {...commonTutorialRouteData},
+    data: { ...commonTutorialRouteData },
   },
 );
 export const TUTORIALS_ROUTES = [...docsTutorialsRoutes, ...tutorialComponentRoutes];
@@ -120,7 +120,7 @@ export const SUB_NAVIGATION_ROUTES: Route[] = [
 
 const FOOTER_ROUTES: Route[] = mapNavigationItemsToRoutes(
   flatNavigationData(SUB_NAVIGATION_DATA.footer),
-  {loadComponent: () => import('../features/docs/docs.component')},
+  { loadComponent: () => import('../features/docs/docs.component') },
 );
 
 const API_REFERENCE_ROUTES: Route[] = mapApiManifestToRoutes();
@@ -133,7 +133,7 @@ export const routes: Route[] = [
       {
         path: '',
         loadComponent: () => import('../features/home/home.component'),
-        data: {label: 'Home'},
+        data: { label: 'Ana səhifə' },
       },
       {
         path: PAGE_PREFIX.DOCS,
@@ -146,7 +146,7 @@ export const routes: Route[] = [
       {
         path: PAGE_PREFIX.PLAYGROUND,
         loadComponent: () => import('../features/playground/playground.component'),
-        data: {...commonTutorialRouteData, label: 'Playground'},
+        data: { ...commonTutorialRouteData, label: 'Playground' },
       },
       ...SUB_NAVIGATION_ROUTES,
       ...API_REFERENCE_ROUTES,
@@ -159,6 +159,6 @@ export const routes: Route[] = [
   {
     path: '**',
     loadComponent: () => import('../features/not-found/not-found').then((m) => m.NotFound),
-    data: {label: 'Page not found'},
+    data: { label: 'Page not found' },
   },
 ];
