@@ -195,7 +195,12 @@ section {
     gap: 1rem;
 
     @include mq.for-tablet-down() {
-      display: none;
+      docs-text-field {
+        display: none;
+      }
+      .adev-github-link span {
+        display: none;
+      }
     }
   }
 
