@@ -1,24 +1,28 @@
-<h1 align="center">Angular - The modern web developer's platform</h1>
+<h1 align="center">Angular - Müasir veb tərtibatçı platforması</h1>
 
 <p align="center">
   <img src="adev/src/assets/images/press-kit/angular_icon_gradient.gif" alt="angular-logo" width="120px" height="120px"/>
   <br>
-  <em>Angular is a development platform for building mobile and desktop web applications
-    <br> using TypeScript/JavaScript and other languages.</em>
+  <em>Angular, TypeScript/JavaScript və digər dillərdən istifadə edərək mobil və masaüstü
+    <br> veb tətbiqlər qurmaq üçün inkişaf platformasıdır.</em>
+  <br>
+  <em>Angular-ın rəsmi sənədlərinin icma tərəfindən dəstəklənən Azərbaycan dili tərcüməsi.</em>
   <br>
 </p>
 
 <p align="center">
   <a href="https://angular.dev/"><strong>angular.dev</strong></a>
+  ·
+  <a href="https://angular.az/"><strong>angular.az</strong></a>
   <br>
 </p>
 
 <p align="center">
-  <a href="CONTRIBUTING.md">Contributing Guidelines</a>
+  <a href="CONTRIBUTING.md">Töhfə Qaydaları</a>
   ·
-  <a href="https://github.com/angular/angular/issues">Submit an Issue</a>
+  <a href="https://github.com/angular/angular/issues">İssue Yarat</a>
   ·
-  <a href="https://blog.angular.dev/">Blog</a>
+  <a href="https://blog.angular.dev/">Bloq</a>
   <br>
   <br>
 </p>
@@ -31,62 +35,70 @@
 
 <hr>
 
-## Documentation
+## 🇦🇿 Azərbaycan Dilində Sənədləşməyə Töhfə Vermək
 
-Get started with Angular, learn the fundamentals and explore advanced topics on our documentation website.
+Angular-ın rəsmi sənədlərinin Azərbaycan dilinə tərcüməsi icma tərəfindən idarə olunan açıq mənbəli (open-source) bir təşəbbüsdür. Siz də bu prosesin bir hissəsi ola bilərsiniz!
 
-- [Getting Started][quickstart]
-- [Architecture][architecture]
-- [Components and Templates][componentstemplates]
-- [Forms][forms]
+Bir tərcümə xətası tapmısınız, hər hansı bir cümləni daha anlaşıqlı etmək istəyirsiniz, yoxsa tamamilə yeni bir səhifəni dilimizə qazandırmaq fikrindəsiniz? Sizin hər bir töhfəniz yerli proqramlaşdırma icması üçün çox dəyərlidir.
+
+Tərcümə prosesinə necə qoşula biləcəyinizi öyrənmək, iş prosesi və tərcümə qaydaları ilə tanış olmaq üçün zəhmət olmasa geniş [CONTRIBUTING-AZ.md](CONTRIBUTING-AZ.md) bələdçimizə nəzər yetirin.
+
+## Sənədləşmə (Documentation)
+
+Angular ilə başlamaq üçün əsasları öyrənin və sənədləşmə saytımızda daha irəli səviyyəli mövzuları kəşf edin.
+
+- [Başlanğıc][quickstart]
+- [Memarlıq (Architecture)][architecture]
+- [Komponentlər və Şablonlar][componentstemplates]
+- [Formalar (Forms)][forms]
 - [API][api]
 
-### Advanced
+### İrəli Səviyyə (Advanced)
 
 - [Angular Elements][angularelements]
-- [Server Side Rendering][ssr]
+- [Server Tərəfli Render (Server Side Rendering)][ssr]
 - [Schematics][schematics]
-- [Lazy Loading][lazyloading]
-- [Animations][animations]
+- [Sonradan Yükləmə (Lazy Loading)][lazyloading]
+- [Animasiyalar][animations]
 
-### Local Development
+### Yerli İnkişaf (Local Development)
 
-To contribute to the Angular Docs, check out the [Angular.dev README](adev/README.md)
+Angular Sənədlərinə töhfə vermək üçün, [Angular.dev README](adev/README.md) faylına nəzər yetirin.
 
-## Development Setup
+## İnkişaf Mühitinin Qurulması (Development Setup)
 
-### Prerequisites
+### İlkin Tələblər
 
-- Install [Node.js] which includes [Node Package Manager][npm]
+- [Node Package Manager][npm] daxil olan [Node.js]-i quraşdırın.
 
-### Setting Up a Project
+### Layihənin Qurulması
 
-Install the Angular CLI globally:
+Angular CLI-ni qlobal olaraq quraşdırın:
 
 ```
 npm install -g @angular/cli
 ```
 
-Create a workspace:
+İş sahəsi (workspace) yaradın:
 
 ```
-ng new [PROJECT NAME]
+ng new [LAYİHƏ ADI]
 ```
 
-Run the application:
+Tətbiqi işə salın:
 
 ```
-cd [PROJECT NAME]
+cd [LAYİHƏ ADI]
 ng serve
 ```
 
-Angular is cross-platform, fast, scalable, has incredible tooling, and is loved by millions.
+Angular çarpaz platformadır (cross-platform), sürətli, miqyaslana bilən, inanılmaz alətlərə sahibdir və milyonlarla insan tərəfindən sevilir.
 
-## Quickstart
+## Sürətli Başlanğıc (Quickstart)
 
-[Get started in 5 minutes][quickstart].
+[5 dəqiqədə başla][quickstart].
 
-## Ecosystem
+## Ekosistem
 
 <p>
   <img src="/contributing-docs/images/angular-ecosystem-logos.png" alt="angular ecosystem logos" width="500px" height="auto">
@@ -95,42 +107,42 @@ Angular is cross-platform, fast, scalable, has incredible tooling, and is loved 
 - [Angular Command Line (CLI)][cli]
 - [Angular Material][angularmaterial]
 
-## Changelog
+## Yeniliklər (Changelog)
 
-[Learn about the latest improvements][changelog].
+[Ən son yeniliklər barədə məlumat əldə edin][changelog].
 
-## Upgrading
+## Yenilənmə (Upgrading)
 
-Check out our [upgrade guide](https://angular.dev/update-guide/) to find out the best way to upgrade your project.
+Layihənizi yeniləməyin ən yaxşı yolunu tapmaq üçün bizim [yenilənmə bələdçimizə](https://angular.dev/update-guide/) nəzər yetirin.
 
-## Contributing
+## Töhfə Vermək (Contributing)
 
-### Contributing Guidelines
+### Töhfə Qaydaları
 
-Read through our [contributing guidelines][contributing] to learn about our submission process, coding rules, and more.
+Təqdimat prosesimiz, kodlaşdırma qaydalarımız və daha çoxunu öyrənmək üçün [töhfə qaydalarımızı][contributing] oxuyun.
 
-### Want to Help?
+### Kömək etmək istəyirsiniz?
 
-Want to report a bug, contribute some code, or improve the documentation? Excellent! Read up on our guidelines for [contributing][contributing] and then check out one of our issues labeled as <kbd>[help wanted](https://github.com/angular/angular/labels/help%20wanted)</kbd> or <kbd>[good first issue](https://github.com/angular/angular/labels/good%20first%20issue)</kbd>.
+Bir xəta bildirmək, koda töhfə vermək və ya sənədləşməni yaxşılaşdırmaq istəyirsiniz? Əla! [Töhfə vermək][contributing] üçün qaydalarımızı oxuyun və daha sonra <kbd>[help wanted](https://github.com/angular/angular/labels/help%20wanted)</kbd> və ya <kbd>[good first issue](https://github.com/angular/angular/labels/good%20first%20issue)</kbd> kimi etiketlənmiş issue-lardan birini yoxlayın.
 
-### Code of Conduct
+### Davranış Qaydaları (Code of Conduct)
 
-Help us keep Angular open and inclusive. Please read and follow our [Code of Conduct][codeofconduct].
+Angular-ın açıq və əhatəli olmasına kömək edin. Zəhmət olmasa bizim [Davranış Qaydalarımızı][codeofconduct] oxuyun və əməl edin.
 
-## Community
+## İcma (Community)
 
-Join the conversation and help the community.
+Söhbətə qoşulun və icmaya kömək edin.
 
-- [X (formerly Twitter)][X (formerly Twitter)]
+- [X (əvvəlki Twitter)][X (formerly Twitter)]
 - [Bluesky][bluesky]
 - [Discord][discord]
 - [YouTube][youtube]
 - [StackOverflow][stackoverflow]
-- Find a Local [Meetup][meetup]
+- Yerli [Meetup][meetup] tapın
 
 [![Love Angular badge](https://img.shields.io/badge/angular-love-blue?logo=angular&angular=love)](https://www.github.com/angular/angular)
 
-**Love Angular? Give our repo a star :star: :arrow_up:.**
+**Angular-ı sevirsiniz? Repozitoriyamıza ulduz (star) verin :star: :arrow_up:.**
 
 [contributing]: CONTRIBUTING.md
 [quickstart]: https://angular.dev/tutorials/learn-angular
