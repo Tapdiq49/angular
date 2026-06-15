@@ -1,4 +1,4 @@
-import {Component, computed, effect, signal} from '@angular/core';
+import {Component, signal, computed, effect, ChangeDetectionStrategy} from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -49,6 +49,7 @@ import {Component, computed, effect, signal} from '@angular/core';
     </div>
   `,
   styleUrl: './app.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class App {
   theme = signal<'light' | 'dark'>('light');

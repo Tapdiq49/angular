@@ -49,7 +49,9 @@ describe('Banner', () => {
   let fixture: ComponentFixture<Banner>;
 
   beforeEach(async () => {
-    TestBed.configureTestingModule({});
+    await TestBed.configureTestingModule({
+      imports: [Banner],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(Banner);
     component = fixture.componentInstance;

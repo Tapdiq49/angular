@@ -1,16 +1,16 @@
-# Component input properties
+# Komponentin input property-ləri
 
-Sometimes app development requires you to send data into a component. This data can be used to customize a component or perhaps send information from a parent component to a child component.
+Bəzən tətbiq inkişafı zamanı komponentə məlumat göndərmək tələb olunur. Bu məlumat bir komponenti fərdiləşdirmək və ya valideyn komponentdən övlad (child) komponentə məlumat ötürmək üçün istifadə edilə bilər.
 
-Angular uses a concept called `input`. This is similar to `props` in other frameworks. To create an `input` property, use the `input()` function.
+Angular `input` adlı konsepsiyadan istifadə edir. Bu, digər freymvorklardakı `props`-a bənzəyir. `input` property-si yaratmaq üçün `input()` funksiyasından istifadə edin.
 
-NOTE: Learn more about [accepting data with input properties in the inputs guide](/guide/components/inputs).
+QEYD: [Inputs bələdçisində input property-ləri ilə məlumatın qəbul edilməsi](/guide/components/inputs) haqqında daha çox öyrənin.
 
-In this activity, you'll learn how to use the `input()` function to send information to components.
+Bu fəaliyyətdə siz komponentlərə məlumat göndərmək üçün `input()` funksiyasından necə istifadə edəcəyinizi öyrənəcəksiniz.
 
 <hr>
 
-To create an `input` property, add the `input()` function to initialize a property of a component class:
+Bir `input` property-si yaratmaq üçün komponent class-ının property-sini inisializasiya etmək məqsədilə `input()` funksiyasını əlavə edin:
 
 ```ts {header:"user.ts"}
 class User {
@@ -18,7 +18,7 @@ class User {
 }
 ```
 
-When you are ready to pass in a value through an `input`, values can be set in templates using the attribute syntax. Here's an example:
+Bir dəyəri `input` vasitəsilə ötürməyə hazır olduğunuzda, dəyərlər template-lərdə attribute sintaksisindən istifadə edilərək təyin edilə bilər. Budur bir nümunə:
 
 ```angular-ts {header:"app.ts", highlight:[3]}
 @Component({
@@ -28,7 +28,7 @@ When you are ready to pass in a value through an `input`, values can be set in t
 export class App {}
 ```
 
-The `input` function returns an `InputSignal`. You can read the value by calling the signal.
+`input` funksiyası `InputSignal` qaytarır. Siz siqnalı çağıraraq dəyəri oxuya bilərsiniz.
 
 ```angular-ts {header:"user.ts"}
 @Component({
@@ -39,19 +39,19 @@ The `input` function returns an `InputSignal`. You can read the value by calling
 
 <docs-workflow>
 
-<docs-step title="Define an `input()` property">
-Update the code in `user.ts` to define an `input` property on the `User` called `name` and specify the `string` type. For now, don't set an initial value and invoke `input()` without arguments. Be sure to update the template to invoke and interpolate the `name` property at the end of the sentence.
+<docs-step title="Bir `input()` property-si təyin edin">
+`user.ts`-dəki kodu yeniləyərək `User` class-ında `name` adlı bir `input` property-si təyin edin və `string` tipini göstərin. Hələlik ilkin dəyər təyin etməyin və `input()` funksiyasını arqumentsiz çağırın. Cümlənin sonunda `name` property-sini çağırmaq və render etmək (interpolation) üçün template-i yenilədiyinizdən əmin olun.
 </docs-step>
 
-<docs-step title="Pass a value to the `input` property">
-Update the code in `app.ts` to send in the `name` property with a value of `"Simran"`.
+<docs-step title="`input` property-sinə dəyər ötürün">
+`app.ts`-dəki kodu yeniləyərək `name` property-sinə `"Simran"` dəyərini göndərin.
 <br>
 
-When the code has been successfully updated, the app will display `The user's name is Simran`.
+Kod uğurla yeniləndikdə, tətbiq `The user's name is Simran` mesajını göstərəcək.
 </docs-step>
 
 </docs-workflow>
 
-While this is great, it is only one direction of the component communication. What if you want to send information and data to a parent component from a child component? Check out the next lesson to find out.
+Bu gözəl olsa da, komponentlər arası əlaqənin yalnız bir istiqamətidir. Bəs övlad komponentdən valideyn komponentə məlumat və data göndərmək istəsəniz necə? Bunu öyrənmək üçün növbəti dərsi yoxlayın.
 
-P.S. you are doing great - keep going 🎉
+P.S. Əla gedirsiniz - davam edin 🎉

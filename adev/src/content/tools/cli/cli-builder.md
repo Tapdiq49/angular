@@ -56,7 +56,7 @@ To create a builder, use the `createBuilder()` CLI Builder function, and return 
 <docs-code header="src/my-builder.ts (builder skeleton)" path="adev/src/content/examples/cli-builder/src/my-builder.ts" region="builder-skeleton"/>
 
 Now let's add some logic to it.
-The following code retrieves the source and destination file paths from user options and copies the file from the source to the destination \(using the [Promise version of the built-in Node.js `copyFile()` function](https://nodejs.org/api/fs.html#fs_fspromises_copyfile_src_dest_mode)\).
+The following code retrieves the source and destination file paths from user options and copies the file from the source to the destination \(using the [Promise version of the built-in NodeJS `copyFile()` function](https://nodejs.org/api/fs.html#fs_fspromises_copyfile_src_dest_mode)\).
 If the copy operation fails, it returns an error with a message about the underlying problem.
 
 <docs-code header="src/my-builder.ts (builder)" path="adev/src/content/examples/cli-builder/src/my-builder.ts" region="builder"/>
@@ -147,7 +147,8 @@ In the `package.json` file, add a `builders` key that tells the Architect tool w
   "description": "Builder for copying files",
   "builders": "builders.json",
   "dependencies": {
-    "@angular/build": "^21.2.0"
+    "@angular-devkit/architect": "~0.1200.0",
+    "@angular-devkit/core": "^12.0.0"
   }
 }
 ```
@@ -168,7 +169,7 @@ A target specifies the builder to use, its default options configuration, and na
 Architect in the Angular CLI uses the target definition to resolve input options for a given run.
 
 The `angular.json` file has a section for each project, and the "architect" section of each project configures targets for builders used by CLI commands such as 'build', 'test', and 'serve'.
-By default, for example, the `ng build` command runs the builder `@angular/build:application` to perform the build task, and passes in default option values as specified for the `build` target in `angular.json`.
+By default, for example, the `ng build` command runs the builder `@angular-devkit/build-angular:browser` to perform the build task, and passes in default option values as specified for the `build` target in `angular.json`.
 
 ```json {header: "angular.json"}
 {
@@ -176,7 +177,7 @@ By default, for example, the `ng build` command runs the builder `@angular/build
     "...": "...",
     "architect": {
       "build": {
-        "builder": "@angular/build:application",
+        "builder": "@angular-devkit/build-angular:browser",
         "options": {
           "outputPath": "dist/myApp",
           "index": "src/index.html",
@@ -266,7 +267,7 @@ If you create a new project with `ng new builder-test`, the generated `angular.j
     "builder-test": {
       "architect": {
         "build": {
-          "builder": "@angular/build:application",
+          "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "outputPath": "dist/builder-test",
             "index": "src/index.html",
@@ -277,7 +278,8 @@ If you create a new project with `ng new builder-test`, the generated `angular.j
           "configurations": {
             "production": {
               "optimization": true,
-              "aot": true
+              "aot": true,
+              "buildOptimizer": true
             }
           }
         }

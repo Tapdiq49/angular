@@ -14,31 +14,22 @@ This section walks you through creating a highlight directive that sets the back
 
    The CLI creates `src/app/highlight.directive.ts`, a corresponding test file `src/app/highlight.directive.spec.ts`.
 
-   ```angular-ts
-   import {Directive} from '@angular/core';
-
-   @Directive({
-     selector: '[appHighlight]',
-   })
-   export class HighlightDirective {}
-   ```
+   <docs-code header="highlight.directive.ts" path="adev/src/content/examples/attribute-directives/src/app/highlight.directive.0.ts"/>
 
    The `@Directive()` decorator's configuration property specifies the directive's CSS attribute selector, `[appHighlight]`.
 
-1. Import `ElementRef` and `inject` from `@angular/core`.
+1. Import `ElementRef` from `@angular/core`.
    `ElementRef` grants direct access to the host DOM element through its `nativeElement` property.
 
-1. Use [`inject`](guide/di) to obtain a reference to the host DOM element, the element to which you apply `appHighlight`.
+1. Add `ElementRef` in the directive's `constructor()` to [inject](guide/di) a reference to the host DOM element, the element to which you apply `appHighlight`.
 
 1. Add logic to the `HighlightDirective` class that sets the background to yellow.
 
-   <docs-code header="highlight.directive.ts" path="adev/src/content/examples/attribute-directives/src/app/highlight.directive.1.ts"/>
+<docs-code header="highlight.directive.ts" path="adev/src/content/examples/attribute-directives/src/app/highlight.directive.1.ts"/>
 
-IMPORTANT: Directives _do not_ support namespaces.
+HELPFUL: Directives _do not_ support namespaces.
 
-```angular-html {avoid}
-<p app:Highlight>This is invalid</p>
-```
+<docs-code header="app.component.avoid.html (unsupported)" path="adev/src/content/examples/attribute-directives/src/app/app.component.avoid.html" region="unsupported"/>
 
 ## Applying an attribute directive
 
@@ -46,7 +37,7 @@ To use the `HighlightDirective`, add a `<p>` element to the HTML template with t
 
 <docs-code header="app.component.html" path="adev/src/content/examples/attribute-directives/src/app/app.component.1.html" region="applied"/>
 
-Angular creates an instance of the `HighlightDirective` class, which uses `inject(ElementRef)` to get a reference to the `<p>` element and set its background style to yellow.
+Angular creates an instance of the `HighlightDirective` class and injects a reference to the `<p>` element into the directive's constructor, which sets the `<p>` element's background style to yellow.
 
 ## Handling user events
 

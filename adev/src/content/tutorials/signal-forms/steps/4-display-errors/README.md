@@ -1,22 +1,22 @@
-# Display validation errors
+# Validasiya xətalarını göstərin
 
-Now that you're able to validate the form, it's important to show validation errors to users.
+Artıq formanı validasiya edə bildiyinizə görə, validasiya xətalarını istifadəçilərə göstərmək vacibdir.
 
-In this activity, you'll learn how to:
+Bu fəaliyyətdə siz aşağıdakıları öyrənəcəksiniz:
 
-- Access field state with validation signals
-- Use `@if` to conditionally display errors
-- Loop through errors with `@for`
-- Show errors only after user interaction
+- Validasiya siqnalları ilə sahə vəziyyətinə müraciət etmək
+- Xətaları şərti olaraq göstərmək üçün `@if` istifadə etmək
+- `@for` ilə xətalar üzərində dövr (loop) qurmaq
+- Xətaları yalnız istifadəçi qarşılıqlı əlaqəsindən sonra göstərmək
 
-Let's display validation feedback!
+Gəlin validasiya rəyini (feedback) göstərək!
 
 <hr />
 
 <docs-workflow>
 
-<docs-step title="Add error display for email field">
-Below the email input, add conditional error display. This will only show errors when the field is both invalid and touched:
+<docs-step title="Email sahəsi üçün xəta göstəricisi əlavə edin">
+Email girişinin aşağısında şərti xəta göstəricisi əlavə edin. Bu, yalnız sahə həm yanlış (invalid), həm də toxunulmuş (touched) olduqda xətaları göstərəcək:
 
 ```angular-html
 <label>
@@ -32,15 +32,15 @@ Below the email input, add conditional error display. This will only show errors
 }
 ```
 
-The `loginForm.email()` call accesses the field's state signal. The `invalid()` method returns `true` when validation fails, `touched()` returns `true` after the user has interacted with the field, and `errors()` provides an array of validation errors with their custom messages.
+`loginForm.email()` çağırışı sahənin vəziyyət siqnalına daxil olur. `invalid()` metodu validasiya uğursuz olduqda `true`, `touched()` metodu istifadəçi sahə ilə qarşılıqlı əlaqədə olduqdan sonra `true` qaytarır və `errors()` xüsusi mesajları ilə validasiya xətaları massivini təmin edir.
 </docs-step>
 
-<docs-step title="Add error display for password field">
-Below the password input, add the same pattern for password errors:
+<docs-step title="Şifrə (password) sahəsi üçün xəta göstəricisi əlavə edin">
+Şifrə girişinin aşağısında şifrə xətaları üçün eyni növü əlavə edin:
 
 ```angular-html
 <label>
-  Password
+  Şifrə
   <input type="password" [formField]="loginForm.password" />
 </label>
 @if (loginForm.password().invalid() && loginForm.password().touched()) {
@@ -56,6 +56,6 @@ Below the password input, add the same pattern for password errors:
 
 </docs-workflow>
 
-Excellent! You've added error display to your form. The errors appear only after users interact with a field, providing helpful feedback without being intrusive.
+Mükəmməl! Siz formanıza xəta göstəricisi əlavə etdiniz. Xətalar yalnız istifadəçilər bir sahə ilə qarşılıqlı əlaqədə olduqdan sonra görünür və bezdirici olmadan faydalı rəy təmin edir.
 
-Next, you'll learn [how to handle form submission](/tutorials/signal-forms/5-add-submission)!
+Növbəti addımda [forma göndərilməsini (submission) necə idarə edəcəyinizi](/tutorials/signal-forms/5-add-submission) öyrənəcəksiniz!

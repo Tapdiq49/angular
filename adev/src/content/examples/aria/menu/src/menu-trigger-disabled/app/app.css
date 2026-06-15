@@ -52,11 +52,8 @@
   cursor: default;
 }
 
-[ngMenuTrigger]:not([disabled]):hover,
-[ngMenuTrigger][aria-expanded='true'],
-[ngMenuItem]:not([aria-disabled='true']):hover,
-[ngMenuItem]:not([aria-disabled='true']):focus,
-[ngMenuItem][aria-expanded='true'] {
+[ngMenuTrigger]:hover,
+[ngMenuItem][data-active='true'] {
   background: color-mix(in srgb, var(--border-color) 10%, transparent);
 }
 

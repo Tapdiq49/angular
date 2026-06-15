@@ -56,7 +56,7 @@ The second piece of syntax is a key-expression pair, `from source`. `from` is a 
 
 ## One structural directive per element
 
-You can only apply one structural directive per element when using the shorthand syntax. This is because there is only one `<ng-template>` element onto which that directive gets unwrapped. Multiple directives would require multiple nested `<ng-template>`, and it's unclear which directive should be first. `<ng-container>` can be used to create wrapper layers when multiple structural directives need to be applied around the same physical DOM element or component, which allows the user to define the nested structure.
+You can only apply one structural directive per element when using the shorthand syntax. This is because there is only one `<ng-template>` element onto which that directive gets unwrapped. Multiple directives would require multiple nested `<ng-template>`, and it's unclear which directive should be first. `<ng-container>` can be used when to create wrapper layers when multiple structural directives need to be applied around the same physical DOM element or component, which allows the user to define the nested structure.
 
 ## Creating a structural directive
 
@@ -73,14 +73,10 @@ ng generate directive select
 Angular creates the directive class and specifies the CSS selector, `[select]`, that identifies the directive in a template.
 </docs-step>
 <docs-step title="Make the directive structural">
-Import `TemplateRef`, `ViewContainerRef`, and `input`. Inject `TemplateRef` and `ViewContainerRef` in the directive as private properties.
+Import `TemplateRef`, and `ViewContainerRef`. Inject `TemplateRef` and `ViewContainerRef` in the directive as private properties.
 
 ```ts
-import {Directive, TemplateRef, ViewContainerRef, inject, input} from '@angular/core';
-
-export interface DataSource<T> {
-  load(): Promise<T>;
-}
+import {Directive, TemplateRef, ViewContainerRef} from '@angular/core';
 
 @Directive({
   selector: '[select]',
@@ -98,7 +94,7 @@ Add a `selectFrom` `input()` property.
 ```ts
 export class SelectDirective {
   // ...
-  selectFrom = input.required<DataSource<unknown>>();
+  selectFrom = input.required<DataSource>();
 }
 ```
 
@@ -110,7 +106,7 @@ With `SelectDirective` now scaffolded as a structural directive with its input, 
 export class SelectDirective {
   // ...
   async ngOnInit() {
-    const data = await this.selectFrom().load();
+    const data = await this.selectFrom.load();
     this.viewContainerRef.createEmbeddedView(this.templateRef, {
       // Create the embedded view with a context object that contains
       // the data via the key `$implicit`.

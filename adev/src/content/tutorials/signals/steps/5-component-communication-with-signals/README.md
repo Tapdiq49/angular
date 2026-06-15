@@ -1,31 +1,31 @@
-# Passing data to components with input signals
+# İnput siqnalları vasitəsilə komponentlərə məlumat ötürmək
 
-Now that you've learned [managing async data with signals](/tutorials/signals/4-managing-async-data-with-signals), let's explore Angular's signal-based `input()` API for passing data from parent to child components, making component data flow more reactive and efficient. If you're familiar with component props from other frameworks, inputs are the same idea.
+Artıq [siqnallarla asinxron məlumatları idarə etməyi](/tutorials/signals/4-managing-async-data-with-signals) öyrəndiniz, gəlin Angular-ın siqnal bazalı `input()` API-sini araşdıraq. Bu API valideyn komponentdən övlad komponentə məlumat ötürmək üçün istifadə olunur, komponent məlumat axınını daha reaktiv və səmərəli edir. Əgər digər freymvorklardan komponent "props" anlayışı ilə tanışsınızsa, input-lar da eyni ideyadır.
 
-In this activity, you'll add signal inputs to a product card component and see how parent data flows down reactively.
+Bu fəaliyyətdə siz məhsul kartı (product card) komponentinə siqnal input-ları əlavə edəcəksiniz və valideyn məlumatlarının reaktiv şəkildə aşağıya necə axdığını görəcəksiniz.
 
 <hr />
 
 <docs-workflow>
 
-<docs-step title="Add signal inputs to ProductCard">
-Add signal `input()` functions to receive data in the `product-card` component.
+<docs-step title="ProductCard-a siqnal input-ları əlavə edin">
+`product-card` komponentində məlumatları qəbul etmək üçün siqnal `input()` funksiyalarını əlavə edin.
 
 ```ts
-// Add imports for signal inputs
+// Siqnal input-ları üçün import-lar əlavə edin
 import {Component, input, ChangeDetectionStrategy} from '@angular/core';
 
-// Add these signal inputs
+// Bu siqnal input-larını əlavə edin
 name = input.required<string>();
 price = input.required<number>();
 available = input<boolean>(true);
 ```
 
-Notice how `input.required()` creates an input that must be provided, while `input()` with a default value is optional.
+`input.required()` mütləq təqdim edilməli olan məlumatı necə yaratdığına, susmaya görə (default) dəyəri olan `input()`-un isə seçimli (optional) olduğuna diqqət yetirin.
 </docs-step>
 
-<docs-step title="Connect inputs to the template">
-Update the template in `product-card` to display the signal input values.
+<docs-step title="İnput-ları template-ə qoşun">
+Siqnal input dəyərlərini göstərmək üçün `product-card` template-ini yeniləyin.
 
 ```angular-html
 <div class="product-card">
@@ -34,33 +34,33 @@ Update the template in `product-card` to display the signal input values.
   <p class="status">
     Status:
     @if (available()) {
-      Available
+      Mövcuddur
     } @else {
-      Out of Stock
+      Stokda yoxdur
     }
   </p>
 </div>
 ```
 
-Input signals work just like regular signals in templates - call them as functions to access their values.
+İnput siqnalları template-də normal siqnallar kimi işləyir - dəyərlərinə müraciət etmək üçün onları funksiya kimi çağırın.
 </docs-step>
 
-<docs-step title="Connect parent signals to child inputs">
-Update the `product-card` usage in `app.ts` to pass dynamic signal values instead of static ones.
+<docs-step title="Valideyn siqnallarını övlad input-larına qoşun">
+Statik dəyərlər əvəzinə dinamik siqnal dəyərlərini ötürmək üçün `app.ts` faylındakı `product-card` istifadəsini yeniləyin.
 
 ```html
-<!-- Change from static values: -->
+<!-- Statik dəyərlərdən dəyişin: -->
 <product-card name="Static Product" price="99" available="true" />
 
-<!-- To dynamic signals: -->
+<!-- Dinamik siqnallara: -->
 <product-card [name]="productName()" [price]="productPrice()" [available]="productAvailable()" />
 ```
 
-The square brackets `[]` create property bindings that pass the current signal values to the child.
+Kvadrat mötərizələr `[]` cari siqnal dəyərlərini övlad komponentə ötürən property binding-ləri yaradır.
 </docs-step>
 
-<docs-step title="Test reactive updates">
-Add methods in `app.ts` to update the parent signals and see how the child component reacts automatically.
+<docs-step title="Reaktiv yeniləmələri test edin">
+Valideyn siqnallarını yeniləmək və övlad komponentin necə avtomatik reaksiya verdiyini görmək üçün `app.ts` faylına metodlar əlavə edin.
 
 ```ts
 updateProduct() {
@@ -74,25 +74,25 @@ toggleAvailability() {
 ```
 
 ```html
-<!-- Add controls to test reactivity -->
+<!-- Reaktivliyi test etmək üçün idarəetmə elementləri əlavə edin -->
 <div class="controls">
-  <button (click)="updateProduct()">Update Product Info</button>
-  <button (click)="toggleAvailability()">Toggle Availability</button>
+  <button (click)="updateProduct()">Məhsul məlumatlarını yenilə</button>
+  <button (click)="toggleAvailability()">Mövcudluğu dəyiş</button>
 </div>
 ```
 
-When parent signals change, the child component automatically receives and displays the new values!
+Valideyn siqnalları dəyişdikdə, övlad komponent yeni dəyərləri avtomatik qəbul edir və göstərir!
 </docs-step>
 
 </docs-workflow>
 
-Excellent! You've learned how signal inputs work:
+Mükəmməl! Siz siqnal input-larının necə işlədiyini öyrəndiniz:
 
-- **Signal inputs** - Use `input()` and `input.required()` to receive data from parent components
-- **Reactive updates** - Child components automatically update when parent signal values change
-- **Type safety** - Signal inputs provide full TypeScript type checking
-- **Default values** - Optional inputs can have default values while required inputs must be provided
+- **Siqnal input-ları** - Valideyn komponentlərdən məlumat qəbul etmək üçün `input()` və `input.required()` istifadə edin
+- **Reaktiv yeniləmələr** - Valideyn siqnal dəyərləri dəyişdikdə övlad komponentlər avtomatik yenilənir
+- **Tip təhlükəsizliyi** - Siqnal input-ları tam TypeScript tip yoxlamasını təmin edir
+- **Standart (default) dəyərlər** - Seçimli input-lar standart dəyərlərə malik ola bilər, məcburi input-lar isə mütləq təqdim edilməlidir
 
-Signal inputs make component communication more reactive and eliminate the need for `OnChanges` lifecycle hooks in many cases.
+Siqnal input-ları komponent arası əlaqəni daha reaktiv edir və bir çox hallarda `OnChanges` lifecycle hook-larına ehtiyacı aradan qaldırır.
 
-In the next lesson, you'll learn about [two-way binding with model signals](/tutorials/signals/6-two-way-binding-with-model-signals)!
+Növbəti dərsdə, [model siqnalları ilə iki tərəfli binding (two-way binding)](/tutorials/signals/6-two-way-binding-with-model-signals) haqqında öyrənəcəksiniz!

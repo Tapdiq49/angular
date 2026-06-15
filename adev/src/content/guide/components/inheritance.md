@@ -65,25 +65,7 @@ and their own.
 
 ### Forwarding injected dependencies
 
-When a base class uses `inject()` as a property initializer, the child class inherits the property automatically. No `super` forwarding is needed.
-
-```ts
-@Component({
-  /*...*/
-})
-export class ListboxBase {
-  protected element = inject(ElementRef);
-}
-
-@Component({
-  /*...*/
-})
-export class CustomListbox extends ListboxBase {
-  // `element` is inherited from `ListboxBase`.
-}
-```
-
-If a base class injects dependencies as constructor parameters, the child class must explicitly pass these dependencies to `super`.
+If a base class injects dependencies as constructor parameters, the child class must explicitly class these dependencies to `super`.
 
 ```ts
 @Component({

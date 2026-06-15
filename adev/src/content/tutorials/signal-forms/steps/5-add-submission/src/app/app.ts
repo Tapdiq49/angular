@@ -1,4 +1,4 @@
-import {Component, signal} from '@angular/core';
+import {ChangeDetectionStrategy, Component, signal} from '@angular/core';
 // TODO: Import submit function
 import {email, form, FormField, required} from '@angular/forms/signals';
 
@@ -13,6 +13,7 @@ interface LoginData {
   templateUrl: './app.html',
   styleUrl: './app.css',
   imports: [FormField],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class App {
   loginModel = signal<LoginData>({

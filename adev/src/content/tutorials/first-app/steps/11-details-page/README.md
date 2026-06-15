@@ -1,138 +1,138 @@
-# Integrate details page into application
+# Təfərrüat səhifəsini tətbiqə inteqrasiya edin
 
-This tutorial lesson demonstrates how to connect the details page to your app.
+Bu təlimat dərsi təfərrüat (details) səhifəsini tətbiqinizə necə bağlayacağınızı nümayiş etdirir.
 
 <docs-video src="https://www.youtube.com/embed/-jRxG84AzCI?si=CbqIpmRpwp5ZZDnu&amp;start=345"/>
 
-IMPORTANT: We recommend using your local environment to learn routing.
+VACİB: Marşrutlaşdırmanı öyrənmək üçün yerli mühitinizdən istifadə etməyi tövsiyə edirik.
 
-## What you'll learn
+## Nə öyrənəcəksiniz
 
-At the end of this lesson your application will have support for routing to the details page.
+Bu dərsin sonunda tətbiqiniz təfərrüat səhifəsinə marşrutlaşdırma dəstəyinə sahib olacaq.
 
-## Conceptual preview of routing with route parameters
+## Marşrut parametrləri ilə marşrutlaşdırmaya konseptual baxış
 
-Each housing location has specific details that should be displayed when a user navigates to the details page for that item. To accomplish this goal, you will need to use route parameters.
+Hər bir yaşayış yerinin istifadəçi həmin element üçün təfərrüat səhifəsinə keçdikdə göstərilməli olan xüsusi detalları var. Bu məqsədə nazil olmaq üçün marşrut parametrlərindən istifadə etməli olacaqsınız.
 
-Route parameters enable you to include dynamic information as a part of your route URL. To identify which housing location a user has clicked on you will use the `id` property of the `HousingLocation` type.
+Marşrut parametrləri marşrut URL-inizin tərkib hissəsi kimi dinamik məlumatları daxil etməyə imkan verir. İstifadəçinin hansı yaşayış yerinə kliklədiyini müəyyən etmək üçün `HousingLocation` tipinin `id` property-sindən istifadə edəcəksiniz.
 
 <docs-workflow>
 
-<docs-step title="Using `routerLink` for dynamic navigation">
-In lesson 10, you added a second route to `src/app/routes.ts` which includes a special segment that identifies the route parameter, `id`:
+<docs-step title="Dinamik naviqasiya üçün `routerLink` istifadəsi">
+10-cu dərsdə siz `src/app/routes.ts` faylına marşrut parametrini, yəni `id`-ni müəyyən edən xüsusi seqmenti daxil edən ikinci bir marşrut əlavə etdiniz:
 
 ```
 'details/:id'
 ```
 
-In this case, `:id` is dynamic and will change based on how the route is requested by the code.
+Bu halda, `:id` dinamikdir və marşrutun kod tərəfindən necə tələb olunduğuna əsasən dəyişəcək.
 
-1.  In `src/app/housing-location/housing-location.ts`, add an anchor tag to the `section` element and include the `routerLink` directive:
+1.  `src/app/housing-location/housing-location.ts` faylında `section` elementinə bir anchor teqi əlavə edin və `routerLink` direktivini daxil edin:
 
-    <docs-code language="angular-ts" header="Add anchor with a routerLink directive to housing-location.ts" path="adev/src/content/tutorials/first-app/steps/12-forms/src/app/housing-location/housing-location.ts" visibleLines="[18]"/>
+    <docs-code language="angular-ts" header="housing-location.ts daxilində routerLink direktivi ilə bir anchor əlavə edin" path="adev/src/content/tutorials/first-app/steps/12-forms/src/app/housing-location/housing-location.ts" visibleLines="[18]"/>
 
-    The `routerLink` directive enables Angular's router to create dynamic links in the application. The value assigned to the `routerLink` is an array with two entries: the static portion of the path and the dynamic data.
+    `routerLink` direktivi Angular-ın router-inə tətbiqdə dinamik linklər yaratmağa imkan verir. `routerLink`-ə təyin edilən dəyər iki girişli bir massivdir: yolun statik hissəsi və dinamik məlumat.
 
-    For the `routerLink` to work in the template, add a file level import of `RouterLink` and `RouterOutlet` from '@angular/router', then update the component `imports` array to include both `RouterLink` and `RouterOutlet`.
+    `routerLink`-in template-də işləməsi üçün '@angular/router'-dan `RouterLink` və `RouterOutlet` üçün fayl səviyyəsində import əlavə edin, sonra hər ikisini daxil etmək üçün komponentin `imports` massivini yeniləyin.
 
-1.  At this point you can confirm that the routing is working in your app. In the browser, refresh the home page and click the "Learn More" button for a housing location.
+1.  Bu nöqtədə marşrutlaşdırmanın tətbiqinizdə işlədiyini təsdiqləyə bilərsiniz. Brauzerdə ana səhifəni yeniləyin və yaşayış yeri üçün "Learn More" düyməsini klikləyin.
 
-      <img alt="details page displaying the text 'details works!'" src="assets/images/tutorials/first-app/homes-app-lesson-11-step-1.png">
+      <img alt="'details works!' mətnini göstərən təfərrüat səhifəsi" src="assets/images/tutorials/first-app/homes-app-lesson-11-step-1.png">
 
 </docs-step>
 
-<docs-step title="Get route parameters">
-In this step, you will get the route parameter in the `Details`. Currently, the app displays `details works!`. Next you'll update the code to display the `id` value passed using the route parameters.
+<docs-step title="Marşrut parametrlərini əldə edin">
+Bu addımda siz `Details` komponentində marşrut parametrini əldə edəcəksiniz. Hazırda tətbiq `details works!` göstərir. Sonra marşrut parametrləri vasitəsilə ötürülən `id` dəyərini göstərmək üçün kodu yeniləyəcəksiniz.
 
-1.  In `src/app/details/details.ts` update the template to import the functions, classes and services that you'll need to use in the `Details`:
+1.  `src/app/details/details.ts` faylında `Details` komponentində istifadə etməli olacağınız funksiyaları, class-ları və servisləri import etmək üçün template-i yeniləyin:
 
-      <docs-code header="Update file level imports" path="adev/src/content/tutorials/first-app/steps/12-forms/src/app/details/details.ts" visibleLines="[1,4]"/>
+       <docs-code header="Fayl səviyyəsində importları yeniləyin" path="adev/src/content/tutorials/first-app/steps/12-forms/src/app/details/details.ts" visibleLines="[1,4]"/>
 
-1.  Update the `template` property of the `@Component` decorator to display the value `housingLocationId`:
+1.  `housingLocationId` dəyərini göstərmək üçün `@Component` dekoratorunun `template` property-sini yeniləyin:
 
-         ```angular-ts
-         template: `<p>details works! {{ housingLocationId }}</p>`,
-         ```
+          ```angular-ts
+          template: `<p>details works! {{ housingLocationId }}</p>`,
+          ```
 
-1.  Update the body of the `Details` class with the following code:
+1.  `Details` class-ının gövdəsini aşağıdakı kodla yeniləyin:
 
-         ```ts
-         export class Details {
-            route: ActivatedRoute = inject(ActivatedRoute);
-            housingLocationId = -1;
-            constructor() {
-            this.housingLocationId = Number(this.route.snapshot.params['id']);
-            }
-         }
-         ```
+          ```ts
+          export class Details {
+             route: ActivatedRoute = inject(ActivatedRoute);
+             housingLocationId = -1;
+             constructor() {
+             this.housingLocationId = Number(this.route.snapshot.params['id']);
+             }
+          }
+          ```
 
-    This code gives the `Details` access to the `ActivatedRoute` router feature that enables you to have access to the data about the current route. In the `constructor`, the code converts the `id` parameter acquired from the route from a string to a number.
+    Bu kod `Details` komponentinə cari marşrut haqqında məlumatlara daxil olmağa imkan verən `ActivatedRoute` router xüsusiyyətinə çıxış verir. `constructor`-da kod marşrutdan əldə edilən `id` parametrini string-dən rəqəmə (number) çevirir.
 
-1.  Save all changes.
+1.  Bütün dəyişiklikləri yadda saxlayın.
 
-1.  In the browser, click on one of the housing location's "Learn More" links and confirm that the numeric value displayed on the page matches the `id` property for that location in the data.
+1.  Brauzerdə yaşayış yerlərindən birinin "Learn More" linkinə klikləyin və səhifədə göstərilən rəqəmsal dəyərin həmin yer üçün məlumatlardakı `id` property-si ilə uyğun gəldiyini təsdiqləyin.
     </docs-step>
 
-<docs-step title="Customize the `Details`">
-Now that routing is working properly in the application this is a great time to update the template of the `Details` to display the specific data represented by the housing location for the route parameter.
+<docs-step title="`Details` komponentini fərdiləşdirin">
+Artıq marşrutlaşdırma tətbiqdə düzgün işlədiyindən, bu `Details` komponentinin template-ini marşrut parametri üçün yaşayış yerini təmsil edən xüsusi məlumatları göstərmək üçün yeniləmək üçün əla vaxtdır.
 
-To access the data you will add a call to the `HousingService`.
+Məlumatlara daxil olmaq üçün `HousingService` çağırışı əlavə edəcəksiniz.
 
-1. Update the template code to match the following code:
+1. Template kodunu aşağıdakı koda uyğun yeniləyin:
 
-   <docs-code language="angular-ts" header="Update the Details template in src/app/details/details.ts" path="adev/src/content/tutorials/first-app/steps/12-forms/src/app/details/details.ts" visibleLines="[8,29]"/>
+   <docs-code language="angular-ts" header="src/app/details/details.ts daxilində Details template-ini yeniləyin" path="adev/src/content/tutorials/first-app/steps/12-forms/src/app/details/details.ts" visibleLines="[8,29]"/>
 
-   Notice that the `housingLocation` properties are being accessed with the optional chaining operator `?`. This ensures that if the `housingLocation` value is null or undefined the application doesn't crash.
+   Nəzərə alın ki, `housingLocation` xüsusiyyətlərinə `?` optional chaining operatoru ilə müraciət edilir. Bu, `housingLocation` dəyərinin null və ya undefined olduğu halda tətbiqin çökməməsini təmin edir.
 
-1. Update the body of the `Details` class to match the following code:
+1. `Details` class-ının gövdəsini aşağıdakı koda uyğun yeniləyin:
 
-   <docs-code language="angular-ts" header="Update the Details class in src/app/details/details.ts" path="adev/src/content/tutorials/first-app/steps/12-forms/src/app/details/details.ts" visibleLines="[32,41]"/>
+   <docs-code language="angular-ts" header="src/app/details/details.ts daxilində Details class-ını yeniləyin" path="adev/src/content/tutorials/first-app/steps/12-forms/src/app/details/details.ts" visibleLines="[32,41]"/>
 
-   Now the component has the code to display the correct information based on the selected housing location. The `constructor` now includes a call to the `HousingService` to pass the route parameter as an argument to the `getHousingLocationById` service function.
+   İndi komponent seçilmiş yaşayış yerinə əsasən düzgün məlumatları göstərmək üçün koda sahibdir. `constructor` indi marşrut parametrini `getHousingLocationById` servis funksiyasına arqument kimi ötürmək üçün `HousingService` çağırışını daxil edir.
 
-1. Copy the following styles into the `src/app/details/details.css` file:
+1. Aşağıdakı üslubları `src/app/details/details.css` faylına kopyalayın:
 
-   <docs-code header="Add styles for the Details" path="adev/src/content/tutorials/first-app/steps/12-forms/src/app/details/details.css" visibleLines="[1,71]"/>
+   <docs-code header="Details üçün üslublar əlavə edin" path="adev/src/content/tutorials/first-app/steps/12-forms/src/app/details/details.css" visibleLines="[1,71]"/>
 
-   and save your changes
+   və dəyişikliklərinizi yadda saxlayın
 
-1. In `Details` use the just created `details.css` file as the source for the styles:
-   <docs-code language="angular-ts" header="Update details.ts to use the created css file" path="adev/src/content/tutorials/first-app/steps/12-forms/src/app/details/details.ts" visibleLines="[30]"/>
+1. `Details` komponentində üslublar üçün mənbə kimi indicə yaradılmış `details.css` faylını istifadə edin:
+   <docs-code language="angular-ts" header="Yaradılmış css faylını istifadə etmək üçün details.ts-i yeniləyin" path="adev/src/content/tutorials/first-app/steps/12-forms/src/app/details/details.ts" visibleLines="[30]"/>
 
-1. In the browser refresh the page and confirm that when you click on the "Learn More" link for a given housing location the details page displays the correct information based on the data for that selected item.
+1. Brauzerdə səhifəni yeniləyin və hər hansı bir yaşayış yeri üçün "Learn More" linkinə kliklədikdə təfərrüat səhifəsinin həmin seçilmiş element üçün məlumatlara əsasən düzgün informasiyanı göstərdiyini təsdiqləyin.
 
-<img alt="Details page listing home info" src="assets/images/tutorials/first-app/homes-app-lesson-11-step-3.png">
+<img alt="Ev məlumatlarını siyahıya alan təfərrüat səhifəsi" src="assets/images/tutorials/first-app/homes-app-lesson-11-step-3.png">
 
 </docs-step>
 
-<docs-step title="Check navigation in the `Home`">
-In a previous lesson you updated the `App` template to include a `routerLink`. Adding that code updated your app to enable navigation back to the `Home` whenever the logo is clicked.
+<docs-step title="`Home` komponentində naviqasiyanı yoxlayın">
+Əvvəlki dərsdə siz `App` template-ini `routerLink` daxil edəcək şəkildə yenilədiniz. Bu kodun əlavə edilməsi loqo klikləndikdə tətbiqinizin `Home` komponentinə geri naviqasiyasını aktivləşdirdi.
 
-1.  Confirm that your code matches the following:
+1.  Kodunuzun aşağıdakı ilə uyğun gəldiyini təsdiqləyin:
 
-      <docs-code language="angular-ts" header="Confirm the routerLink in app.ts" path="adev/src/content/tutorials/first-app/steps/12-forms/src/app/app.ts" visibleLines="[8,19]"/>
+      <docs-code language="angular-ts" header="app.ts daxilində routerLink-i təsdiqləyin" path="adev/src/content/tutorials/first-app/steps/12-forms/src/app/app.ts" visibleLines="[8,19]"/>
 
-    Your code should already be up-to-date but confirm to be sure.
+    Kodunuz artıq yenilənmiş olmalıdır, lakin əmin olmaq üçün təsdiqləyin.
 
     </docs-step>
 
 </docs-workflow>
 
-SUMMARY: In this lesson you added routing to show details pages.
+XULASƏ: Bu dərsdə siz təfərrüat səhifələrini göstərmək üçün marşrutlaşdırma əlavə etdiniz.
 
-You now know how to:
+İndi siz aşağıdakıları bilirsiniz:
 
-- use route parameters to pass data to a route
-- use the `routerLink` directive to use dynamic data to create a route
-- use route parameter to retrieve data from the `HousingService` to display specific housing location information.
+- marşruta məlumat ötürmək üçün marşrut parametrlərini istifadə etmək
+- marşrut yaratmaq üçün dinamik məlumatları istifadə etmək məqsədilə `routerLink` direktivini istifadə etmək
+- spesifik yaşayış yeri məlumatlarını göstərmək üçün `HousingService`-dən məlumatları əldə etmək üçün marşrut parametrini istifadə etmək.
 
-Really great work so far.
+İndiyə qədər həqiqətən əla iş görmüsünüz.
 
-For more information about the topics covered in this lesson, visit:
+Bu dərsdə əhatə olunmuş mövzular haqqında daha çox məlumat üçün buraya daxil olun:
 
 <docs-pill-row>
-  <docs-pill href="guide/routing/read-route-state#get-information-about-the-current-route-with-activatedroute" title="Route Parameters"/>
-  <docs-pill href="guide/routing" title="Routing in Angular Overview"/>
-  <docs-pill href="guide/routing/common-router-tasks" title="Common Routing Tasks"/>
-  <docs-pill href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Operators/Optional_chaining" title="Optional Chaining Operator"/>
+  <docs-pill href="guide/routing/read-route-state#get-information-about-the-current-route-with-activatedroute" title="Marşrut Parametrləri"/>
+  <docs-pill href="guide/routing" title="Angular-da Marşrutlaşdırmaya Ümumi Baxış"/>
+  <docs-pill href="guide/routing/common-router-tasks" title="Ümumi Marşrutlaşdırma Tapşırıqları"/>
+  <docs-pill href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Operators/Optional_chaining" title="Optional Chaining Operatoru"/>
 </docs-pill-row>

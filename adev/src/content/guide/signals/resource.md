@@ -1,5 +1,7 @@
 # Async reactivity with resources
 
+IMPORTANT: `resource` is [experimental](reference/releases#experimental). It's ready for you to try, but it might change before it is stable.
+
 All signal APIs are synchronous— `signal`, `computed`, `input`, etc. However, applications often need to deal with data that is available asynchronously. A `Resource` gives you a way to incorporate async data into your application's signal-based code and still allow you to access its data synchronously.
 
 You can use a `Resource` to perform any kind of async operation, but the most common use-case for `Resource` is fetching data from a server. The following example creates a resource to fetch some user data.
@@ -26,7 +28,7 @@ const firstName = computed(() => {
   if (userResource.hasValue()) {
     // `hasValue` serves 2 purposes:
     // - It acts as type guard to strip `undefined` from the type
-    // - It protects against reading a throwing `value` when the resource is in error state
+    // - If protects against reading a throwing `value` when the resource is in error state
     return userResource.value().firstName;
   }
 
@@ -114,31 +116,11 @@ The `status` signal provides a specific `ResourceStatus` that describes the stat
 | `'idle'`      | `undefined`       | The resource has no valid request and the loader has not run.                |
 | `'error'`     | `undefined`       | The loader has encountered an error.                                         |
 | `'loading'`   | `undefined`       | The loader is running as a result of the `params` value changing.            |
-| `'reloading'` | Previous value    | The loader is running as a result of calling the resource's `reload` method. |
+| `'reloading'` | Previous value    | The loader is running as a result calling of the resource's `reload` method. |
 | `'resolved'`  | Resolved value    | The loader has completed.                                                    |
 | `'local'`     | Locally set value | The resource's value has been set locally via `.set()` or `.update()`        |
 
-You can use this status information to conditionally display user interface elements, such as loading indicators and error messages.
-
-## Caching `resource` data with SSR
-
-When an application renders on the server, a resource loader runs once to produce the initial HTML. During hydration, the browser normally runs the same loader again.
-
-To reuse the server result, provide an `id` for the resource. Angular stores the resolved value in `TransferState` on the server and uses it on the client to initialize the resource in a `'resolved'` state.
-
-```ts
-const userId: Signal<string> = getUserId();
-
-const userResource = resource({
-  params: () => ({id: userId()}),
-  loader: ({params}) => fetchUser(params),
-  id: 'user-unique-id',
-});
-```
-
-The `id` value must be unique within your application and identical on the server and the client so that Angular can match the cached entry to the resource that requested it.
-
-IMPORTANT: Because the cached value is serialized into the page's HTML, avoid setting `id` on resources that load data specific to the user who triggered the server-side render, especially if the rendered HTML can be cached or shared between users.
+You can use this status information to conditionally display user interface elements, such loading indicators and error messages.
 
 ## Reactive data fetching with `httpResource`
 

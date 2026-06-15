@@ -1,4 +1,4 @@
-import {Component, model} from '@angular/core';
+import {Component, model, ChangeDetectionStrategy} from '@angular/core';
 import {CustomCheckbox} from './custom-checkbox';
 
 @Component({
@@ -39,6 +39,7 @@ import {CustomCheckbox} from './custom-checkbox';
     </div>
   `,
   styleUrl: './app.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class App {
   // Parent signal models

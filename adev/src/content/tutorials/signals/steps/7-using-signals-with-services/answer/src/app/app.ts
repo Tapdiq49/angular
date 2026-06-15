@@ -1,6 +1,6 @@
-import {Component, inject} from '@angular/core';
-import {CartDisplay} from './cart-display';
+import {Component, inject, ChangeDetectionStrategy} from '@angular/core';
 import {CartStore} from './cart-store';
+import {CartDisplay} from './cart-display';
 
 @Component({
   selector: 'app-root',
@@ -20,6 +20,7 @@ import {CartStore} from './cart-store';
     </div>
   `,
   styleUrl: './app.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class App {
   cartStore = inject(CartStore);

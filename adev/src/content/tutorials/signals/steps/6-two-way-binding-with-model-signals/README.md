@@ -1,32 +1,32 @@
-# Two-way binding with model signals
+# Model siqnalları ilə iki tərəfli binding (two-way binding)
 
-Now that you've learned [passing data to components with input signals](/tutorials/signals/5-component-communication-with-signals), let's explore Angular's `model()` API for two-way binding. Model signals are perfect for UI components like checkboxes, sliders, or custom form controls where the component needs to both receive a value AND update it.
+Artıq [input siqnalları vasitəsilə komponentlərə məlumat ötürməyi](/tutorials/signals/5-component-communication-with-signals) öyrəndiniz, gəlin Angular-ın iki tərəfli binding (iki tərəfli əlaqələndirmə) üçün `model()` API-sini araşdıraq. Model siqnalları checkbox-lar, slider-lər və ya komponentin həm bir dəyəri qəbul etməli, həm də onu yeniləməli olduğu xüsusi forma idarəetmə elementləri üçün mükəmməldir.
 
-In this activity, you'll create a custom checkbox component that manages its own state while keeping the parent synchronized.
+Bu fəaliyyətdə siz valideyn komponenti sinxron saxlayaraq öz vəziyyətini idarə edən xüsusi checkbox komponenti yaradacaqsınız.
 
 <hr />
 
 <docs-workflow>
 
-<docs-step title="Set up the custom checkbox with model signal">
-Create a model signal in the `custom-checkbox` component that can both receive and update the parent's value.
+<docs-step title="Xüsusi checkbox-u model siqnalı ilə quraşdırın">
+`custom-checkbox` komponentində həm valideynin dəyərini qəbul edə bilən, həm də onu yeniləyə bilən bir model siqnalı yaradın.
 
 ```ts
-// Add imports for model signals
+// Model siqnalları üçün import-lar əlavə edin
 import {Component, model, input, ChangeDetectionStrategy} from '@angular/core';
 
-// Model signal for two-way binding
+// İki tərəfli binding üçün model siqnalı
 checked = model.required<boolean>();
 
-// Optional input for label
+// Etiket (label) üçün seçimli input
 label = input<string>('');
 ```
 
-Unlike `input()` signals which are read-only, `model()` signals can be both read and written to.
+Yalnız oxunabilən `input()` siqnallarından fərqli olaraq, `model()` siqnalları həm oxuna, həm də yazıla bilər.
 </docs-step>
 
-<docs-step title="Create the checkbox template">
-Build the checkbox template that responds to clicks and updates its own model.
+<docs-step title="Checkbox template-ini yaradın">
+Kliklərə cavab verən və öz modelini yeniləyən checkbox template-ini qurun.
 
 ```html
 <label class="custom-checkbox">
@@ -36,31 +36,31 @@ Build the checkbox template that responds to clicks and updates its own model.
 </label>
 ```
 
-The component reads from its model signal and has a method to update it.
+Komponent öz model siqnalından oxuyur və onu yeniləmək üçün bir metoda malikdir.
 </docs-step>
 
-<docs-step title="Add the toggle method">
-Implement the toggle method that updates the model signal when the checkbox is clicked.
+<docs-step title="Keçid (toggle) metodunu əlavə edin">
+Checkbox klikləndikdə model siqnalını yeniləyən keçid metodunu implementasiya edin.
 
 ```ts
 toggle() {
-  // This updates BOTH the component's state AND the parent's model!
+  // Bu həm komponentin vəziyyətini, həm də valideynin modelini yeniləyir!
   this.checked.set(!this.checked());
 }
 ```
 
-When the child component calls `this.checked.set()`, it automatically propagates the change back to the parent. This is the key difference from `input()` signals.
+Övlad komponent `this.checked.set()` çağırdıqda, o avtomatik olaraq dəyişikliyi valideynə ötürür. Bu, `input()` siqnallarından əsas fərqdir.
 </docs-step>
 
-<docs-step title="Set up two-way binding in the parent">
-First, uncomment the model signal properties and methods in `app.ts`:
+<docs-step title="Valideyn komponentdə iki tərəfli binding-i quraşdırın">
+Əvvəlcə `app.ts` faylındakı model siqnalı property-lərini və metodlarını şərhdən (comment) çıxarın:
 
 ```ts
-// Parent signal models
+// Valideyn siqnal modelləri
 agreedToTerms = model(false);
 enableNotifications = model(true);
 
-// Methods to test two-way binding
+// İki tərəfli binding-i test etmək üçün metodlar
 toggleTermsFromParent() {
   this.agreedToTerms.set(!this.agreedToTerms());
 }
@@ -71,61 +71,61 @@ resetAll() {
 }
 ```
 
-Then update the template:
+Sonra template-i yeniləyin:
 
-Part 1. **Uncomment the checkboxes and add two-way binding:**
+Hissə 1. **Checkbox-ları şərhdən çıxarın və iki tərəfli binding əlavə edin:**
 
-- Replace `___ADD_TWO_WAY_BINDING___` with `[(checked)]="agreedToTerms"` for the first checkbox
-- Replace `___ADD_TWO_WAY_BINDING___` with `[(checked)]="enableNotifications"` for the second
+- Birinci checkbox üçün `___ADD_TWO_WAY_BINDING___` yazısını `[(checked)]="agreedToTerms"` ilə əvəz edin
+- İkinci üçün `___ADD_TWO_WAY_BINDING___` yazısını `[(checked)]="enableNotifications"` ilə əvəz edin
 
-Part 2. **Replace the `???` placeholders with @if blocks:**
+Hissə 2. **`???` yer tutucularını @if blokları ilə əvəz edin:**
 
 ```angular-html
 @if (agreedToTerms()) {
-  Yes
+  Bəli
 } @else {
-  No
+  Xeyr
 }
 
 @if (enableNotifications()) {
-  Yes
+  Bəli
 } @else {
-  No
+  Xeyr
 }
 ```
 
-Part 3. **Add click handlers to the buttons:**
+Hissə 3. **Düymələrə klikləmə emalçılarını əlavə edin:**
 
 ```html
-<button (click)="toggleTermsFromParent()">Toggle Terms from Parent</button>
-<button (click)="resetAll()">Reset All</button>
+<button (click)="toggleTermsFromParent()">Valideyndən şərtləri dəyiş</button>
+<button (click)="resetAll()">Hamısını sıfırla</button>
 ```
 
-The `[(checked)]` syntax creates two-way binding - data flows down to the component AND changes flow back up to the parent by emitting an event that references the signal itself and does _not_ call the signal getter directly.
+`[(checked)]` sintaksisi iki tərəfli binding yaradır - məlumatlar komponentə aşağı axır VƏ dəyişikliklər siqnalın özünə müraciət edən və siqnal getter-ini birbaşa çağırmayan (event vasitəsilə) geri valideynə ötürülür.
 </docs-step>
 
-<docs-step title="Test the two-way binding">
-Interact with your app to see two-way binding in action:
+<docs-step title="İki tərəfli binding-i test edin">
+İki tərəfli binding-in işlədiyini görmək üçün tətbiqlə qarşılıqlı əlaqədə olun:
 
-1. **Click checkboxes** - Component updates its own state and notifies parent
-2. **Click "Toggle Terms from Parent"** - Parent updates propagate down to component
-3. **Click "Reset All"** - Parent resets both models and components update automatically
+1. **Checkbox-ları klikləyin** - Komponent öz vəziyyətini yeniləyir və valideyni xəbərdar edir
+2. **"Valideyndən şərtləri dəyiş" klikləyin** - Valideyn yeniləmələri komponentə aşağı ötürülür
+3. **"Hamısını sıfırla" klikləyin** - Valideyn hər iki modeli sıfırlayır və komponentlər avtomatik yenilənir
 
-Both the parent and child can update the shared state, and both stay in sync automatically!
+Həm valideyn, həm də övlad paylaşılan vəziyyəti yeniləyə bilər və hər ikisi avtomatik olaraq sinxron qalır!
 </docs-step>
 
 </docs-workflow>
 
-Perfect! You've learned how model signals enable two-way binding:
+Mükəmməl! Siz model siqnallarının iki tərəfli binding-i necə təmin etdiyini öyrəndiniz:
 
-- **Model signals** - Use `model()` and `model.required()` for values that can be both read and written
-- **Two-way binding** - Use `[(property)]` syntax to bind parent signals to child models
-- **Perfect for UI components** - Checkboxes, form controls, and widgets that need to manage their own state
-- **Automatic synchronization** - Parent and child stay in sync without manual event handling
+- **Model siqnalları** - Həm oxuna, həm də yazıla bilən dəyərlər üçün `model()` və `model.required()` istifadə edin
+- **İki tərəfli binding** - Valideyn siqnallarını övlad modellərinə bağlamaq üçün `[(property)]` sintaksisindən istifadə edin
+- **UI komponentləri üçün mükəmməldir** - Checkbox-lar, forma idarəetmə elementləri və öz vəziyyətini idarə etməli olan vidjetlər
+- **Avtomatik sinxronizasiya** - Valideyn və övlad əllə hadisə işlənməsi (event handling) olmadan sinxron qalır
 
-**When to use `model()` vs `input()`:**
+**Nə vaxt `model()` yoxsa `input()` istifadə etməli:**
 
-- Use `input()` for data that only flows down (display data, configuration)
-- Use `model()` for UI components that need to update their own value (form controls, toggles)
+- Məlumatların yalnız aşağı axdığı hallar üçün `input()` istifadə edin (göstərilən məlumatlar, konfiqurasiya)
+- Öz dəyərini yeniləməli olan UI komponentləri üçün `model()` istifadə edin (forma idarəetmə elementləri, keçid düymələri və s.)
 
-In the next lesson, you'll learn about [using signals with services](/tutorials/signals/7-using-signals-with-services)!
+Növbəti dərsdə, [servislərlə siqnallardan istifadə etməyi](/tutorials/signals/7-using-signals-with-services) öyrənəcəksiniz!

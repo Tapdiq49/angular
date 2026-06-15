@@ -1,11 +1,12 @@
 import {Listbox, Option} from '@angular/aria/listbox';
-import {Component} from '@angular/core';
+import {ChangeDetectionStrategy, Component} from '@angular/core';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.html',
   styleUrl: './app.css',
   imports: [Listbox, Option],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class App {
   /** The options available in the listbox. */

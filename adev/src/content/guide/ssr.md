@@ -345,9 +345,9 @@ export class Checkout {
 When working with server-side rendering, you should avoid directly referencing browser-specific globals like `document`. Instead, use the [`DOCUMENT`](api/core/DOCUMENT) token to access the document object in a platform-agnostic way.
 
 ```ts
-import {inject, DOCUMENT, Service} from '@angular/core';
+import {Injectable, inject, DOCUMENT} from '@angular/core';
 
-@Service()
+@Injectable({providedIn: 'root'})
 export class CanonicalLinkService {
   private readonly document = inject(DOCUMENT);
 
@@ -387,17 +387,12 @@ export class MyComponent {
 }
 ```
 
-<!-- UL is used below as otherwise the list will not be include as part of the note. -->
-<!-- prettier-ignore-start -->
+IMPORTANT: The above tokens will be `null` in the following scenarios:
 
-IMPORTANT: The above tokens will be `null` in the following scenarios:<ul class="docs-list">
-  <li>During the build processes.</li>
-  <li>When the application is rendered in the browser (CSR).</li>
-  <li>When performing static site generation (SSG).</li>
-  <li>During route extraction in development (at the time of the request).</li>
-</ul>
-
-<!-- prettier-ignore-end -->
+- During the build processes.
+- When the application is rendered in the browser (CSR).
+- When performing static site generation (SSG).
+- During route extraction in development (at the time of the request).
 
 ## Generate a fully static application
 
@@ -432,7 +427,7 @@ To configure this, update your `angular.json` file as follows:
 You can customize how Angular caches HTTP responses during server‑side rendering (SSR) and reuses them during hydration by configuring `HttpTransferCacheOptions`.  
 This configuration is provided globally using `withHttpTransferCacheOptions` inside `provideClientHydration()`.
 
-By default, `HttpClient` caches all `HEAD` and `GET` requests which don't contain `Authorization`, `Proxy-Authorization`, or `Cookie` headers and are not sent with `withCredentials` or Fetch API `credentials` modes that can send credentials. Angular also skips transfer cache when a request or response includes `Cache-Control` directives that forbid caching (`no-store`, `no-cache`, or `private`), or when the Fetch API `cache` option is set to `no-store` or `no-cache`. You can override the request filtering settings by using `withHttpTransferCacheOptions` in the hydration configuration.
+By default, `HttpClient` caches all `HEAD` and `GET` requests which don't contain `Authorization` or `Proxy-Authorization` headers. You can override those settings by using `withHttpTransferCacheOptions` to the hydration configuration.
 
 ```ts
 import {bootstrapApplication} from '@angular/platform-browser';
@@ -467,8 +462,6 @@ withHttpTransferCacheOptions({
 
 IMPORTANT: Avoid including sensitive headers like authentication tokens. These can leak user‑specific data between requests.
 
-Including `Cache-Control` in `includeHeaders` only makes that header available on the hydrated response. Angular already evaluates `Cache-Control` headers automatically when deciding whether a request or response is eligible for transfer cache.
-
 ---
 
 ### `includePostRequests`
@@ -488,8 +481,8 @@ Use this only when `POST` requests are **idempotent** and safe to reuse between 
 
 ### `includeRequestsWithAuthHeaders`
 
-Determines whether requests containing `Authorization`, `Proxy‑Authorization`, or `Cookie` headers are eligible for caching.  
-By default, these are excluded to prevent caching user‑specific responses. Requests sent with `withCredentials` or Fetch API `credentials` set to `include` or `same-origin` are also excluded by default.
+Determines whether requests containing `Authorization` or `Proxy‑Authorization` headers are eligible for caching.  
+By default, these are excluded to prevent caching user‑specific responses.
 
 ```ts
 withHttpTransferCacheOptions({
@@ -528,7 +521,7 @@ bootstrapApplication(App, {
 });
 ```
 
-#### Filtering
+#### `filter`
 
 You can also selectively disable caching for certain requests using the [`filter`](api/common/http/HttpTransferCacheOptions) option in `withHttpTransferCacheOptions`. For example, you can disable caching for a specific API endpoint:
 
@@ -552,15 +545,13 @@ bootstrapApplication(App, {
 
 Use this option to exclude endpoints with user‑specific or dynamic data (for example `/api/profile`).
 
-#### Per-request
+#### Individually
 
 To disable caching for an individual request, you can specify the [`transferCache`](api/common/http/HttpRequest#transferCache) option in an `HttpRequest`.
 
 ```ts
 httpClient.get('/api/sensitive-data', {transferCache: false});
 ```
-
-`HttpTransferCache` does not cache requests or responses that explicitly opt out of caching. Angular skips transfer cache entries when a request includes a `Cache-Control` header with `no-store`, `no-cache`, or `private`, or when the request uses the Fetch API `cache` option set to `no-store` or `no-cache`. Responses with `Cache-Control: no-store`, `Cache-Control: no-cache`, or `Cache-Control: private` are also not stored in the transfer cache.
 
 NOTE: If your application uses different HTTP origins to make API calls on the server and on the client, the `HTTP_TRANSFER_CACHE_ORIGIN_MAP` token allows you to establish a mapping between those origins, so that `HttpTransferCache` feature can recognize those requests as the same ones and reuse the data cached on the server during hydration on the client.
 
@@ -620,7 +611,3 @@ export const reqHandler = createRequestHandler(async (req: Request) => {
   // ...
 });
 ```
-
-## Security
-
-For detailed information on preventing Server-Side Request Forgery (SSRF) and configuring allowed hosts, see the [Server-side security](best-practices/security#preventing-server-side-request-forgery-ssrf) guide.

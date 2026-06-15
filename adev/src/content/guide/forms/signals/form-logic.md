@@ -14,12 +14,12 @@ Use rules when field behavior depends on other field values or needs to update r
 
 ## How rules work
 
-Rules bind reactive logic to specific fields in your form. Most conditional rules accept an options object with a `when` function. The `when` function automatically recomputes whenever the signals it references change, just like a `computed`.
+Rules bind reactive logic to specific fields in your form. Most rules accept a reactive logic function as an optional argument. The reactive logic function automatically recomputes whenever the signals it references change, just like a `computed`.
 
 ```ts
 const orderForm = form(this.orderModel, (schemaPath) => {
-  disabled(schemaPath.couponCode, {when: ({valueOf}) => valueOf(schemaPath.total) < 50});
-  //~~~~~~ ~~~~~~~~~~~~~~~~~~~~~  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  disabled(schemaPath.couponCode, ({valueOf}) => valueOf(schemaPath.total) < 50);
+  //~~~~~~ ~~~~~~~~~~~~~~~~~~~~~  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   //rule     path                   reactive logic function
 });
 ```
@@ -70,7 +70,7 @@ export class Settings {
 
 ### Conditional disabling
 
-To disable a field based on conditions, provide a `when` function that returns `true` (disabled) or `false` (enabled):
+To disable a field based on conditions, provide a reactive logic function that returns `true` (disabled) or `false` (enabled):
 
 ```angular-ts
 import {Component, signal} from '@angular/core';
@@ -98,7 +98,7 @@ export class Order {
   });
 
   orderForm = form(this.orderModel, (schemaPath) => {
-    disabled(schemaPath.couponCode, {when: ({valueOf}) => valueOf(schemaPath.total) < 50});
+    disabled(schemaPath.couponCode, ({valueOf}) => valueOf(schemaPath.total) < 50);
   });
 }
 ```
@@ -143,15 +143,14 @@ export class Order {
   });
 
   orderForm = form(this.orderModel, (schemaPath) => {
-    disabled(schemaPath.couponCode, {
-      when: ({valueOf}) =>
-        valueOf(schemaPath.total) < 50 ? 'Order must be $50 or more to use a coupon' : false,
-    });
+    disabled(schemaPath.couponCode, ({valueOf}) =>
+      valueOf(schemaPath.total) < 50 ? 'Order must be $50 or more to use a coupon' : false,
+    );
   });
 }
 ```
 
-The `when` function returns:
+The reactive logic function returns:
 
 - A **string** to disable the field with a reason
 - `false` to enable the field (not just any falsy value - use `false` explicitly)
@@ -164,13 +163,12 @@ You can also call `disabled()` multiple times on the same field, and all of the 
 
 ```angular-ts
 orderForm = form(this.orderModel, (schemaPath) => {
-  disabled(schemaPath.promoCode, {
-    when: ({valueOf}) =>
-      !valueOf(schemaPath.hasAccount) ? 'You must have an account to use promo codes' : false,
-  });
-  disabled(schemaPath.promoCode, {
-    when: ({valueOf}) => (valueOf(schemaPath.total) < 25 ? 'Order must be at least $25' : false),
-  });
+  disabled(schemaPath.promoCode, ({valueOf}) =>
+    !valueOf(schemaPath.hasAccount) ? 'You must have an account to use promo codes' : false,
+  );
+  disabled(schemaPath.promoCode, ({valueOf}) =>
+    valueOf(schemaPath.total) < 25 ? 'Order must be at least $25' : false,
+  );
 });
 ```
 
@@ -186,7 +184,7 @@ NOTE: Like disabled fields, hidden fields also skip validation. See the [Validat
 
 ### Basic field hiding
 
-Use `hidden()` with a `when` function that returns `true` (hidden) or `false` (visible):
+Use `hidden()` with a reactive logic function that returns `true` (hidden) or `false` (visible):
 
 ```angular-ts
 import {Component, signal} from '@angular/core';
@@ -197,14 +195,14 @@ import {form, FormField, hidden} from '@angular/forms/signals';
   imports: [FormField],
   template: `
     <label>
-      <input type="checkbox" [formField]="profileForm.isPublic" />
+      <input type="checkbox" [FormField]="profileForm.isPublic" />
       Make profile public
     </label>
 
     @if (!profileForm.publicUrl().hidden()) {
       <label>
         Public URL
-        <input [formField]="profileForm.publicUrl" />
+        <input [FormField]="profileForm.publicUrl" />
       </label>
     }
   `,
@@ -216,7 +214,7 @@ export class Profile {
   });
 
   profileForm = form(this.profileModel, (schemaPath) => {
-    hidden(schemaPath.publicUrl, {when: ({valueOf}) => !valueOf(schemaPath.isPublic)});
+    hidden(schemaPath.publicUrl, ({valueOf}) => !valueOf(schemaPath.isPublic));
   });
 }
 ```
@@ -241,12 +239,12 @@ import {form, FormField, readonly} from '@angular/forms/signals';
   template: `
     <label>
       Username (cannot be changed)
-      <input [formField]="accountForm.username" />
+      <input [FormField]="accountForm.username" />
     </label>
 
     <label>
       Email
-      <input [formField]="accountForm.email" />
+      <input [FormField]="accountForm.email" />
     </label>
   `,
 })
@@ -266,7 +264,7 @@ The `[FormField]` directive automatically binds the `readonly` attribute based o
 
 ### Conditional readonly
 
-To make a field readonly based on conditions, provide a `when` function:
+To make a field readonly based on conditions, provide a reactive logic function:
 
 ```angular-ts
 import {Component, signal} from '@angular/core';
@@ -277,13 +275,13 @@ import {form, FormField, readonly} from '@angular/forms/signals';
   imports: [FormField],
   template: `
     <label>
-      <input type="checkbox" [formField]="documentForm.isLocked" />
+      <input type="checkbox" [FormField]="documentForm.isLocked" />
       Lock document
     </label>
 
     <label>
       Document Title
-      <input [formField]="documentForm.title" />
+      <input [FormField]="documentForm.title" />
     </label>
   `,
 })
@@ -294,7 +292,7 @@ export class Document {
   });
 
   documentForm = form(this.documentModel, (schemaPath) => {
-    readonly(schemaPath.title, {when: ({valueOf}) => valueOf(schemaPath.isLocked)});
+    readonly(schemaPath.title, ({valueOf}) => valueOf(schemaPath.isLocked));
   });
 }
 ```
@@ -361,7 +359,7 @@ import {form, FormField, debounce} from '@angular/forms/signals';
   template: `
     <label>
       Search
-      <input [formField]="searchForm.query" />
+      <input [FormField]="searchForm.query" />
     </label>
 
     <p>Searching for: {{ searchForm.query().value() }}</p>
@@ -408,7 +406,7 @@ import {form, FormField, debounce} from '@angular/forms/signals';
   template: `
     <label>
       Search
-      <input [formField]="searchForm.query" />
+      <input [FormField]="searchForm.query" />
     </label>
   `,
 })
@@ -456,20 +454,24 @@ Don't use debouncing if:
 
 ## Associate data with a field using `metadata()`
 
-Metadata attaches reactive data to a field. Validation rules use this system internally, and you can publish your own keys for application-specific information like help text, configuration, or computed display values.
+Metadata allows you to attach computed information to fields that can be read by [custom controls](guide/forms/signals/custom-controls) or form logic. Common use cases include HTML input attributes (min, max, maxlength, pattern), custom UI hints (placeholder text, help text), and accessibility information.
 
-Signal Forms provides six pre-defined metadata keys that built-in validators populate automatically:
+### Pre-defined metadata keys
 
-| Key          | Populated by  | Read via              |
-| ------------ | ------------- | --------------------- |
-| `REQUIRED`   | `required()`  | `field().required()`  |
-| `MIN`        | `min()`       | `field().min()`       |
-| `MAX`        | `max()`       | `field().max()`       |
-| `MIN_LENGTH` | `minLength()` | `field().minLength()` |
-| `MAX_LENGTH` | `maxLength()` | `field().maxLength()` |
-| `PATTERN`    | `pattern()`   | `field().pattern()`   |
+Signal Forms provides six pre-defined metadata keys that validation rules automatically populate:
 
-The `[formField]` directive automatically binds five of these (`REQUIRED`, `MIN`, `MAX`, `MIN_LENGTH`, and `MAX_LENGTH`) to the corresponding HTML attribute on a native form control. `PATTERN` is the exception, because Signal Forms supports multiple patterns per field but the HTML `pattern` attribute accepts only a single regular expression.
+- `REQUIRED` - Whether the field is required (`boolean`)
+- `MIN` - Minimum numeric value (`number | undefined`)
+- `MAX` - Maximum numeric value (`number | undefined`)
+- `MIN_LENGTH` - Minimum string/array length (`number | undefined`)
+- `MAX_LENGTH` - Maximum string/array length (`number | undefined`)
+- `PATTERN` - Regular expression pattern (`RegExp[]` - array to support multiple patterns)
+
+When you use validation rules like `required()` or `min()`, they automatically set the corresponding metadata. The `metadata()` function provides a way to publish additional data associated with a field.
+
+### Reading pre-defined metadata
+
+The `[FormField]` directive automatically binds built-in metadata to HTML attributes. You can also read metadata directly using the built-in accessors on field state:
 
 ```angular-ts
 import {Component, signal} from '@angular/core';
@@ -480,8 +482,8 @@ import {form, FormField, required, min, max} from '@angular/forms/signals';
   imports: [FormField],
   template: `
     <label>
-      Age (between {{ ageForm.age().min?.() }} and {{ ageForm.age().max?.() }})
-      <input type="number" [formField]="ageForm.age" />
+      Age (between {{ ageForm.age().min() }} and {{ ageForm.age().max() }})
+      <input type="number" [FormField]="ageForm.age" />
     </label>
 
     @if (ageForm.age().required()) {
@@ -490,7 +492,9 @@ import {form, FormField, required, min, max} from '@angular/forms/signals';
   `,
 })
 export class Age {
-  ageModel = signal({age: 0});
+  ageModel = signal({
+    age: 0,
+  });
 
   ageForm = form(this.ageModel, (schemaPath) => {
     required(schemaPath.age);
@@ -500,9 +504,138 @@ export class Age {
 }
 ```
 
+The `[formField]` directive automatically binds `required`, `min`, and `max` attributes to the input. You can read these values using `field().required()`, `field().min()`, and `field().max()` for display or logic purposes.
+
+### Setting metadata manually
+
+Use the `metadata()` function to set metadata values when validation rules don't automatically set them. For built-in metadata like `MIN` and `MAX`, prefer using the validation rules:
+
+```angular-ts
+import {Component, signal} from '@angular/core';
+import {form, FormField, min, max, validate} from '@angular/forms/signals';
+
+@Component({
+  selector: 'app-custom',
+  imports: [formField],
+  template: ` <input [formField]="customForm.score" /> `,
+})
+export class Custom {
+  customModel = signal({score: 0});
+
+  customForm = form(this.customModel, (schemaPath) => {
+    // Use built-in validation rules - they automatically set metadata
+    min(schemaPath.score, 0);
+    max(schemaPath.score, 100);
+
+    // Add custom validation logic if needed
+    validate(schemaPath.score, ({value}) => {
+      const score = value();
+      // Custom validation beyond min/max (e.g., must be multiple of 5)
+      if (score % 5 !== 0) {
+        return {kind: 'increment', message: 'Score must be a multiple of 5'};
+      }
+      return null;
+    });
+  });
+}
+```
+
+### Creating custom metadata keys
+
+Create your own metadata keys for application-specific information:
+
+```angular-ts
+import {createMetadataKey, metadata} from '@angular/forms/signals';
+
+// Define at module level (not inside components)
+export const PLACEHOLDER = createMetadataKey<string>();
+export const HELP_TEXT = createMetadataKey<string>();
+
+// Use in schema
+form(model, (schemaPath) => {
+  metadata(schemaPath.email, PLACEHOLDER, () => 'user@example.com');
+  metadata(schemaPath.email, HELP_TEXT, () => 'We will never share your email');
+});
+
+// Read in component
+const placeholderText = myForm.email().metadata(PLACEHOLDER);
+const helpText = myForm.email().metadata(HELP_TEXT);
+```
+
+By default, custom metadata keys use a "last write wins" strategy - if you call `metadata()` multiple times with the same key, only the last value is kept.
+
+**Important:** Always define metadata keys at module level, never inside components. Metadata keys rely on object identity, and recreating them loses that identity.
+
+### Accumulating metadata with reducers
+
+By default, calling `metadata()` multiple times with the same key uses "last write wins" - only the final value is kept. To accumulate values instead, pass a reducer to `createMetadataKey()`:
+
+```angular-ts
+import {createMetadataKey, metadata, MetadataReducer} from '@angular/forms/signals';
+
+// Create a key that accumulates values into an array
+export const HINTS = createMetadataKey<string, string[]>(MetadataReducer.list());
+
+// Multiple calls accumulate values
+form(model, (schemaPath) => {
+  metadata(schemaPath.password, HINTS, () => 'At least 8 characters');
+  metadata(schemaPath.password, HINTS, () => 'Include a number');
+  metadata(schemaPath.password, HINTS, () => 'Include a special character');
+});
+
+// Result: Signal containing the accumulated array
+const passwordHints = passwordForm.password().metadata(HINTS)();
+// ['At least 8 characters', 'Include a number', 'Include a special character']
+```
+
+Angular provides built-in reducers through `MetadataReducer`:
+
+- `MetadataReducer.list()` - Accumulates values into an array
+- `MetadataReducer.min()` - Keeps the minimum value
+- `MetadataReducer.max()` - Keeps the maximum value
+- `MetadataReducer.or()` - Logical OR of boolean values
+- `MetadataReducer.and()` - Logical AND of boolean values
+
+### Managed metadata keys
+
+Use `createManagedMetadataKey()` when you need to compute a new value from the accumulated result. The transform function receives a signal of the reduced value and returns the computed result:
+
+```angular-ts
+import {createManagedMetadataKey, metadata, MetadataReducer} from '@angular/forms/signals';
+
+// Accumulate hints and compute additional data from the result
+export const HINTS = createManagedMetadataKey(
+  (signal) =>
+    computed(() => {
+      const hints = signal();
+      return {
+        messages: hints,
+        count: hints?.length ?? 0,
+      };
+    }),
+  MetadataReducer.list(),
+);
+
+// Multiple calls accumulate values
+form(model, (schemaPath) => {
+  metadata(schemaPath.password, HINTS, () => 'At least 8 characters');
+  metadata(schemaPath.password, HINTS, () => 'Include a number');
+  metadata(schemaPath.password, HINTS, () => 'Include a special character');
+});
+
+// Result: Signal with transformed value
+const passwordHints = passwordForm.password().metadata(HINTS)();
+// { messages: ['At least 8 characters', 'Include a number', 'Include a special character'], count: 3 }
+```
+
+The managed metadata key takes two arguments:
+
+1. **Transform function** - Computes a new value from the accumulated result (receives a signal of the reduced value)
+2. **Reducer** - Determines how values accumulate (optional - defaults to "last write wins")
+
 ### Reactive metadata
 
-Validation rules can derive their constraints from other fields, making the published metadata reactive:
+Make metadata reactive to other field values:
 
 ```angular-ts
 import {Component, signal} from '@angular/core';
@@ -510,7 +643,7 @@ import {form, FormField, max} from '@angular/forms/signals';
 
 @Component({
   selector: 'app-inventory',
-  imports: [FormField],
+  imports: [formField],
   template: `
     <label>
       Item
@@ -521,8 +654,12 @@ import {form, FormField, max} from '@angular/forms/signals';
     </label>
 
     <label>
-      Quantity (max: {{ inventoryForm.quantity().max?.() }})
-      <input type="number" [formField]="inventoryForm.quantity" />
+      Quantity (max: {{ inventoryForm.quantity().max() }})
+      <input
+        type="number"
+        [formField]="inventoryForm.quantity"
+        [max]="inventoryForm.quantity().max()"
+      />
     </label>
   `,
 })
@@ -541,9 +678,47 @@ export class Inventory {
 }
 ```
 
-The `max()` validation rule sets the `MAX` metadata reactively based on the selected item, so any template or control reading `field().max()` updates whenever the item changes.
+The `max()` validation rule sets the `MAX` metadata reactively based on the selected item. This demonstrates how validation rules can have conditional values that change when other fields update.
 
-For deeper coverage, including how to define custom keys, combine contributions with reducers, and use managed metadata for lifecycle-aware objects, see the [Field metadata guide](guide/forms/signals/field-metadata).
+### Using metadata in custom controls
+
+Custom controls can read metadata to configure their HTML attributes and behavior:
+
+```angular-ts
+import {Component, input, computed, model} from '@angular/core';
+import {FormValueControl, Field, PLACEHOLDER} from '@angular/forms/signals';
+
+@Component({
+  selector: 'custom-input',
+  template: `
+    <input
+      type="number"
+      [value]="state().value()"
+      (input)="state().value.set(($event.target as HTMLInputElement).valueAsNumber)"
+      [min]="state().min()"
+      [max]="state().max()"
+      [required]="state().required()"
+      [placeholder]="placeholderText()"
+    />
+  `,
+})
+export class CustomInput implements FormValueControl<number> {
+  // Bind to the form field.
+  formField = input.required<Field<number>>();
+
+  // Compute the current field state.
+  state = computed(() => this.formField()());
+
+  // Required property of the FormValueControl interface.
+  value = model(0);
+
+  placeholderText = computed(() => this.state().metadata(PLACEHOLDER)() ?? '');
+}
+```
+
+This pattern allows custom controls to automatically configure themselves based on the validation rules and metadata defined in the schema.
+
+TIP: For more information on creating custom controls, see the [Custom Controls guide](guide/forms/signals/custom-controls).
 
 ## Combining rules
 
@@ -555,12 +730,19 @@ Apply multiple rules to configure all aspects of a field's behavior:
 
 ```angular-ts
 import {Component, signal} from '@angular/core';
-import {form, FormField, disabled, hidden, debounce, metadata} from '@angular/forms/signals';
-import {PLACEHOLDER} from './metadata-keys';
+import {
+  form,
+  FormField,
+  disabled,
+  hidden,
+  debounce,
+  metadata,
+  PLACEHOLDER,
+} from '@angular/forms/signals';
 
 @Component({
   selector: 'app-promo',
-  imports: [FormField],
+  imports: [formField],
   template: `
     @if (!promoForm.promoCode().hidden()) {
       <label>
@@ -578,12 +760,10 @@ export class Promo {
   });
 
   promoForm = form(this.promoModel, (schemaPath) => {
-    disabled(schemaPath.promoCode, {
-      when: ({valueOf}) => (!valueOf(schemaPath.hasAccount) ? 'You must have an account' : false),
-    });
-    hidden(schemaPath.promoCode, {
-      when: ({valueOf}) => valueOf(schemaPath.subscriptionType) === 'free',
-    });
+    disabled(schemaPath.promoCode, ({valueOf}) =>
+      !valueOf(schemaPath.hasAccount) ? 'You must have an account' : false,
+    );
+    hidden(schemaPath.promoCode, ({valueOf}) => valueOf(schemaPath.subscriptionType) === 'free');
     debounce(schemaPath.promoCode, 300);
     metadata(schemaPath.promoCode, PLACEHOLDER, () => 'Enter promo code');
   });
@@ -607,7 +787,7 @@ import {form, FormField, applyWhen, required, pattern} from '@angular/forms/sign
 
 @Component({
   selector: 'app-address',
-  imports: [FormField],
+  imports: [formField],
   template: `
     <label>
       Country
@@ -655,9 +835,8 @@ The conditional rules only run when the condition is true. This is useful for co
 
 Extract common rule configurations into reusable functions:
 
-```ts
-import {SchemaPath, debounce, metadata, maxLength} from '@angular/forms/signals';
-import {PLACEHOLDER} from './metadata-keys';
+```angular-ts
+import {SchemaPath, debounce, metadata, maxLength, PLACEHOLDER} from '@angular/forms/signals';
 
 function emailFieldConfig(path: SchemaPath<string>) {
   debounce(path, 300);

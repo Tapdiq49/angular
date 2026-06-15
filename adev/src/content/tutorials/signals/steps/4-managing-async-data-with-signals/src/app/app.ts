@@ -1,5 +1,6 @@
 // TODO: Add the resource import from @angular/core
-import {Component} from '@angular/core';
+import {Component, signal, computed, ChangeDetectionStrategy} from '@angular/core';
+import {getUserData} from './user-api';
 
 @Component({
   selector: 'app-root',
@@ -27,6 +28,7 @@ import {Component} from '@angular/core';
     </div>
   `,
   styleUrl: './app.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class App {
   // TODO: Create a signal for userId

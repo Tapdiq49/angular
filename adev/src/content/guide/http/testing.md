@@ -2,18 +2,21 @@
 
 As for any external dependency, you must mock the HTTP backend so your tests can simulate interaction with a remote server. The `@angular/common/http/testing` library provides tools to capture requests made by the application, make assertions about them, and mock the responses to emulate your backend's behavior.
 
-The testing library is designed for a pattern where the app executes code and makes requests first. The test then expects that certain requests have or have not been made, performs assertions against those requests, and finally provides responses by "flushing" each expected request.
+The testing library is designed for a pattern in which the app executes code and makes requests first. The test then expects that certain requests have or have not been made, performs assertions against those requests, and finally provides responses by "flushing" each expected request.
 
-Finally, tests can verify that the app made no unexpected requests.
+At the end, tests can verify that the app made no unexpected requests.
 
 ## Setup for testing
 
-To begin testing usage of `HttpClient`, configure `TestBed` and include `provideHttpClientTesting()` in your test's setup. `HttpClient` is provided by Angular's test environment, and `provideHttpClientTesting()` configures it to use a test backend instead of the real network. It also provides `HttpTestingController`, which you'll use to interact with the test backend, set expectations about which requests have been made, and flush responses to those requests. `HttpTestingController` can be injected from `TestBed` once configured.
+To begin testing usage of `HttpClient`, configure `TestBed` and include `provideHttpClient()` and `provideHttpClientTesting()` in your test's setup. This configures `HttpClient` to use a test backend instead of the real network. It also provides `HttpTestingController`, which you'll use to interact with the test backend, set expectations about which requests have been made, and flush responses to those requests. `HttpTestingController` can be injected from `TestBed` once configured.
+
+IMPORTANT: Keep in mind to provide `provideHttpClient()` **before** `provideHttpClientTesting()`, as `provideHttpClientTesting()` will overwrite parts of `provideHttpClient()`. Doing it the other way around can potentially break your tests.
 
 ```ts
 TestBed.configureTestingModule({
   providers: [
     // ... other test providers
+    provideHttpClient(),
     provideHttpClientTesting(),
   ],
 });
@@ -23,24 +26,13 @@ const httpTesting = TestBed.inject(HttpTestingController);
 
 Now when your tests make requests, they will hit the testing backend instead of the normal one. You can use `httpTesting` to make assertions about those requests.
 
-### Configuring `HttpClient` in tests
-
-If a test needs to configure `HttpClient` features, such as interceptors, include `provideHttpClient(...)` before `provideHttpClientTesting()`.
-IMPORTANT: Keep in mind to provide `provideHttpClient()` **before** `provideHttpClientTesting()`, as `provideHttpClientTesting()` will overwrite parts of `provideHttpClient()`. Doing it the other way around can potentially break your tests.
-
-```ts
-TestBed.configureTestingModule({
-  providers: [provideHttpClient(withInterceptors([authInterceptor])), provideHttpClientTesting()],
-});
-```
-
 ## Expecting and answering requests
 
 For example, you can write a test that expects a GET request to occur and provides a mock response:
 
 ```ts
 TestBed.configureTestingModule({
-  providers: [ConfigService, provideHttpClientTesting()],
+  providers: [ConfigService, provideHttpClient(), provideHttpClientTesting()],
 });
 
 const httpTesting = TestBed.inject(HttpTestingController);
@@ -182,7 +174,7 @@ TestBed.configureTestingModule({
 });
 ```
 
-The `HttpTestingController` can retrieve the request instance that can then be inspected to ensure that the request was modified.
+The `HttpTestingController` can retrieve the request instance which can then be inspected to ensure that the request was modified.
 
 ```ts
 const service = TestBed.inject(AuthService);
@@ -191,7 +183,7 @@ const req = httpTesting.expectOne('/api/config');
 expect(req.request.headers.get('X-Authentication-Token')).toEqual(service.getAuthToken());
 ```
 
-A similar interceptor could be implemented with class-based interceptors:
+A similar interceptor could be implemented with class based interceptors:
 
 ```ts
 @Injectable()

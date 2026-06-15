@@ -1,6 +1,6 @@
 # Migration to lazy-loaded routes
 
-This schematic helps developers to convert eagerly loaded component routes to lazy loaded routes. This allows the build process to split the production bundle into smaller chunks, to avoid a big JS bundle that includes all routes, which negatively affects initial page load of an application.
+This schematic helps developers to convert eagerly loaded component routes to lazy loaded routes. This allows the build process to split the production bundle into smaller chunks, to avoid big JS bundle that includes all routes, which negatively affects initial page load of an application.
 
 Run the schematic using the following command:
 
@@ -25,6 +25,7 @@ The schematic will attempt to find all the places where the application routes a
 - `RouterModule.forRoot` and `RouterModule.forChild`
 - `Router.resetConfig`
 - `provideRouter`
+- `provideRoutes`
 - variables of type `Routes` or `Route[]` (e.g. `const routes: Routes = [{...}]`)
 
 The migration will check all the components in the routes, check if they are standalone and eagerly loaded, and if so, it will convert them to lazy loaded routes.

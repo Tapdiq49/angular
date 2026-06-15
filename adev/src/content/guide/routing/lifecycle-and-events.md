@@ -109,10 +109,10 @@ Track page views for analytics:
 
 ```ts
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
-import {inject, DestroyRef, Service} from '@angular/core';
+import {inject, Injectable, DestroyRef} from '@angular/core';
 import {Router, NavigationEnd} from '@angular/router';
 
-@Service()
+@Injectable({providedIn: 'root'})
 export class AnalyticsService {
   private router = inject(Router);
   private destroyRef = inject(DestroyRef);

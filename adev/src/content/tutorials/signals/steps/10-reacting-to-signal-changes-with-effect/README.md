@@ -1,111 +1,111 @@
-# Reacting to signal changes with effect
+# effect ilə siqnal dəyişikliklərinə reaksiya vermək
 
-Now that you've learned [querying child elements with signal queries](/tutorials/signals/9-query-child-elements-with-signal-queries), let's explore how to react to signal changes with effects. Effects are functions that run automatically when their dependencies change, making them perfect for side effects like logging, DOM manipulation, or API calls.
+Artıq [siqnal sorğuları ilə övlad elementləri sorğulamağı](/tutorials/signals/9-query-child-elements-with-signal-queries) öyrəndiniz, gəlin effektlərlə (effects) siqnal dəyişikliklərinə necə reaksiya veriləcəyini araşdıraq. Effektlər aslılıqları dəyişdikdə avtomatik işləyən funksiyalardır, bu da onları loqlama (logging), DOM manipulyasiyası və ya API çağırışları kimi yan təsirlər (side effects) üçün mükəmməl edir.
 
-**Important: Effects should be the last API you reach for.** Always prefer `computed()` for derived values and `linkedSignal()` for values that can be both derived and manually set. If you find yourself copying data from one signal to another with an effect, it's a sign you should move your source-of-truth higher up and use `computed()` or `linkedSignal()` instead. Effects are best for syncing signal state to imperative, non-signal APIs.
+**Vacib: Effektlər müraciət edəcəyiniz ən son API olmalıdır.** Törəmə dəyərlər üçün həmişə `computed()`, həm törədilə bilən, həm də əllə təyin edilə bilən dəyərlər üçün isə `linkedSignal()` funksiyasına üstünlük verin. Əgər bir effektlə məlumatları bir siqnaldan digərinə kopyalayırsınızsa, bu, həqiqət mənbəyini (source-of-truth) daha yuxarı səviyyəyə köçürməli və bunun əvəzinə `computed()` və ya `linkedSignal()` istifadə etməli olduğunuzu göstərən bir işarədir. Effektlər siqnal vəziyyətini imperativ, qeyri-siqnal API-ləri ilə sinxronlaşdırmaq üçün ən yaxşısıdır.
 
-In this activity, you'll learn how to use the `effect()` function appropriately for legitimate side effects that respond to signal changes.
+Bu fəaliyyətdə siz siqnal dəyişikliklərinə cavab verən legitim yan təsirlər üçün `effect()` funksiyasından necə düzgün istifadə edəcəyinizi öyrənəcəksiniz.
 
 <hr />
 
-You have a theme manager app with signals already set up. Now you'll add effects to automatically react to signal changes.
+Artıq siqnalları qurulmuş mövzu meneceri (theme manager) tətbiqiniz var. İndi siqnal dəyişikliklərinə avtomatik reaksiya vermək üçün effektlər əlavə edəcəksiniz.
 
 <docs-workflow>
 
-<docs-step title="Import effect function">
-Add `effect` to your existing imports.
+<docs-step title="effect funksiyasını import edin">
+Mövcud import-larınıza `effect` əlavə edin.
 
 ```ts
-// Add effect to existing imports
+// Mövcud import-lara effect əlavə edin
 import {Component, signal, computed, effect, ChangeDetectionStrategy} from '@angular/core';
 ```
 
-The `effect` function creates a reactive side effect that runs automatically when any signals it reads change.
+`effect` funksiyası oxuduğu hər hansı bir siqnal dəyişdikdə avtomatik olaraq işləyən reaktiv bir yan təsir yaradır.
 </docs-step>
 
-<docs-step title="Create an effect for local storage">
-Add an effect that automatically saves the theme to local storage when it changes.
+<docs-step title="Local storage üçün effekt yaradın">
+Mövzu (theme) dəyişdikdə onu avtomatik olaraq local storage-ə saxlayan bir effekt əlavə edin.
 
 ```ts
 constructor() {
-  // Save theme to localStorage whenever it changes
+  // Mövzu dəyişdikdə onu localStorage-də yadda saxlayın
   effect(() => {
     localStorage.setItem('theme', this.theme());
-    console.log('Theme saved to localStorage:', this.theme());
+    console.log('Mövzu localStorage-ə saxlanıldı:', this.theme());
   });
 }
 ```
 
-This effect runs whenever the theme signal changes, automatically persisting the user's preference.
+Bu effekt mövzu siqnalı dəyişdikdə işləyir və istifadəçinin seçimini avtomatik olaraq qalıcı edir.
 </docs-step>
 
-<docs-step title="Create an effect for logging user activity">
-Add an effect that logs when the user logs in or out.
+<docs-step title="İstifadəçi fəaliyyətini loqlamaq üçün effekt yaradın">
+İstifadəçi daxil olduqda və ya çıxdıqda loq qeydi aparan bir effekt əlavə edin.
 
 ```ts
 constructor() {
-  // ... previous effect
+  // ... əvvəlki effekt
 
-  // Log user activity changes
+  // İstifadəçi fəaliyyəti dəyişikliklərini loqlayın
   effect(() => {
-    const status = this.isLoggedIn() ? 'logged in' : 'logged out';
+    const status = this.isLoggedIn() ? 'daxil oldu' : 'çıxış etdi';
     const user = this.username();
-    console.log(`User ${user} is ${status}`);
+    console.log(`İstifadəçi ${user} ${status}`);
   });
 }
 ```
 
-This effect demonstrates how effects can read multiple signals and react to changes in any of them.
+Bu effekt efektlərin birdən çox siqnalı necə oxuya bildiyini və onlardan hər hansı birindəki dəyişikliklərə necə reaksiya verə bildiyini nümayiş etdirir.
 </docs-step>
 
-<docs-step title="Create an effect with cleanup">
-Add an effect that sets up a timer and cleans up when the component is destroyed.
+<docs-step title="Təmizləmə (cleanup) funksiyası olan effekt yaradın">
+Taymer quran və komponent məhv edildikdə (destroy) təmizləmə aparan bir effekt əlavə edin.
 
 ```ts
 constructor() {
-  // ... previous effects
+  // ... əvvəlki effektlər
 
-  // Timer effect with cleanup
+  // Təmizləmə (cleanup) funksiyası olan taymer effekti
   effect((onCleanup) => {
     const interval = setInterval(() => {
-      console.log('Timer tick - Current theme:', this.theme());
+      console.log('Taymer döyüntüsü - Cari mövzu:', this.theme());
     }, 5000);
 
-    // Clean up the interval when the effect is destroyed
+    // Effekt məhv edildikdə taymeri təmizləyin
     onCleanup(() => {
       clearInterval(interval);
-      console.log('Timer cleaned up');
+      console.log('Taymer təmizləndi');
     });
   });
 }
 ```
 
-This effect demonstrates how to clean up resources when effects are destroyed or re-run.
+Bu effekt effektlər məhv edildikdə və ya yenidən işlədikdə resursların necə təmizlənməsini nümayiş etdirir.
 </docs-step>
 
-<docs-step title="Test the effects">
-Open the browser console and interact with the app:
+<docs-step title="Effektləri test edin">
+Brauzer konsolunu açın və tətbiqlə qarşılıqlı əlaqədə olun:
 
-- **Toggle Theme** - See localStorage saves and timer logs
-- **Login/Logout** - See user activity logging
-- **Watch Timer** - See periodic theme logging every 5 seconds
+- **Mövzunu dəyişin (Toggle Theme)** - localStorage yadda saxlamalarını və taymer loqlarını görün
+- **Daxil olun/Çıxın (Login/Logout)** - İstifadəçi fəaliyyəti loqlarını görün
+- **Taymeri izləyin** - Hər 5 saniyədən bir mövzu loqlarını görün
 
-The effects run automatically whenever their tracked signals change!
+Effektlər izlədikləri siqnallar dəyişdikdə avtomatik işləyir!
 </docs-step>
 
 </docs-workflow>
 
-Excellent! You've now learned how to use effects with signals. Key concepts to remember:
+Mükəmməl! Siz artıq siqnallarla effektlərdən necə istifadə edəcəyinizi öyrəndiniz. Yadda saxlanmalı əsas konsepsiyalar:
 
-- **Effects are reactive**: They automatically run when any signal they read changes
-- **Side effects only**: Perfect for logging, DOM manipulation, API calls, and syncing to imperative APIs
-- **Cleanup**: Use the `onCleanup` callback to clean up resources like timers or subscriptions
-- **Automatic tracking**: Effects automatically track which signals they read and re-run when those signals change
+- **Effektlər reaktivdir**: Oxuduqları hər hansı bir siqnal dəyişdikdə onlar avtomatik işləyirlər
+- **Yalnız yan təsirlər (side effects)**: Loqlama, DOM manipulyasiyası, API çağırışları və imperativ API-lərlə sinxronizasiya üçün mükəmməldir
+- **Təmizləmə (Cleanup)**: Taymerlər və ya abunəliklər (subscriptions) kimi resursları təmizləmək üçün `onCleanup` callback-indən istifadə edin
+- **Avtomatik izləmə**: Effektlər hansı siqnalları oxuduqlarını avtomatik izləyir və həmin siqnallar dəyişdikdə yenidən işləyir
 
-**Remember: Use effects sparingly!** The examples in this lesson (localStorage sync, logging, timers) are appropriate uses. Avoid effects for:
+**Unutmayın: Effektlərdən qənaətlə istifadə edin!** Bu dərsdəki nümunələr (localStorage sinxronizasiyası, loqlama, taymerlər) uyğun istifadə hallaridir. Aşağıdakılar üçün effektlərdən qaçının:
 
-- Deriving values from other signals - use `computed()` instead
-- Creating writable derived state - use `linkedSignal()` instead
-- Copying data between signals - restructure to use a shared source of truth
+- Digər siqnallardan dəyər törətmək - bunun əvəzinə `computed()` istifadə edin
+- Yazıla bilən törəmə vəziyyət yaratmaq - bunun əvəzinə `linkedSignal()` istifadə edin
+- Siqnallar arasında məlumat kopyalamaq - ortaq bir həqiqət mənbəyi istifadə etmək üçün strukturu dəyişin
 
-Effects are powerful but should be your last resort when `computed()` and `linkedSignal()` can't solve your use case.
+Effektlər güclüdür, lakin `computed()` və `linkedSignal()` sizin probleminizi həll edə bilmədikdə ən son çarə olmalıdır.

@@ -46,7 +46,8 @@ Leveraging two-way binding between a parent and child component requires more co
 
 Here is an example where the `App` is responsible for setting the initial count state, but the logic for updating and rendering the UI for the counter primarily resides inside its child `Counter`.
 
-```angular-ts {header: 'app.ts'}
+```angular-ts
+// ./app.ts
 import {Component} from '@angular/core';
 import {Counter} from './counter';
 
@@ -65,7 +66,8 @@ export class App {
 }
 ```
 
-```angular-ts {header: 'counter.ts'}
+```angular-ts
+// './counter.ts';
 import {Component, model} from '@angular/core';
 
 @Component({
@@ -93,7 +95,8 @@ The child component must contain a `model` property.
 
 Here is a simplified example:
 
-```angular-ts {header: 'counter.ts'}
+```angular-ts
+// './counter.ts';
 import {Component, model} from '@angular/core';
 
 @Component({
@@ -115,7 +118,8 @@ The parent component must:
 
 Here is a simplified example:
 
-```angular-ts {header: 'app.ts'}
+```angular-ts
+// ./app.ts
 import {Component} from '@angular/core';
 import {Counter} from './counter';
 

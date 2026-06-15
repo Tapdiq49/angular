@@ -38,15 +38,7 @@ HELPFUL: To add or remove a _single_ class, use [class binding](/guide/templates
 
 To use `NgClass`, add it to the component's `imports` list.
 
-```angular-ts
-import {NgClass} from '@angular/common';
-
-@Component({
-  /* ... */
-  imports: [NgClass],
-})
-export class AppComponent {}
-```
+<docs-code header="app.component.ts (NgClass import)" path="adev/src/content/examples/built-in-directives/src/app/app.component.ts" region="import-ng-class"/>
 
 ### Using `NgClass` with an expression
 
@@ -69,7 +61,7 @@ Because `isSpecial` is true, `ngClass` applies the class of `special` to the `<d
 
 1. In the template, add the `ngClass` property binding to `currentClasses` to set the element's classes:
 
-   <docs-code header="app.component.html" path="adev/src/content/examples/built-in-directives/src/app/app.component.html" region="NgClass-1"/>
+<docs-code header="app.component.html" path="adev/src/content/examples/built-in-directives/src/app/app.component.html" region="NgClass-1"/>
 
 For this use case, Angular applies the classes on initialization and in case of changes caused by reassigning the `currentClasses` object.
 The full example calls `setCurrentClasses()` initially with `ngOnInit()` when the user clicks on the `Refresh currentClasses` button.
@@ -83,15 +75,7 @@ HELPFUL: To add or remove a _single_ style, use [style bindings](guide/templates
 
 To use `NgStyle`, add it to the component's `imports` list.
 
-```angular-ts
-import {NgStyle} from '@angular/common';
-
-@Component({
-  /* ... */
-  imports: [NgStyle],
-})
-export class AppComponent {}
-```
+<docs-code header="app.component.ts (NgStyle import)" path="adev/src/content/examples/built-in-directives/src/app/app.component.ts" region="import-ng-style"/>
 
 Use `NgStyle` to set multiple inline styles simultaneously, based on the state of the component.
 
@@ -103,11 +87,33 @@ Use `NgStyle` to set multiple inline styles simultaneously, based on the state o
 
 1. To set the element's styles, add an `ngStyle` property binding to `currentStyles`.
 
-   <docs-code header="app.component.html" path="adev/src/content/examples/built-in-directives/src/app/app.component.html" region="NgStyle-2"/>
+<docs-code header="app.component.html" path="adev/src/content/examples/built-in-directives/src/app/app.component.html" region="NgStyle-2"/>
 
 For this use case, Angular applies the styles upon initialization and in case of changes.
 To do this, the full example calls `setCurrentStyles()` initially with `ngOnInit()` and when the dependent properties change through a button click.
 However, these steps are not necessary to implement `ngStyle` on its own.
+
+## Hosting a directive without a DOM element
+
+The Angular `<ng-container>` is a grouping element that doesn't interfere with styles or layout because Angular doesn't put it in the DOM.
+
+Use `<ng-container>` when there's no single element to host the directive.
+
+Here's a conditional paragraph using `<ng-container>`.
+
+<docs-code header="app.component.html (ngif-ngcontainer)" path="adev/src/content/examples/structural-directives/src/app/app.component.html" region="ngif-ngcontainer"/>
+
+<img alt="ngcontainer paragraph with proper style" src="assets/images/guide/structural-directives/good-paragraph.png">
+
+1. Import the `ngModel` directive from `FormsModule`.
+
+1. Add `FormsModule` to the imports section of the relevant Angular module.
+
+1. To conditionally exclude an `<option>`, wrap the `<option>` in an `<ng-container>`.
+
+   <docs-code header="app.component.html (select-ngcontainer)" path="adev/src/content/examples/structural-directives/src/app/app.component.html" region="select-ngcontainer"/>
+
+   <img alt="ngcontainer options work properly" src="assets/images/guide/structural-directives/select-ngcontainer-anim.gif">
 
 ## What's next
 

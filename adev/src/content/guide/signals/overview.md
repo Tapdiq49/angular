@@ -43,7 +43,7 @@ Writable signals have the type `WritableSignal`.
 `WritableSignal` provide a `asReadonly()` method that returns a readonly version of the signal. This is useful when you want to expose a signal's value to consumers without allowing them to modify it directly:
 
 ```ts
-@Service()
+@Injectable({providedIn: 'root'})
 export class CounterState {
   // Private writable state
   private readonly _count = signal(0);
@@ -75,7 +75,7 @@ IMPORTANT: The readonly signals do **not** have any built-in mechanism that woul
 
 ### Computed signals
 
-**Computed signals** are read-only signals that derive their value from other signals. You define computed signals using the `computed` function and specifying a derivation:
+**Computed signal** are read-only signals that derive their value from other signals. You define computed signals using the `computed` function and specifying a derivation:
 
 ```typescript
 const count: WritableSignal<number> = signal(0);
@@ -237,9 +237,9 @@ When you read a signal within an `OnPush` component's template, Angular tracks t
 When creating a signal, you can optionally provide an equality function, which will be used to check whether the new value is actually different than the previous one.
 
 ```ts
-import isEqual from 'lodash/isEqual';
+import _ from 'lodash';
 
-const data = signal(['test'], {equal: isEqual});
+const data = signal(['test'], {equal: _.isEqual});
 
 // Even though this is a different array instance, the deep equality
 // function will consider the values to be equal, and the signal won't

@@ -1,33 +1,33 @@
-# Creating an interface
+# İnterfeys yaratmaq
 
-This tutorial lesson demonstrates how to create an interface and include it in a component of your app.
+Bu təlimat dərsi bir interfeysin necə yaradılacağını və onun tətbiqinizin komponentinə necə daxil ediləcəyini nümayiş etdirir.
 
 <docs-video src="https://www.youtube.com/embed/eM3zi_n7lNs?si=YkFSeUeV8Ixtz8pm"/>
 
-## What you'll learn
+## Nə öyrənəcəksiniz
 
-- Your app has a new interface that it can use as a data type.
-- Your app has an instance of the new interface with sample data.
+- Tətbiqinizin məlumat tipi (data type) kimi istifadə edə biləcəyi yeni bir interfeysi var.
+- Tətbiqinizin nümunə məlumatlarla birlikdə yeni interfeysin bir instansiyası (nüsxəsi) var.
 
-## Conceptual preview of interfaces
+## İnterfeyslərə konseptual baxış
 
-[Interfaces](https://www.typescriptlang.org/docs/handbook/interfaces.html) are custom data types for your app.
+[İnterfeyslər](https://www.typescriptlang.org/docs/handbook/interfaces.html) tətbiqiniz üçün xüsusi məlumat tipləridir.
 
-Angular uses TypeScript to take advantage of working in a strongly typed programming environment.
-Strong type checking reduces the likelihood of one element in your app sending incorrectly formatted data to another.
-Such type-mismatch errors are caught by the TypeScript compiler and many such errors can also be caught in your IDE.
+Angular güclü tipli (strongly typed) proqramlaşdırma mühitində işləmək üstünlüklərindən yararlanmaq üçün TypeScript-dən istifadə edir.
+Güclü tip yoxlaması tətbiqinizdəki bir elementin digərinə səhv formatlanmış məlumat göndərmə ehtimalını azaldır.
+Belə tip uyğunsuzluğu xətaları TypeScript kompilyatoru tərəfindən tutulur və bir çox belə xətalar IDE-nizdə də tutula bilər.
 
-In this lesson, you'll create an interface to define properties that represent data about a single housing location.
+Bu dərsdə siz tək bir yaşayış yeri haqqında məlumatları təmsil edən xüsusiyyətləri təyin etmək üçün bir interfeys yaradacaqsınız.
 
 <docs-workflow>
 
-<docs-step title="Create a new Angular interface">
-This step creates a new interface in your app.
+<docs-step title="Yeni bir Angular interfeysi yaradın">
+Bu addım tətbiqinizdə yeni bir interfeys yaradır.
 
-In the **Terminal** pane of your IDE:
+IDE-nizin **Terminal** bölməsində:
 
-1. In your project directory, navigate to the `first-app` directory.
-1. In the `first-app` directory, run this command to create the new interface.
+1. Layihə qovluğunuzda `first-app` qovluğuna keçin.
+1. `first-app` qovluğunda yeni interfeys yaratmaq üçün bu əmri işlədin:
 
    ```shell
 
@@ -35,63 +35,63 @@ In the **Terminal** pane of your IDE:
 
    ```
 
-1. Run `ng serve` to build the app and serve it to `http://localhost:4200`.
-1. In a browser, open `http://localhost:4200` to see your app.
-1. Confirm that the app builds without error.
-   Correct any errors before you continue to the next step.
+1. Tətbiqi qurmaq və `http://localhost:4200` ünvanında işə salmaq üçün `ng serve` işlədin.
+1. Brauzerdə tətbiqinizi görmək üçün `http://localhost:4200` ünvanını açın.
+1. Tətbiqin xətasız qurulduğunu təsdiqləyin.
+   Növbəti addıma keçməzdən əvvəl hər hansı xətaları düzəldin.
    </docs-step>
 
-<docs-step title="Add properties to the new interface">
-This step adds the properties to the interface that your app needs to represent a housing location.
+<docs-step title="Yeni interfeysə xüsusiyyətlər (properties) əlavə edin">
+Bu addım interfeysə tətbiqinizin yaşayış yerini təmsil etmək üçün ehtiyac duyduğu xüsusiyyətləri əlavə edir.
 
-1.  In the **Terminal** pane of your IDE, start the `ng serve` command, if it isn't already running, to build the app and serve it to `http://localhost:4200`.
-1.  In the **Edit** pane of your IDE, open the `src/app/housinglocation.ts` file.
-1.  In `housinglocation.ts`, replace the default content with the following code to make your new interface to match this example.
+1.  IDE-nizin **Terminal** bölməsində, əgər artıq işləmirsə, tətbiqi qurmaq və `http://localhost:4200` ünvanında işə salmaq üçün `ng serve` əmrini başladın.
+1.  IDE-nizin **Edit** (Redaktə) bölməsində `src/app/housinglocation.ts` faylını açın.
+1.  `housinglocation.ts` faylında yeni interfeysinizi bu nümunəyə uyğunlaşdırmaq üçün standart məzmunu aşağıdakı kodla əvəz edin.
 
-      <docs-code header="Update src/app/housinglocation.ts to match this code" path="adev/src/content/tutorials/first-app/steps/05-inputs/src/app/housinglocation.ts" visibleLines="[1,10]" />
+       <docs-code header="src/app/housinglocation.ts faylını bu koda uyğun yeniləyin" path="adev/src/content/tutorials/first-app/steps/05-inputs/src/app/housinglocation.ts" visibleLines="[1,10]" />
 
-1.  Save your changes and confirm the app does not display any errors. Correct any errors before you continue to the next step.
+1.  Dəyişikliklərinizi yadda saxlayın və tətbiqin hər hansı bir xəta göstərmədiyini təsdiqləyin. Növbəti addıma keçməzdən əvvəl hər hansı xətaları düzəldin.
 
-At this point, you've defined an interface that represents data about a housing location including an `id`, `name`, and location information.
+Bu nöqtədə siz yaşayış yeri haqqında məlumatları, o cümlədən `id`, `name` və yerləşmə məlumatlarını təmsil edən bir interfeys təyin etdiniz.
 </docs-step>
 
-<docs-step title="Create a test house for your app">
-You have an interface, but you aren't using it yet.
+<docs-step title="Tətbiqiniz üçün bir test evi yaradın">
+İnterfeysiniz var, lakin hələ ki ondan istifadə etmirsiniz.
 
-In this step, you create an instance of the interface and assign some sample data to it.
-You won't see this sample data appear in your app yet.
-There are a few more lessons to complete before that happens.
+Bu addımda siz interfeysin bir instansiyasını yaradırsınız və ona bəzi nümunə məlumatlar təyin edirsiniz.
+Hələlik bu nümunə məlumatların tətbiqinizdə göründüyünü görməyəcəksiniz.
+Bunun baş verməsi üçün tamamlanmalı olan daha bir neçə dərs var.
 
-1.  In the **Terminal** pane of your IDE, run the `ng serve` command, if it isn't already running, to build the app and serve your app to `http://localhost:4200`.
-1.  In the **Edit** pane of your IDE, open `src/app/home/home.ts`.
-1.  In `src/app/home/home.ts`, add this import statement after the existing `import` statements so that `Home` can use the new interface.
+1.  IDE-nizin **Terminal** bölməsində, əgər artıq işləmirsə, tətbiqi qurmaq və `http://localhost:4200` ünvanında işə salmaq üçün `ng serve` əmrini işlədin.
+1.  IDE-nizin **Edit** (Redaktə) bölməsində `src/app/home/home.ts` faylını açın.
+1.  `src/app/home/home.ts` faylında mövcus `import` bəyanatlarından sonra bu import bəyanatını əlavə edin ki, `Home` komponenti yeni interfeysdən istifadə edə bilsin.
 
-      <docs-code language="angular-ts" header="Import Home in src/app/home/home.ts" path="adev/src/content/tutorials/first-app/steps/05-inputs/src/app/home/home.ts" visibleLines="[3]"/>
+       <docs-code language="angular-ts" header="src/app/home/home.ts daxilində Home-u import edin" path="adev/src/content/tutorials/first-app/steps/05-inputs/src/app/home/home.ts" visibleLines="[3]"/>
 
-1.  In `src/app/home/home.ts`, replace the empty `export class Home {}` definition with this code to create a single instance of the new interface in the component.
+1.  `src/app/home/home.ts` daxilində komponentdə yeni interfeysin tək bir instansiyasını yaratmaq üçün boş `export class Home {}` tərifini bu kodla əvəz edin.
 
-      <docs-code language="angular-ts" header="Add sample data to src/app/home/home.ts" path="adev/src/content/tutorials/first-app/steps/05-inputs/src/app/home/home.ts" visibleLines="[22,35]"/>
+       <docs-code language="angular-ts" header="src/app/home/home.ts daxilində nümunə məlumatlar əlavə edin" path="adev/src/content/tutorials/first-app/steps/05-inputs/src/app/home/home.ts" visibleLines="[22,35]"/>
 
-1.  Confirm that your `home.ts` file matches this example.
+1.  `home.ts` faylınızın bu nümunəyə uyğun gəldiyini təsdiqləyin.
 
-      <docs-code language="angular-ts" header="src/app/home/home.ts" path="adev/src/content/tutorials/first-app/steps/05-inputs/src/app/home/home.ts" visibleLines="[[1,7],[9,36]]" />
+       <docs-code language="angular-ts" header="src/app/home/home.ts" path="adev/src/content/tutorials/first-app/steps/05-inputs/src/app/home/home.ts" visibleLines="[[1,7],[9,36]]" />
 
-    By adding the `housingLocation` property of type `HousingLocation` to the `Home` class, we're able to confirm that the data matches the description of the interface. If the data didn't satisfy the description of the interface, the IDE has enough information to give us helpful errors.
+    `HousingLocation` tipində `housingLocation` property-sini `Home` class-ına əlavə etməklə biz məlumatların interfeys təsvirinə uyğun gəldiyini təsdiqləyə bilirik. Əgər məlumatlar interfeys təsvirini qane etməsəydi, IDE bizə faydalı xətalar vermək üçün kifayət qədər məlumata sahib olur.
 
-1.  Save your changes and confirm the app does not have any errors. Open the browser and confirm that your application still displays the message "housing-location works!"
+1.  Dəyişikliklərinizi yadda saxlayın və tətbiqdə xəta olmadığını təsdiqləyin. Brauzeri açın və tətbiqinizin hələ də "housing-location works!" mesajını göstərdiyini təsdiqləyin.
 
-      <img alt="browser frame of homes-app displaying logo, filter text input box and search button and the message 'housing-location works!'" src="assets/images/tutorials/first-app/homes-app-lesson-03-step-2.png">
+       <img alt="brauzer pəncərəsində homes-app-ın logo, filtr mətn giriş qutusu, axtarış düyməsi və 'housing-location works!' mesajını göstərən səhifə" src="assets/images/tutorials/first-app/homes-app-lesson-03-step-2.png">
 
-1.  Correct any errors before you continue to the next step.
+1.  Növbəti addıma keçməzdən əvvəl hər hansı xətaları düzəldin.
     </docs-step>
 
 </docs-workflow>
 
-SUMMARY: In this lesson, you created an interface that created a new data type for your app.
-This new data type makes it possible for you to specify where `HousingLocation` data is required.
-This new data type also makes it possible for your IDE and the TypeScript compiler can ensure that `HousingLocation` data is used where it's required.
+XULASƏ: Bu dərsdə siz tətbiqiniz üçün yeni bir məlumat tipi yaradan interfeys yaratdınız.
+Bu yeni məlumat tipi sizə harda `HousingLocation` məlumatının tələb olunduğunu dəqiqləşdirməyə imkan verir.
+Bu yeni məlumat tipi həmçinin IDE-nizə və TypeScript kompilyatoruna `HousingLocation` məlumatının tələb olunan yerdə istifadə edildiyinə əmin olmağa imkan verir.
 
-For more information about the topics covered in this lesson, visit:
+Bu dərsdə əhatə olunmuş mövzular haqqında daha çox məlumat üçün buraya daxil olun:
 
 <docs-pill-row>
   <docs-pill href="cli/generate/interface" title="ng generate interface"/>

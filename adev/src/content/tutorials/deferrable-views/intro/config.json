@@ -1,5 +1,5 @@
 {
-  "title": "Deferrable Views",
+  "title": "Deferrable views (təxirə salına bilən görünüşlər)",
   "type": "editor",
   "nextTutorial": "first-app",
   "openFiles": ["src/app/app.ts"]

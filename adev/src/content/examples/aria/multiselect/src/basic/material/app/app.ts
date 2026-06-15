@@ -1,24 +1,48 @@
-import {Combobox, ComboboxPopup, ComboboxWidget} from '@angular/aria/combobox';
+import {
+  Combobox,
+  ComboboxInput,
+  ComboboxPopup,
+  ComboboxPopupContainer,
+} from '@angular/aria/combobox';
 import {Listbox, Option} from '@angular/aria/listbox';
+import {
+  afterRenderEffect,
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  viewChild,
+  viewChildren,
+} from '@angular/core';
 import {OverlayModule} from '@angular/cdk/overlay';
-import {afterRenderEffect, Component, computed, signal, viewChild, effect} from '@angular/core';
 
 @Component({
-  selector: 'app-root:not([theme="basic-material"])',
+  selector: 'app-root',
   templateUrl: './app.html',
   styleUrl: './app.css',
-  imports: [Combobox, ComboboxPopup, ComboboxWidget, Listbox, Option, OverlayModule],
+  imports: [
+    Combobox,
+    ComboboxInput,
+    ComboboxPopup,
+    ComboboxPopupContainer,
+    Listbox,
+    Option,
+    OverlayModule,
+  ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class App {
   /** The combobox listbox popup. */
-  readonly listbox = viewChild(Listbox);
+  listbox = viewChild<Listbox<string>>(Listbox);
 
   /** The options available in the listbox. */
-  readonly selectedValues = signal<string[]>([]);
+  options = viewChildren<Option<string>>(Option);
+
+  /** A reference to the ng aria combobox. */
+  combobox = viewChild<Combobox<string>>(Combobox);
 
   /** The string that is displayed in the combobox. */
-  readonly displayValue = computed(() => {
-    const values = this.selectedValues();
+  displayValue = computed(() => {
+    const values = this.listbox()?.values() || [];
     if (values.length === 0) {
       return 'Select a label';
     }
@@ -29,24 +53,21 @@ export class App {
   });
 
   /** The labels that are available for selection. */
-  readonly labels = [
-    {value: 'Important', icon: 'label'},
-    {value: 'Starred', icon: 'star'},
-    {value: 'Work', icon: 'work'},
-    {value: 'Personal', icon: 'person'},
-    {value: 'To Do', icon: 'checklist'},
-    {value: 'Later', icon: 'schedule'},
-    {value: 'Read', icon: 'menu_book'},
-    {value: 'Travel', icon: 'flight'},
-  ];
-
-  /** Whether the popup is expanded. */
-  readonly popupExpanded = signal(false);
+  labels = ['Important', 'Starred', 'Work', 'Personal', 'To Do', 'Later', 'Read', 'Travel'];
 
   constructor() {
     // Scrolls to the active item when the active option changes.
+    // The slight delay here is to ensure animations are done before scrolling.
     afterRenderEffect(() => {
-      this.listbox()?.scrollActiveItemIntoView();
+      const option = this.options().find((opt) => opt.active());
+      setTimeout(() => option?.element.scrollIntoView({block: 'nearest'}), 50);
+    });
+
+    // Resets the listbox scroll position when the combobox is closed.
+    afterRenderEffect(() => {
+      if (!this.combobox()?.expanded()) {
+        setTimeout(() => this.listbox()?.element.scrollTo(0, 0), 150);
+      }
     });
   }
 }

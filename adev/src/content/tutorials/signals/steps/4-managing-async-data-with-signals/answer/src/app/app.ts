@@ -1,4 +1,4 @@
-import {Component, computed, resource, signal} from '@angular/core';
+import {Component, signal, computed, resource, ChangeDetectionStrategy} from '@angular/core';
 import {getUserData} from './user-api';
 
 @Component({
@@ -29,6 +29,7 @@ import {getUserData} from './user-api';
     </div>
   `,
   styleUrl: './app.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class App {
   userId = signal(1);

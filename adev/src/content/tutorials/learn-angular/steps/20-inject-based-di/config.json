@@ -1,5 +1,5 @@
 {
   "openFiles": ["src/app/app.ts", "src/app/car.service.ts"],
-  "title": "Injecting a dependency",
+  "title": "İnyeksiya əsaslı aslılıq inyeksiyası (Inject-based DI)",
   "type": "editor"
 }

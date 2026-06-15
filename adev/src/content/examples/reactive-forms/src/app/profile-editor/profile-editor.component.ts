@@ -52,7 +52,7 @@ export class ProfileEditorComponent {
   // #enddocregion add-alias
   // #docregion on-submit
   onSubmit() {
-    // TODO: Use output() with form value
+    // TODO: Use EventEmitter with form value
     console.warn(this.profileForm.value);
   }
   // #enddocregion on-submit

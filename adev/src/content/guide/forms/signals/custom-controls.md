@@ -55,6 +55,7 @@ import {FormCheckboxControl} from '@angular/forms/signals';
       <span class="toggle-slider"></span>
     </button>
   `,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BasicToggle implements FormCheckboxControl {
   /** Whether the toggle is checked */
@@ -93,6 +94,7 @@ import {BasicToggle} from './basic-toggle';
       <button type="submit" [disabled]="registrationForm().invalid()">Register</button>
     </form>
   `,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Registration {
   registrationModel = signal({
@@ -216,6 +218,7 @@ import {CustomToggle} from './custom-toggle';
       <app-custom-toggle [formField]="userForm.subscribe" />
     </form>
   `,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MyForm {
   formModel = signal({
@@ -246,12 +249,7 @@ Here's a comprehensive example that implements common state properties:
 
 ```angular-ts
 import {Component, model, input, ChangeDetectionStrategy} from '@angular/core';
-import {
-  FormValueControl,
-  WithOptionalFieldTree,
-  ValidationError,
-  DisabledReason,
-} from '@angular/forms/signals';
+import {FormValueControl, WithOptionalFieldTree, ValidationError, DisabledReason} from '@angular/forms/signals';
 
 @Component({
   selector: 'app-stateful-input',
@@ -287,6 +285,7 @@ import {
       </div>
     }
   `,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class StatefulInput implements FormValueControl<string> {
   // Required
@@ -322,6 +321,7 @@ import {StatefulInput} from './stateful-input';
       </label>
     </form>
   `,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Login {
   loginModel = signal({email: ''});
@@ -360,6 +360,7 @@ import {FormValueControl} from '@angular/forms/signals';
       (blur)="updateModel()"
     />
   `,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CurrencyInput implements FormValueControl<number> {
   // Stores numeric value (1234.56)

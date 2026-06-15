@@ -1,6 +1,13 @@
 import {A11yModule} from '@angular/cdk/a11y';
 import {DecimalPipe} from '@angular/common';
-import {Component, ElementRef, computed, signal, viewChild} from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  computed,
+  signal,
+  viewChild,
+} from '@angular/core';
 import {MatSlideToggleChange, MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {bootstrapApplication} from '@angular/platform-browser';
 
@@ -55,6 +62,7 @@ function getResultQuote(accuracy: number) {
   imports: [DecimalPipe, MatSlideToggleModule, A11yModule],
   styleUrl: 'game.css',
   templateUrl: 'game.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Playground {
   protected readonly isGuessModalOpen = signal(false);

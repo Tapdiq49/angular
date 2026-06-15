@@ -1,27 +1,27 @@
-# Managing async data with signals using the Resources API
+# Resource API vasitəsilə siqnallarla asinxron məlumatları idarə etmək
 
-Now that you've learned [how to derive state with linked signals](/tutorials/signals/3-deriving-state-with-linked-signals), let's explore how to handle asynchronous data with the Resource API. The Resource API provides a powerful way to manage async operations using signals, with built-in loading states, error handling, and request management.
+Artıq [bağlı siqnallar (linked signals) ilə vəziyyəti necə törədəcəyinizi](/tutorials/signals/3-deriving-state-with-linked-signals) öyrəndiniz, gəlin Resource API vasitəsilə asinxron məlumatları necə idarə edəcəyimizi araşdıraq. Resource API daxili yükləmə vəziyyətləri (loading states), xəta emalı və sorğu idarəetməsi ilə siqnallardan istifadə edərək asinxron əməliyyatları idarə etmək üçün güclü bir yol təqdim edir.
 
-In this activity, you'll learn how to use the `resource()` function to load data asynchronously and how to handle different states of async operations by building a user profile loader that demonstrates the Resource API in action.
+Bu fəaliyyətdə siz məlumatları asinxron şəkildə yükləmək üçün `resource()` funksiyasından necə istifadə edəcəyinizi və Resource API-ni iş başında nümayiş etdirən istifadəçi profili yükləyicisi quraraq asinxron əməliyyatların müxtəlif vəziyyətlərini necə idarə edəcəyinizi öyrənəcəksiniz.
 
 <hr />
 
 <docs-workflow>
 
-<docs-step title="Import resource function and API">
-Add `resource` to your existing imports and import the fake API function.
+<docs-step title="Resource funksiyasını və API-ni import edin">
+Mövcud import-larınıza `resource` əlavə edin və saxta (mock) API funksiyasını import edin.
 
 ```ts
-// Add resource to existing imports
+// Mövcud import-lara resource əlavə edin
 import {Component, signal, computed, resource, ChangeDetectionStrategy} from '@angular/core';
-// Import mock API function
+// Mock API funksiyasını import edin
 import {getUserData} from './user-api';
 ```
 
 </docs-step>
 
-<docs-step title="Create a resource for user data">
-Add a property in the component class that creates a resource to load user data based on a user ID signal.
+<docs-step title="İstifadəçi məlumatları üçün bir resurs yaradın">
+Komponent class-ına istifadəçi ID siqnalına əsasən istifadəçi məlumatlarını yükləyən bir resurs yaradan property əlavə edin.
 
 ```ts
 userId = signal(1);
@@ -34,8 +34,8 @@ userResource = resource({
 
 </docs-step>
 
-<docs-step title="Add methods to interact with the resource">
-Add methods to change the user ID and reload the resource.
+<docs-step title="Resursla qarşılıqlı əlaqə qurmaq üçün metodlar əlavə edin">
+İstifadəçi ID-sini dəyişən və resursu yenidən yükləyən metodlar əlavə edin.
 
 ```ts
 loadUser(id: number) {
@@ -47,39 +47,39 @@ reloadUser() {
 }
 ```
 
-Changing the params signal automatically triggers a reload, or you can manually reload with `reload()`.
+Parametr siqnalını (params signal) dəyişdirmək avtomatik olaraq yenidən yükləməni tətikləyir, yaxud `reload()` ilə əllə yenidən yükləyə bilərsiniz.
 </docs-step>
 
-<docs-step title="Create computed signals for resource states">
-Add computed signals to access different states of the resource.
+<docs-step title="Resurs vəziyyətləri üçün computed siqnallar yaradın">
+Resursun müxtəlif vəziyyətlərinə daxil olmaq üçün computed siqnallar əlavə edin.
 
 ```ts
 isLoading = computed(() => this.userResource.status() === 'loading');
 hasError = computed(() => this.userResource.status() === 'error');
 ```
 
-Resources provide a `status()` signal that can be 'loading', 'success', or 'error', a `value()` signal for the loaded data, and a `hasValue()` method that safely checks if data is available.
+Resurslar 'loading', 'success' və ya 'error' ola bilən `status()` siqnalı, yüklənmiş məlumat üçün `value()` siqnalı və məlumatın əlçatan olub-olmadığını təhlükəsiz şəkildə yoxlayan `hasValue()` metodu təmin edir.
 </docs-step>
 
-<docs-step title="Wire up the buttons and display resource states">
-The template structure is already provided. Now connect everything:
+<docs-step title="Düymələri qoşun və resurs vəziyyətlərini göstərin">
+Template strukturu artıq təmin edilib. İndi hər şeyi birləşdirin:
 
-Part 1. **Add click handlers to the buttons:**
+Hissə 1. **Düymələrə klikləmə emalçılarını (click handlers) əlavə edin:**
 
 ```html
-<button (click)="loadUser(1)">Load User 1</button>
-<button (click)="loadUser(2)">Load User 2</button>
-<button (click)="loadUser(999)">Load Invalid User</button>
-<button (click)="reloadUser()">Reload</button>
+<button (click)="loadUser(1)">İstifadəçi 1-i yüklə</button>
+<button (click)="loadUser(2)">İstifadəçi 2-ni yüklə</button>
+<button (click)="loadUser(999)">Yanlış istifadəçini yüklə</button>
+<button (click)="reloadUser()">Yenidən yüklə</button>
 ```
 
-Part 2. **Replace the placeholder with resource state handling:**
+Hissə 2. **Yer tutucanı (placeholder) resurs vəziyyəti emalı ilə əvəz edin:**
 
 ```angular-html
 @if (isLoading()) {
-  <p>Loading user...</p>
+  <p>İstifadəçi yüklənir...</p>
 } @else if (hasError()) {
-  <p class="error">Error: {{ userResource.error()?.message }}</p>
+  <p class="error">Xəta: {{ userResource.error()?.message }}</p>
 } @else if (userResource.hasValue()) {
   <div class="user-info">
     <h3>{{ userResource.value().name }}</h3>
@@ -88,23 +88,23 @@ Part 2. **Replace the placeholder with resource state handling:**
 }
 ```
 
-The resource provides different methods to check its state:
+Resurs onun vəziyyətini yoxlamaq üçün fərqli metodlar təqdim edir:
 
-- `isLoading()` - true when fetching data
-- `hasError()` - true when an error occurred
-- `userResource.hasValue()` - true when data is available
-- `userResource.value()` - access the loaded data
-- `userResource.error()` - access error information
+- `isLoading()` - məlumatlar çəkilərkən true olur
+- `hasError()` - xəta baş verdikdə true olur
+- `userResource.hasValue()` - məlumat əlçatan olduqda true olur
+- `userResource.value()` - yüklənmiş məlumatlara müraciət edir
+- `userResource.error()` - xəta məlumatlarına müraciət edir
 
 </docs-step>
 
 </docs-workflow>
 
-Excellent! You've now learned how to use the Resource API with signals. Key concepts to remember:
+Mükəmməl! Siz artıq siqnallarla Resource API-dən necə istifadə edəcəyinizi öyrəndiniz. Yadda saxlanmalı əsas konsepsiyalar:
 
-- **Resources are reactive**: They automatically reload when params change
-- **Built-in state management**: Resources provide `status()`, `value()`, and `error()` signals
-- **Automatic cleanup**: Resources handle request cancellation and cleanup automatically
-- **Manual control**: You can manually reload or abort requests when needed
+- **Resurslar reaktivdir**: Parametrlər dəyişdikdə onlar avtomatik olaraq yenidən yüklənirlər
+- **Daxili vəziyyət idarəetməsi**: Resurslar `status()`, `value()` və `error()` siqnalları təmin edir
+- **Avtomatik təmizləmə**: Resurslar sorğunun ləğvini və təmizlənməsini avtomatik idarə edir
+- **Əllə idarəetmə**: Lazım olduqda sorğuları əllə yenidən yükləyə və ya dayandıra bilərsiniz
 
-In the next lesson, you'll learn [how to pass data to components with input signals](/tutorials/signals/5-component-communication-with-signals)!
+Növbəti dərsdə, [input siqnalları vasitəsilə komponentlərə məlumat ötürməyi](/tutorials/signals/5-component-communication-with-signals) öyrənəcəksiniz!

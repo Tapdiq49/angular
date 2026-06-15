@@ -1,23 +1,23 @@
-# Define a Route
+# Marşrut (Route) Müəyyən Edin
 
-Now that you've set up the app to use Angular Router, you need to define the routes.
+İndi tətbiqi Angular Router istifadə etmək üçün qurduğunuzdan sonra, marşrutları (routes) müəyyən etməlisiniz.
 
-NOTE: Learn more about [defining a basic route in the in-depth guide](/guide/routing/define-routes).
+QEYD: [Ətraflı bələdçidə əsas marşrutun müəyyən edilməsi](/guide/routing/define-routes) haqqında daha çox öyrənin.
 
-In this activity, you'll learn how to add and configure routes with your app.
+Bu fəaliyyətdə tətbiqinizə marşrutları necə əlavə edəcəyinizi və konfiqurasiya edəcəyinizi öyrənəcəksiniz.
 
 <hr>
 
 <docs-workflow>
 
-<docs-step title="Define a route in `app.routes.ts`">
+<docs-step title="`app.routes.ts` faylında marşrut müəyyən edin">
 
-In your app, there are two pages to display: (1) Home Page and (2) User Page.
+Tətbiqinizdə göstəriləcək iki səhifə var: (1) Ana səhifə (Home) və (2) İstifadəçi səhifəsi (User).
 
-To define a route, add a route object to the `routes` array in `app.routes.ts` that contains:
+Marşrut müəyyən etmək üçün `app.routes.ts`-dəki `routes` massivinə aşağıdakıları daxil edən bir marşrut obyekti əlavə edin:
 
-- The `path` of the route (which automatically starts at the root path (i.e., `/`))
-- The `component` that you want the route to display
+- Marşrutun yolu - `path` (hansı ki, avtomatik olaraq kök yoldan başlayır (yəni `/`))
+- Marşrutun göstərməsini istədiyiniz komponent - `component`
 
 ```ts
 import {Routes} from '@angular/router';
@@ -31,17 +31,17 @@ export const routes: Routes = [
 ];
 ```
 
-The code above is an example of how `Home` can be added as a route. Now go ahead and implement this along with the `User` in the playground.
+Yuxarıdakı kod `Home` komponentinin marşrut kimi necə əlavə edilə biləcəyinə dair bir nümunədir. İndi playground-da `User` ilə birlikdə bunu həyata keçirin.
 
-Use `'user'` for the path of `User`.
+`User` üçün yol (path) kimi `'user'` istifadə edin.
 
 </docs-step>
 
-<docs-step title="Add title to route definition">
+<docs-step title="Marşrut tərifinə başlıq (title) əlavə edin">
 
-In addition to defining the routes correctly, Angular Router also enables you to set the page title whenever users are navigating by adding the `title` property to each route.
+Marşrutları düzgün müəyyən etməklə yanaşı, Angular Router hər bir marşruta `title` property-si əlavə etməklə istifadəçilər naviqasiya etdikdə səhifə başlığını təyin etməyə imkan verir.
 
-In `app.routes.ts`, add the `title` property to the default route (`path: ''`) and the `user` route. Here's an example:
+`app.routes.ts` faylında standart marşruta (`path: ''`) və `user` marşrutuna `title` property-sini əlavə edin. Budur bir nümunə:
 
 ```ts {highlight:[7]}
 import {Routes} from '@angular/router';
@@ -60,6 +60,6 @@ export const routes: Routes = [
 
 </docs-workflow>
 
-In the activity, you've learned how to define and configure routes in your Angular app. Nice work. 🙌
+Bu fəaliyyətdə siz Angular tətbiqinizdə marşrutları müəyyən etməyi və konfiqurasiya etməyi öyrəndiniz. Yaxşı iş. 🙌
 
-The journey to fully enabling routing in your app is almost complete, keep going.
+Tətbiqinizdə marşrutlaşdırmanı tam aktivləşdirmək üçün səyahət demək olar ki, tamamlanıb, davam edin.
