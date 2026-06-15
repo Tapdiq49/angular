@@ -18,6 +18,6 @@ import {ANGULAR_LINKS} from '../../constants/links';
   styleUrls: ['./footer.component.scss'],
 })
 export class Footer {
-  protected angularVersion = VERSION.full;
+  protected angularVersion = '22.0.1+sha-6f11719';
   protected ngLinks = ANGULAR_LINKS;
 }

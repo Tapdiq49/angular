@@ -161,9 +161,9 @@
 />
 
 <ng-template let-item #itemStatus>
-  @if (item.status === 'new') {
-    <span class="tag docs-new-item">New</span>
-  } @else if (item.status === 'updated') {
-    <span class="tag docs-updated-item">Updated</span>
+  @if (item.status === 'yeni' || item.status === 'new') {
+    <span class="tag docs-new-item">Yeni</span>
+  } @else if (item.status === 'yeniləndi' || item.status === 'updated') {
+    <span class="tag docs-updated-item">Yeniləndi</span>
   }
 </ng-template>

@@ -1156,9 +1156,9 @@ export const DOCS_SUB_NAVIGATION_DATA: NavigationItem[] = [
     label: 'Tərtibatçı tədbirləri',
     children: [
       {
-        label: 'Angular v21 Buraxílişi',
-        path: 'events/v21',
-        contentPath: 'events/v21',
+        label: 'Angular v22 Buraxılışı',
+        path: 'events/v22',
+        contentPath: 'events/v22',
         status: 'yeni',
       },
     ],
