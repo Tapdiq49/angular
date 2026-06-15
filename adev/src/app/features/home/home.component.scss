@@ -165,8 +165,7 @@ section {
 
     animation: rotateGradient 10s linear infinite;
 
-    background: conic-gradient(
-      from 122deg at 50% 50%,
+    background: conic-gradient(from 122deg at 50% 50%,
       transparent 17%,
       #f627e3 25%,
       #6911d2 32%,
@@ -174,8 +173,7 @@ section {
       transparent 61%,
       #6911d2 71%,
       #f627e3 81%,
-      transparent 91%
-    );
+      transparent 91%);
 
     &:after {
       // A fading bottom for the pattern
@@ -195,12 +193,7 @@ section {
     gap: 1rem;
 
     @include mq.for-tablet-down() {
-      docs-text-field {
-        display: none;
-      }
-      .adev-github-link span {
-        display: none;
-      }
+      display: none;
     }
   }
 
@@ -210,31 +203,9 @@ section {
     justify-content: center;
     color: var(--secondary-contrast);
     transition: color 0.3s ease;
-    gap: 0.5rem;
-
-    span {
-      position: relative;
-      &::after {
-        content: '';
-        position: absolute;
-        width: 100%;
-        transform: scaleX(0);
-        height: 1px;
-        bottom: -2px;
-        left: 0;
-        background: var(--red-to-pink-to-purple-horizontal-gradient);
-        transform-origin: bottom right;
-        transition: transform 0.3s ease;
-      }
-    }
 
     &:hover {
       color: var(--primary-contrast);
-
-      span::after {
-        transform: scaleX(1);
-        transform-origin: bottom left;
-      }
     }
 
     svg {
@@ -385,9 +356,7 @@ section {
   }
 
   [ngTab][aria-selected='true'] {
-    color: var(
-      --electric-violet
-    ); // the gradient would "look" better but fails constrast requirements
+    color: var(--electric-violet); // the gradient would "look" better but fails constrast requirements
   }
 
   .sliding-window {
@@ -396,19 +365,19 @@ section {
     transition: all 0.2s ease-in-out;
   }
 
-  [ngTabList]:has(> :nth-child(2)[aria-selected='true']) ~ .sliding-window {
+  [ngTabList]:has(> :nth-child(2)[aria-selected='true'])~.sliding-window {
     transform: translateX(0%);
   }
 
-  [ngTabList]:has(> :nth-child(3)[aria-selected='true']) ~ .sliding-window {
+  [ngTabList]:has(> :nth-child(3)[aria-selected='true'])~.sliding-window {
     transform: translateX(-25%);
   }
 
-  [ngTabList]:has(> :nth-child(4)[aria-selected='true']) ~ .sliding-window {
+  [ngTabList]:has(> :nth-child(4)[aria-selected='true'])~.sliding-window {
     transform: translateX(-50%);
   }
 
-  [ngTabList]:has(> :nth-child(5)[aria-selected='true']) ~ .sliding-window {
+  [ngTabList]:has(> :nth-child(5)[aria-selected='true'])~.sliding-window {
     transform: translateX(-75%);
   }
 
@@ -537,12 +506,10 @@ section {
     justify-content: center;
     color: var(--primary-contrast);
     position: relative;
-    background: linear-gradient(
-      90deg,
-      var(--orange-red) 0%,
-      var(--vivid-pink) 50%,
-      var(--electric-violet) 100%
-    );
+    background: linear-gradient(90deg,
+        var(--orange-red) 0%,
+        var(--vivid-pink) 50%,
+        var(--electric-violet) 100%);
 
     &::after {
       content: '';
@@ -639,13 +606,11 @@ section {
     width: calc(100% - 7rem);
 
     animation: pulse 4s ease-in-out infinite;
-    background: radial-gradient(
-      circle at 50% 125%,
-      transparent 20%,
-      #f627e3 35%,
-      #6911d2 55%,
-      transparent var(--pulse-outer)
-    );
+    background: radial-gradient(circle at 50% 125%,
+        transparent 20%,
+        #f627e3 35%,
+        #6911d2 55%,
+        transparent var(--pulse-outer));
 
     @include mq.for-tablet-landscape-down {
       width: 100%;
@@ -751,12 +716,10 @@ section {
         }
       }
 
-      background: linear-gradient(
-        var(--gradient-angle),
+      background: linear-gradient(var(--gradient-angle),
         var(--orange-red) 0%,
         var(--electric-violet) 39%,
-        transparent 81%
-      );
+        transparent 81%);
     }
 
     .card-content {
@@ -785,13 +748,11 @@ section {
       gap: 0.5rem;
       color: var(--tertiary-contrast);
       transition: color 0.3s ease;
-      background: linear-gradient(
-        90deg,
-        var(--tertiary-contrast) 0%,
-        var(--tertiary-contrast) 47%,
-        var(--orange-red) 51%,
-        var(--electric-violet) 100%
-      );
+      background: linear-gradient(90deg,
+          var(--tertiary-contrast) 0%,
+          var(--tertiary-contrast) 47%,
+          var(--orange-red) 51%,
+          var(--electric-violet) 100%);
       background-size: 200% 100%;
       background-position: 0% 0%;
       background-clip: text;
@@ -884,15 +845,13 @@ section {
     box-sizing: border-box;
     animation: rotateGradient 10s linear infinite;
 
-    background: conic-gradient(
-      from var(--gradient-angle) at 50% 50%,
-      var(--hot-red) 0%,
-      var(--vivid-pink) 20%,
-      var(--electric-violet) 40%,
-      transparent 50%,
-      transparent 85%,
-      var(--hot-red) 100%
-    );
+    background: conic-gradient(from var(--gradient-angle) at 50% 50%,
+        var(--hot-red) 0%,
+        var(--vivid-pink) 20%,
+        var(--electric-violet) 40%,
+        transparent 50%,
+        transparent 85%,
+        var(--hot-red) 100%);
 
     &::after {
       content: '';
